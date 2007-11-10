@@ -6,5 +6,5 @@ setup(name='minfx',
       author="Edward d'Auvergne",
       author_email='edward@nmr-relax.com',
       url='https://gna.org/projects/minfx/',
-      packages=['minfx'],
+      packages=['minfx', 'minfx.line_search', 'minfx.hessian_mods'],
       )
