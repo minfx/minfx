@@ -6,5 +6,5 @@ setup(name='minfx',
       author="Edward d'Auvergne",
       author_email='edward@nmr-relax.com',
       url='https://gna.org/projects/minfx/',
-      py_modules=['minfx'],
+      packages=['minfx'],
       )
