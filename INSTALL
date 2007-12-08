@@ -1,0 +1,3 @@
+To install minfx, simply type:
+
+    $ python setup.py install
