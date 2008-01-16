@@ -54,7 +54,7 @@ def grid(func=None, grid_ops=None, args=(), A=None, b=None, l=None, u=None, c=No
     n = len(grid_ops)
     grid_size = 0
     total_steps = 1
-    step_num = ones((n))
+    step_num = ones(n, int)
     params = zeros((n), float64)
     min_params = zeros((n), float64)
     param_values = []   # This data structure eliminates the round-off error of summing a step size value to the parameter value.
