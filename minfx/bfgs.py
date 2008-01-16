@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,9 +20,10 @@
 #                                                                             #
 ###############################################################################
 
+# Python module imports.
+from numpy import float64, dot, identity, outer
 
-from Numeric import Float64, dot, identity, matrixmultiply, outerproduct
-
+# Minfx module imports.
 from base_classes import Line_search, Min
 
 
@@ -102,7 +103,7 @@ class Bfgs(Line_search, Min):
         """
 
         # Calculate the BFGS direction.
-        self.pk = -matrixmultiply(self.Hk, self.dfk)
+        self.pk = -dot(self.Hk, self.dfk)
 
         # Line search.
         self.line_search()
@@ -130,7 +131,7 @@ class Bfgs(Line_search, Min):
         """
 
         # Set the Identity matrix I.
-        self.I = identity(len(self.xk), Float64)
+        self.I = identity(len(self.xk), float64)
 
         # The initial BFGS function value, gradient vector, and BFGS approximation to the inverse Hessian matrix.
         self.fk, self.f_count = self.func(*(self.xk,)+self.args), self.f_count + 1
@@ -157,9 +158,9 @@ class Bfgs(Line_search, Min):
         if self.k == 0:
             self.Hk = dot_yk_sk / dot(yk, yk) * self.I
 
-        self.Hk = matrixmultiply(self.I - rk*outerproduct(sk, yk), self.Hk)
-        self.Hk = matrixmultiply(self.Hk, self.I - rk*outerproduct(yk, sk))
-        self.Hk = self.Hk + rk*outerproduct(sk, sk)
+        self.Hk = dot(self.I - rk*outer(sk, yk), self.Hk)
+        self.Hk = dot(self.Hk, self.I - rk*outer(yk, sk))
+        self.Hk = self.Hk + rk*outer(sk, sk)
 
         # Shift xk+1 data to xk.
         self.xk = self.xk_new * 1.0

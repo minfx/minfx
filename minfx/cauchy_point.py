@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,9 +20,10 @@
 #                                                                             #
 ###############################################################################
 
+# Python module imports.
+from numpy import dot, sqrt
 
-from Numeric import dot, sqrt
-
+# Minfx module imports.
 from base_classes import Trust_region, Min
 
 

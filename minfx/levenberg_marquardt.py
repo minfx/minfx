@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,10 +20,11 @@
 #                                                                             #
 ###############################################################################
 
+# Python module imports.
+from numpy.linalg import solve
+from numpy import float64, zeros
 
-from LinearAlgebra import solve_linear_equations
-from Numeric import Float64, zeros
-
+# Minfx module imports.
 from base_classes import Min
 
 
@@ -144,7 +145,7 @@ class Levenberg_marquardt(Min):
         """
 
         # Create the Levenberg-Marquardt matrix with elements equal to zero.
-        self.lm_matrix = zeros((self.n, self.n), Float64)
+        self.lm_matrix = zeros((self.n, self.n), float64)
 
         # Calculate the inverse of the variance to minimise calculations.
         i_variance = 1.0 / self.errors**2
@@ -173,7 +174,7 @@ class Levenberg_marquardt(Min):
         # Solve the Levenberg-Marquardt equation to get the vector of function parameter changes.
         #print "\nself.lm_matrix:\n" + `self.lm_matrix`
         #print "\nself.dfk:\n" + `self.dfk`
-        self.pk = solve_linear_equations(self.lm_matrix, self.dfk)
+        self.pk = solve(self.lm_matrix, self.dfk)
 
         # Find the new parameter vector and function value at that point.
         self.xk_new = self.xk + self.pk

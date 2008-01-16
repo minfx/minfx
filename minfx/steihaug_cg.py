@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,10 +20,10 @@
 #                                                                             #
 ###############################################################################
 
+# Python module imports.
+from numpy import float64, dot, sqrt, zeros
 
-from LinearAlgebra import inverse
-from Numeric import Float64, dot, matrixmultiply, outerproduct, sqrt, zeros
-
+# Minfx module imports.
 from newton import Newton
 from base_classes import Min, Trust_region
 
@@ -113,7 +113,7 @@ class Steihaug(Min, Trust_region, Newton):
         """The CG-Steihaug algorithm."""
 
         # Initial values at j = 0.
-        self.pj = zeros(len(self.xk), Float64)
+        self.pj = zeros(len(self.xk), float64)
         self.rj = self.dfk * 1.0
         self.dj = -self.dfk * 1.0
         self.B = self.d2fk * 1.0

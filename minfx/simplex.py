@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,9 +20,10 @@
 #                                                                             #
 ###############################################################################
 
+# Python module imports.
+from numpy import float64, argsort, average, sum, take, zeros
 
-from Numeric import Float64, add, argsort, average, sum, take, zeros
-
+# Minfx module imports.
 from base_classes import Min
 
 
@@ -71,8 +72,8 @@ class Simplex(Min):
         self.m = self.n + 1
 
         # Create the simplex
-        self.simplex = zeros((self.m, self.n), Float64)
-        self.simplex_vals = zeros(self.m, Float64)
+        self.simplex = zeros((self.m, self.n), float64)
+        self.simplex_vals = zeros(self.m, float64)
 
         self.simplex[0] = self.xk * 1.0
         self.simplex_vals[0], self.f_count = self.func(*(self.xk,)+self.args), self.f_count + 1

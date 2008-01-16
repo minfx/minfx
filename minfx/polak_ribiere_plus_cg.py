@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,9 +20,10 @@
 #                                                                             #
 ###############################################################################
 
+# Python module imports.
+from numpy import dot
 
-from Numeric import dot
-
+# Minfx module imports.
 from base_classes import Conjugate_gradient, Line_search, Min
 
 

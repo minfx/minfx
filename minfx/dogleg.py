@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2005 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2005, 2008 Edward d'Auvergne                             #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,11 +20,12 @@
 #                                                                             #
 ###############################################################################
 
-
-from LinearAlgebra import eigenvectors, inverse
-from Numeric import Float64, dot, identity, matrixmultiply, outerproduct, sort, sqrt
+# Python module imports.
+from numpy import float64, dot, identity, outer, sort, sqrt
+from numpy.linalg import inv
 from re import match
 
+# Minfx module imports.
 from bfgs import Bfgs
 from newton import Newton
 from base_classes import Hessian_mods, Trust_region, Min
@@ -127,7 +128,7 @@ class Dogleg(Hessian_mods, Trust_region, Min, Bfgs, Newton):
             self.setup_bfgs()
             self.specific_update = self.update_bfgs
             self.hessian_update = self.hessian_update_bfgs
-            self.d2fk = inverse(self.Hk)
+            self.d2fk = inv(self.Hk)
         elif self.hessian_type and match('[Nn]ewton', self.hessian_type):
             self.setup_newton()
             self.specific_update = self.update_newton
@@ -139,7 +140,7 @@ class Dogleg(Hessian_mods, Trust_region, Min, Bfgs, Newton):
 
         # Calculate the full step and its norm.
         try:
-            pB = -matrixmultiply(self.Hk, self.dfk)
+            pB = -dot(self.Hk, self.dfk)
         except AttributeError:
             # Backup the Hessian as the function self.get_pk may modify it.
             d2fk_backup = 1.0 * self.d2fk
@@ -191,14 +192,14 @@ class Dogleg(Hessian_mods, Trust_region, Min, Bfgs, Newton):
         if self.k == 0:
             self.Hk = dot(yk, sk) / dot(yk, yk) * self.I
 
-        a = self.I - rk*outerproduct(sk, yk)
-        b = self.I - rk*outerproduct(yk, sk)
-        c = rk*outerproduct(sk, sk)
-        matrix = matrixmultiply(matrixmultiply(a, self.Hk), b) + c
+        a = self.I - rk*outer(sk, yk)
+        b = self.I - rk*outer(yk, sk)
+        c = rk*outer(sk, sk)
+        matrix = dot(dot(a, self.Hk), b) + c
         self.Hk = matrix
 
         # Calculate the Hessian.
-        self.d2fk = inverse(self.Hk)
+        self.d2fk = inv(self.Hk)
 
 
     def hessian_update_newton(self):

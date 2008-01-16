@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,9 +20,10 @@
 #                                                                             #
 ###############################################################################
 
+# Python module imports.
+from numpy import float64, dot, identity
 
-from Numeric import Float64, dot, identity
-
+# Minfx module imports.
 from base_classes import Line_search, Min
 
 
@@ -93,7 +94,7 @@ class Coordinate_descent(Line_search, Min):
         self.dfk, self.g_count = self.dfunc(*(self.xk,)+self.args), self.g_count + 1
 
         # Create the coordinate descent directions, and initialise the coordinate descent iteration number and direction flag.
-        self.cd_dir = identity(len(self.xk), Float64)
+        self.cd_dir = identity(len(self.xk), float64)
         self.n = 0
         self.back = 0
 

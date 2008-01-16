@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,8 +20,8 @@
 #                                                                             #
 ###############################################################################
 
-
-from Numeric import dot, matrixmultiply
+# Python module imports.
+from numpy import dot
 
 
 class Constraint_linear:

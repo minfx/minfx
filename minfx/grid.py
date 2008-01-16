@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2004 Edward d'Auvergne                                  #
+# Copyright (C) 2003, 2004, 2008 Edward d'Auvergne                            #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,9 +20,10 @@
 #                                                                             #
 ###############################################################################
 
+# Python module imports.
+from numpy import float64, ones, zeros
 
-from Numeric import Float64, ones, zeros
-
+# Minfx module imports.
 from constraint_linear import Constraint_linear
 
 
@@ -54,8 +55,8 @@ def grid(func=None, grid_ops=None, args=(), A=None, b=None, l=None, u=None, c=No
     grid_size = 0
     total_steps = 1
     step_num = ones((n))
-    params = zeros((n), Float64)
-    min_params = zeros((n), Float64)
+    params = zeros((n), float64)
+    min_params = zeros((n), float64)
     param_values = []   # This data structure eliminates the round-off error of summing a step size value to the parameter value.
     for k in xrange(n):
         params[k] = grid_ops[k][1]

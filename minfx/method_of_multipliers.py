@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2004 Edward d'Auvergne                                  #
+# Copyright (C) 2003, 2004, 2008 Edward d'Auvergne                            #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,10 +20,11 @@
 #                                                                             #
 ###############################################################################
 
-
-from Numeric import Float64, dot, outerproduct, sqrt, zeros
+# Python module imports.
+from numpy import float64, dot, outer, sqrt, zeros
 from re import match
 
+# Minfx module imports.
 #from bound_constraint import Bound_constraint
 from constraint_linear import Constraint_linear
 from base_classes import Min
@@ -243,7 +244,7 @@ class Method_of_multipliers(Min):
 
         # Initial Lagrange multipliers.
         if lambda0 == None:
-            self.lambda_k = zeros(self.m, Float64)
+            self.lambda_k = zeros(self.m, float64)
             self.ck = self.c(*(self.xk,)+args)
             for i in xrange(self.m):
                 #self.lambda_k[i] = init_lambda
@@ -335,7 +336,7 @@ class Method_of_multipliers(Min):
         # Calculate the quadratic augmented Lagrangian Hessian.
         for i in xrange(self.m):
             if self.test_str[i]:
-                d2L = d2L  +  outerproduct(self.dck[i], self.dck[i]) / self.mu  -  (self.lambda_k[i] - self.ck[i] / self.mu) * self.d2ck[i]
+                d2L = d2L  +  outer(self.dck[i], self.dck[i]) / self.mu  -  (self.lambda_k[i] - self.ck[i] / self.mu) * self.d2ck[i]
 
         return d2L
 
@@ -352,7 +353,7 @@ class Method_of_multipliers(Min):
         # Calculate the quadratic augmented Lagrangian Hessian.
         for i in xrange(self.m):
             if self.test_str[i]:
-                d2L = d2L  +  outerproduct(self.dck[i], self.dck[i]) / self.mu
+                d2L = d2L  +  outer(self.dck[i], self.dck[i]) / self.mu
 
         if self.print_flag >= 4:
             print ""

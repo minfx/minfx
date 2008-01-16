@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,11 +20,12 @@
 #                                                                             #
 ###############################################################################
 
-
-from LinearAlgebra import cholesky_decomposition, eigenvectors, inverse, solve_linear_equations
-from Numeric import diagonal, dot, identity, matrixmultiply, outerproduct, sort, sqrt, transpose
+# Python module imports.
+from numpy import dot, identity, sort, sqrt, transpose
+from numpy.linalg import cholesky, eig, inv, solve
 from re import match
 
+# Minfx module imports.
 from bfgs import Bfgs
 from newton import Newton
 from base_classes import Hessian_mods, Min, Trust_region
@@ -99,7 +100,7 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
         if match('[Bb][Ff][Gg][Ss]', self.hessian_type):
             self.setup_bfgs()
             self.specific_update = self.update_bfgs
-            self.d2fk = inverse(self.Hk)
+            self.d2fk = inv(self.Hk)
             self.warning = "Incomplete code."
         elif match('[Nn]ewton', self.hessian_type):
             self.setup_newton()
@@ -127,15 +128,15 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
             B = matrix + lambda_l * self.I
 
             # Factor B + lambda(l).I = RT.R
-            R = cholesky_decomposition(B)
+            R = cholesky(B)
 
             # Solve RT.R.pl = -g
-            y = solve_linear_equations(R, self.dfk)
-            y = -solve_linear_equations(transpose(R), y)
+            y = solve(R, self.dfk)
+            y = -solve(transpose(R), y)
             dot_pl = dot(y, y)
 
             # Solve RT.ql = pl
-            y = solve_linear_equations(transpose(R), y)
+            y = solve(transpose(R), y)
 
             # lambda(l+1) update.
             lambda_l = lambda_l + (dot_pl / dot(y, y)) * ((sqrt(dot_pl) - self.delta) / self.delta)
@@ -149,9 +150,9 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
             l = l + 1
 
         # Calculate the step.
-        R = cholesky_decomposition(matrix + lambda_l * self.I)
-        y = solve_linear_equations(R, self.dfk)
-        self.pk = -solve_linear_equations(transpose(R), y)
+        R = cholesky(matrix + lambda_l * self.I)
+        y = solve(R, self.dfk)
+        self.pk = -solve(transpose(R), y)
 
         if self.print_flag >= 2:
             print self.print_prefix + "Step: " + `self.pk`
@@ -196,7 +197,7 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
         # Debugging.
         if self.print_flag >= 2:
             print self.print_prefix + "Initialisation."
-            eigen = eigenvectors(self.d2fk)
+            eigen = eig(self.d2fk)
             eigenvals = sort(eigen[0])
             for i in xrange(len(self.d2fk)):
                 print self.print_prefix + "\tB[" + `i` + ", " + `i` + "] = " + `self.d2fk[i, i]`
@@ -234,11 +235,11 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
             if self.print_flag >= 2:
                 print self.print_prefix + "Cholesky decomp."
                 print self.print_prefix + "\tB + lambda.I: " + `matrix`
-                eigen = eigenvectors(matrix)
+                eigen = eig(matrix)
                 eigenvals = sort(eigen[0])
                 print self.print_prefix + "\tEigenvalues: " + `eigenvals`
             try:
-                func = cholesky_decomposition
+                func = cholesky
                 R = func(matrix)
                 if self.print_flag >= 2:
                     print self.print_prefix + "\tCholesky matrix R: " + `R`
@@ -250,10 +251,10 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
                 print self.print_prefix + "\tPos def: " + `pos_def`
 
             if pos_def:
-                # Solve p = -inverse(RT.R).g
-                p = -matrixmultiply(inverse(matrix), self.dfk)
+                # Solve p = -inv(RT.R).g
+                p = -dot(inv(matrix), self.dfk)
                 if self.print_flag >= 2:
-                    print self.print_prefix + "Solve p = -inverse(RT.R).g"
+                    print self.print_prefix + "Solve p = -inv(RT.R).g"
                     print self.print_prefix + "\tp: " + `p`
 
                 # Compute tau and z if ||p|| < delta.
@@ -277,8 +278,8 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
                         print self.print_prefix + "||p|| >= delta"
                         print self.print_prefix + "\tNo doing anything???"
 
-                # Solve q = inverse(RT).p
-                q = matrixmultiply(inverse(transpose(R)), p)
+                # Solve q = inv(RT).p
+                q = dot(inv(transpose(R)), p)
 
                 # Update lL, lU.
                 if len_p < self.delta:

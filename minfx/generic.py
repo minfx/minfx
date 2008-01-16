@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2005 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2005, 2008 Edward d'Auvergne                             #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,8 +20,10 @@
 #                                                                             #
 ###############################################################################
 
-
+# Python module imports.
 from re import match
+
+# Minfx module imports.
 from grid import grid
 from coordinate_descent import coordinate_descent
 from steepest_descent import steepest_descent

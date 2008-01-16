@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2005-2006 Edward d'Auvergne                             #
+# Copyright (C) 2003, 2005-2006, 2008 Edward d'Auvergne                       #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,12 +20,12 @@
 #                                                                             #
 ###############################################################################
 
-
-from LinearAlgebra import cholesky_decomposition, eigenvectors, inverse, solve_linear_equations
+# Python module imports.
 from math import acos
-from Numeric import Float64, array, dot, identity, matrixmultiply, sort, sqrt, trace, transpose, zeros
+from numpy import float64, dot, identity, sqrt, zeros
 from re import match
 
+# Minfx module imports.
 from base_classes import Hessian_mods, Line_search, Min
 
 
@@ -188,7 +188,7 @@ class Newton(Hessian_mods, Line_search, Min):
             #print self.print_prefix + "Eigenvalues: " + `eigen[0]`
 
             print self.print_prefix + "Angle to the unit vector pointing along the first dimension."
-            unit_vect = zeros(self.n, Float64)
+            unit_vect = zeros(self.n, float64)
             unit_vect[0] = 1.0
             dfk_angle = acos(dot(self.dfk, unit_vect) / sqrt(dot(self.dfk, self.dfk)))
             pk_angle = acos(dot(self.pk, unit_vect) / sqrt(dot(self.pk, self.pk)))

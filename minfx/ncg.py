@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,10 +20,10 @@
 #                                                                             #
 ###############################################################################
 
+# Python module imports.
+from numpy import float64, dot, sqrt, zeros
 
-from LinearAlgebra import inverse
-from Numeric import Float64, dot, matrixmultiply, sqrt, zeros
-
+# Minfx module imports.
 from base_classes import Line_search, Min
 
 
@@ -113,7 +113,7 @@ class Ncg(Line_search, Min):
         """The CG algorithm."""
 
         # Initial values at i = 0.
-        xi = zeros(len(self.xk), Float64)
+        xi = zeros(len(self.xk), float64)
         ri = self.dfk * 1.0
         pi = -ri
         dot_ri = dot(ri, ri)
