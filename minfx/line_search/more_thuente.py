@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,13 +20,16 @@
 #                                                                             #
 ###############################################################################
 
-
+# Python module imports.
+from copy import deepcopy
 import sys
 from math import sqrt
-from Numeric import copy, dot
+from numpy import dot
 
+# Minfx module imports.
 from interpolate import cubic_int, cubic_ext, quadratic_fafbga, quadratic_gagb
 
+# Rename the interpolation functions.
 cubic = cubic_int
 quadratic = quadratic_fafbga
 secant = quadratic_gagb
@@ -260,8 +263,8 @@ def more_thuente(func, func_prime, args, x, f, g, p, a_init=1.0, a_min=1e-25, a_
         if print_flag:
             print "Bracketed: " + `bracketed`
             print_data("Final", k, a_new, Ik_new, Ik_lim)
-        a = copy.deepcopy(a_new)
-        Ik = copy.deepcopy(Ik_new)
+        a = deepcopy(a_new)
+        Ik = deepcopy(Ik_new)
 
 
 def print_data(text, k, a, Ik, Ik_lim):
@@ -506,7 +509,7 @@ def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66,
 
 
     # Interval updating algorithm.
-    Ik_new = copy.deepcopy(Ik)
+    Ik_new = deepcopy(Ik)
 
     if ft > fl:
         if print_flag:

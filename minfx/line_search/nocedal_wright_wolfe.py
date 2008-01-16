@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,10 +20,14 @@
 #                                                                             #
 ###############################################################################
 
+# Python module imports.
+from copy import deepcopy
+from numpy import dot, sqrt
 
-from Numeric import copy, dot, sqrt
-
+# Minfx module imports.
 from interpolate import cubic_ext, quadratic_fafbga
+
+# Rename the interpolation functions.
 quadratic = quadratic_fafbga
 
 
@@ -65,7 +69,7 @@ def nocedal_wright_wolfe(func, func_prime, args, x, f, g, p, a_init=1.0, max_a=1
     a0['a'] = 0.0
     a0['phi'] = f
     a0['phi_prime'] = dot(g, p)
-    a_last = copy.deepcopy(a0)
+    a_last = deepcopy(a0)
     a_max = {}
     a_max['a'] = max_a
     a_max['phi'] = func(*(x + a_max['a']*p,)+args)
@@ -126,7 +130,7 @@ def nocedal_wright_wolfe(func, func_prime, args, x, f, g, p, a_init=1.0, max_a=1
         a_new = a['a'] + 0.25 * (a_max['a'] - a['a'])
 
         # Update.
-        a_last = copy.deepcopy(a)
+        a_last = deepcopy(a)
         a['a'] = a_new
         a['phi'] = func(*(x + a['a']*p,)+args)
         a['phi_prime'] = dot(func_prime(*(x + a['a']*p,)+args), p)
@@ -164,7 +168,7 @@ def zoom(func, func_prime, args, f_count, g_count, x, f, g, p, mu, eta, i, a0, a
     # Initialize aj.
     aj = {}
     j = 0
-    aj_last = copy.deepcopy(a_lo)
+    aj_last = deepcopy(a_lo)
 
     while 1:
         if print_flag:
@@ -189,7 +193,7 @@ def zoom(func, func_prime, args, f_count, g_count, x, f, g, p, mu, eta, i, a0, a
 
         # Check if the sufficient decrease condition is violated.
         if not aj['phi'] <= a0['phi'] + mu * aj['a'] * a0['phi_prime']:
-            a_hi = copy.deepcopy(aj)
+            a_hi = deepcopy(aj)
         else:
             # Check if the curvature condition is met and if so, return the step length ai which satisfies the strong Wolfe conditions.
             if abs(aj['phi_prime']) <= -eta * a0['phi_prime']:
@@ -200,9 +204,9 @@ def zoom(func, func_prime, args, f_count, g_count, x, f, g, p, mu, eta, i, a0, a
 
             # Determine if a_hi needs to be reset.
             if aj['phi_prime'] * (a_hi['a'] - a_lo['a']) >= 0.0:
-                a_hi = copy.deepcopy(a_lo)
+                a_hi = deepcopy(a_lo)
 
-            a_lo = copy.deepcopy(aj)
+            a_lo = deepcopy(aj)
 
         # Test if the difference in function values is less than the tolerance.
         if abs(aj_last['phi'] - aj['phi']) <= tol:
@@ -212,6 +216,6 @@ def zoom(func, func_prime, args, f_count, g_count, x, f, g, p, mu, eta, i, a0, a
             return aj['a'], f_count, g_count
 
         # Update.
-        aj_last = copy.deepcopy(aj)
+        aj_last = deepcopy(aj)
         j = j + 1
 

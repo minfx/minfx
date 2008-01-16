@@ -2,7 +2,7 @@
 
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -22,10 +22,11 @@
 #                                                                             #
 ###############################################################################
 
-
+# Python module imports.
 from math import cos, pi, sin, sqrt
-from Numeric import Float64, array, dot
+from numpy import float64, array
 
+# Minfx module imports.
 from more_thuente import more_thuente
 
 
@@ -74,8 +75,8 @@ def run():
         beta1, beta2 = 0.001, 0.01
         mu, eta = 0.001, 0.001
 
-    xk = array([0.0], Float64)
-    pk = array([1.0], Float64)
+    xk = array([0.0], float64)
+    pk = array([1.0], float64)
     if func >= 4:
         args = (beta1, beta2)
     else:
@@ -113,7 +114,7 @@ def dfunc1(alpha, beta=2.0):
                         (alpha**2 + beta)**2     alpha**2 + beta
     """
 
-    temp = array([0.0], Float64)
+    temp = array([0.0], float64)
     if alpha[0] > 1e90:
         return temp
     else:
@@ -148,7 +149,7 @@ def dfunc2(alpha, beta=0.004):
         phi'(alpha)  =  5(alpha + beta)**4 - 8(alpha + beta)**3
     """
 
-    temp = array([0.0], Float64)
+    temp = array([0.0], float64)
     temp[0] = 5.0*((alpha[0] + beta)**4) - 8.0*((alpha[0] + beta)**3)
     return temp
 
@@ -215,7 +216,7 @@ def dfunc3(alpha, beta=0.01, l=39.0):
     else:
         phi0_prime = (alpha[0] - 1.0)/beta
 
-    temp = array([0.0], Float64)
+    temp = array([0.0], float64)
     temp[0] = phi0_prime + (1.0 - beta) * cos(0.5 * l * pi * alpha[0])
     return temp
 
@@ -260,7 +261,7 @@ def dfunc456(alpha, beta1, beta2):
             gamma(beta) = sqrt(1 + beta**2) - beta
     """
 
-    temp = array([0.0], Float64)
+    temp = array([0.0], float64)
     g1 = sqrt(1.0 + beta1**2) - beta1
     g2 = sqrt(1.0 + beta2**2) - beta2
     a = -g1 * (1.0 - alpha[0]) / sqrt((1.0 - alpha[0])**2 + beta2**2)
