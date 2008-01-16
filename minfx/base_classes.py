@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2005 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2005, 2008 Edward d'Auvergne                             #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -32,8 +32,8 @@
 # Inbuilt python modules.
 #########################
 
-from LinearAlgebra import LinAlgError, inverse
-from Numeric import dot, matrixmultiply, sqrt
+from numpy import dot, sqrt
+from numpy.linalg import LinAlgError, inv
 from re import match
 
 
@@ -702,9 +702,9 @@ class Hessian_mods:
         """Calculate the pure Newton direction."""
 
         if return_matrix:
-            return -matrixmultiply(inverse(self.d2fk), self.dfk), self.d2fk
+            return -dot(inv(self.d2fk), self.dfk), self.d2fk
         else:
-            return -matrixmultiply(inverse(self.d2fk), self.dfk)
+            return -dot(inv(self.d2fk), self.dfk)
 
 
     def valid_hessian_mod(self, mod):
