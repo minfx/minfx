@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,9 +20,9 @@
 #                                                                             #
 ###############################################################################
 
-
-from LinearAlgebra import eigenvectors, inverse
-from Numeric import Float64, array, dot, matrixmultiply, sort, sqrt, transpose
+# Python module imports.
+from numpy import dot, dot, sort, sqrt, transpose
+from numpy.linalg import eig, inv
 
 
 def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0):
@@ -34,11 +34,11 @@ def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0
     """
 
     # Debugging (REMOVE!!!).
-    #d2fk = array([[4, 2, 1], [2, 6, 3], [1, 3, -0.004]], Float64)
+    #d2fk = array([[4, 2, 1], [2, 6, 3], [1, 3, -0.004]], float64)
 
     if print_flag >= 3:
         print "d2fk: " + `d2fk`
-        eigen = eigenvectors(d2fk)
+        eigen = eig(d2fk)
         eigenvals = sort(eigen[0])
         print "Eigenvalues: " + `eigenvals`
 
@@ -185,7 +185,7 @@ def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0
         print "P: " + `P`
         print "e: " + `e`
         print "d2fk: " + `d2fk`
-        eigen = eigenvectors(d2fk)
+        eigen = eig(d2fk)
         eigenvals = sort(eigen[0])
         print "Eigenvalues: " + `eigenvals`
         import sys
@@ -193,6 +193,6 @@ def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0
 
     # Calculate the Newton direction.
     if return_matrix:
-        return -matrixmultiply(inverse(d2fk), dfk), d2fk
+        return -dot(inv(d2fk), dfk), d2fk
     else:
-        return -matrixmultiply(inverse(d2fk), dfk)
+        return -dot(inv(d2fk), dfk)

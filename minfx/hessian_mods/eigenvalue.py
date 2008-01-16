@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,9 +20,9 @@
 #                                                                             #
 ###############################################################################
 
-
-from LinearAlgebra import eigenvectors, inverse
-from Numeric import matrixmultiply, sort
+# Python module imports.
+from numpy import dot, sort
+from numpy.linalg import eig, inv
 
 
 def eigenvalue(dfk, d2fk, I, print_prefix, print_flag, return_matrix=0):
@@ -35,7 +35,7 @@ def eigenvalue(dfk, d2fk, I, print_prefix, print_flag, return_matrix=0):
     """
 
     # Calculate the eigenvalues.
-    eigen = eigenvectors(d2fk)
+    eigen = eig(d2fk)
     eigenvals = sort(eigen[0])
 
     # Modify the Hessian if the smallest eigenvalue is negative.
@@ -48,17 +48,17 @@ def eigenvalue(dfk, d2fk, I, print_prefix, print_flag, return_matrix=0):
 
     # Debugging.
     if print_flag >= 3:
-        eigen_new = eigenvectors(matrix)
+        eigen_new = eig(matrix)
         eigenvals_new = sort(eigen_new[0])
         print print_prefix + "d2fk:\n" + `d2fk`
         print print_prefix + "eigenvals(d2fk): " + `eigenvals`
         print print_prefix + "tau: " + `tau`
         print print_prefix + "matrix:\n" + `matrix`
         print print_prefix + "eigenvals(matrix): " + `eigenvals_new`
-        print print_prefix + "Newton dir: " + `-matrixmultiply(inverse(matrix), dfk)`
+        print print_prefix + "Newton dir: " + `-dot(inv(matrix), dfk)`
 
     # Calculate the Newton direction.
     if return_matrix:
-        return -matrixmultiply(inverse(matrix), dfk), matrix
+        return -dot(inv(matrix), dfk), matrix
     else:
-        return -matrixmultiply(inverse(matrix), dfk)
+        return -dot(inv(matrix), dfk)

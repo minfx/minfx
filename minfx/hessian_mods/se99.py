@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,9 +20,9 @@
 #                                                                             #
 ###############################################################################
 
-from LinearAlgebra import LinAlgError, cholesky_decomposition, eigenvalues, solve_linear_equations
-from MLab import tril
-from Numeric import Float64, array, dot, identity, sort, sqrt, take, transpose, zeros
+# Python module imports.
+from numpy import float64, array, dot, identity, sort, sqrt, take, transpose, zeros
+from numpy.linalg import LinAlgError, cholesky, eig, solve
 
 
 def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_matrix=0):
@@ -33,13 +33,13 @@ def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_mat
     """
 
     # Test matrix.
-    d2fk = array([[4, 2, 1], [2, 6, 3], [1, 3, -0.004]], Float64)
+    d2fk = array([[4, 2, 1], [2, 6, 3], [1, 3, -0.004]], float64)
     d2fk = array([[  1890.3, -1750.6,  -315.8,  3000.3],
                   [ -1705.6,  1538.3,   284.9, -2706.6],
                   [  -315.8,   284.9,    52.5,  -501.2],
-                  [  3000.3, -2706.6,  -501.2,  4760.8]], Float64)
+                  [  3000.3, -2706.6,  -501.2,  4760.8]], float64)
     n = len(d2fk)
-    I = identity(n, Float64)
+    I = identity(n, float64)
 
     # Create the matrices A and L.
     A = 1.0 * d2fk
@@ -142,7 +142,7 @@ def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_mat
         print print_prefix + "A:\n" + `A`
         print print_prefix + "L:\n" + `L`
         try:
-            print print_prefix + "chol:\n" + `cholesky_decomposition(d2fk)`
+            print print_prefix + "chol:\n" + `cholesky(d2fk)`
         except LinAlgError:
             print print_prefix + "Matrix is not positive definite - Cholesky decomposition cannot be computed."
         print print_prefix + "E:\n" + `E`
@@ -154,11 +154,11 @@ def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_mat
     sys.exit()
 
     # Calculate the Newton direction.
-    y = solve_linear_equations(L, dfk)
+    y = solve(L, dfk)
     if return_matrix:
-        return -solve_linear_equations(transpose(L), y), dot(L, transpose(L))
+        return -solve(transpose(L), y), dot(L, transpose(L))
     else:
-        return -solve_linear_equations(transpose(L), y)
+        return -solve(transpose(L), y)
 
 
 def exec_phasetwo(A, L, P, I, E, j, n, tau, tau_bar, gamma, print_prefix, print_flag):
@@ -182,7 +182,7 @@ def exec_phasetwo(A, L, P, I, E, j, n, tau, tau_bar, gamma, print_prefix, print_
         k = j - 1
 
         # Calculate the lower Gerschgorin bounds of Ak+1.
-        g = zeros(n, Float64)
+        g = zeros(n, float64)
         for i in xrange(k+1, n):
             sum_Aij = 0.0
             for s in xrange(k+1, i-1):
@@ -246,7 +246,7 @@ def exec_phasetwo(A, L, P, I, E, j, n, tau, tau_bar, gamma, print_prefix, print_
         # Final 2*2 submatrix.
         mini = take(take(A, [n-2, n-1]), [n-2, n-1], 1)
         mini[0, 1] = mini[1, 0]
-        eigenvals = sort(eigenvalues(mini))
+        eigenvals = sort(eig(mini))
         delta = max(0.0, -eigenvals[0] + max(tau*(eigenvals[1] - eigenvals[0])/(1.0 - tau), tau_bar*gamma), delta_prev)
         if delta > 0.0:
             A[n-2, n-2] = A[n-2, n-2] + delta

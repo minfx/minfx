@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2006 Edward d'Auvergne                                  #
+# Copyright (C) 2003, 2006, 2008 Edward d'Auvergne                            #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,9 +20,9 @@
 #                                                                             #
 ###############################################################################
 
-
-from LinearAlgebra import cholesky_decomposition, solve_linear_equations
-from Numeric import dot, sqrt, trace, transpose
+# Python module imports.
+from numpy import dot, sqrt, trace, transpose
+from numpy.linalg import cholesky, solve
 
 
 def cholesky(dfk, d2fk, I, n, print_prefix, print_flag, return_matrix=0):
@@ -65,7 +65,7 @@ def cholesky(dfk, d2fk, I, n, print_prefix, print_flag, return_matrix=0):
 
         # Attempt the Cholesky decomposition.
         try:
-            L = cholesky_decomposition(matrix)
+            L = cholesky(matrix)
             if print_flag >= 3:
                 print print_prefix + "\tCholesky matrix L:"
                 for i in xrange(n):
@@ -81,8 +81,8 @@ def cholesky(dfk, d2fk, I, n, print_prefix, print_flag, return_matrix=0):
             break
 
     # Calculate the Newton direction.
-    y = solve_linear_equations(L, dfk)
+    y = solve(L, dfk)
     if return_matrix:
-        return -solve_linear_equations(transpose(L), y), matrix
+        return -solve(transpose(L), y), matrix
     else:
-        return -solve_linear_equations(transpose(L), y)
+        return -solve(transpose(L), y)

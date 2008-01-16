@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2004 Edward d'Auvergne                                  #
+# Copyright (C) 2003, 2004, 2008 Edward d'Auvergne                            #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -20,10 +20,10 @@
 #                                                                             #
 ###############################################################################
 
-
-from LinearAlgebra import LinAlgError, cholesky_decomposition, eigenvalues, inverse, solve_linear_equations
+# Python module imports.
 from math import sqrt
-from Numeric import Float64, array, dot, identity, matrixmultiply, transpose
+from numpy import dot, transpose
+from numpy.linalg import LinAlgError, cholesky, eig, inv, solve
 
 
 def gmw(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0):
@@ -36,9 +36,9 @@ def gmw(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0):
     """
 
     # Test matrix.
-    #d2fk = array([[4, 2, 1], [2, 6, 3], [1, 3, -0.004]], Float64)
+    #d2fk = array([[4, 2, 1], [2, 6, 3], [1, 3, -0.004]], float64)
     #n = len(d2fk)
-    #I = identity(n, Float64)
+    #I = identity(n, float64)
 
     # Calculate gamma(A) and xi(A).
     gamma = 0.0
@@ -63,7 +63,7 @@ def gmw(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0):
 
     # Debugging.
     if print_flag >= 3:
-        old_eigen = eigenvalues(d2fk)
+        old_eigen = eig(d2fk)
         print print_prefix + "dfk: " + `dfk`
         print print_prefix + "d2fk:\n" + `d2fk`
 
@@ -124,8 +124,8 @@ def gmw(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0):
         print print_prefix + "L:\n" + `L`
         print print_prefix + "L.LT:\n" + `dot(L, transpose(L))`
         print print_prefix + "L.LT - d2fk:\n" + `dot(L, transpose(L)) - d2fk`
-        print print_prefix + "dot(P, chol(L.LT)):\n" + `dot(P, cholesky_decomposition(dot(L, transpose(L))))`
-        print print_prefix + "dot(P, chol(P.L.LT.PT)):\n" + `dot(P, cholesky_decomposition(dot(P, dot(dot(L, transpose(L)), transpose(P)))))`
+        print print_prefix + "dot(P, chol(L.LT)):\n" + `dot(P, cholesky(dot(L, transpose(L))))`
+        print print_prefix + "dot(P, chol(P.L.LT.PT)):\n" + `dot(P, cholesky(dot(P, dot(dot(L, transpose(L)), transpose(P)))))`
         E = 0.0 * d2fk
         for i in xrange(n):
             E[i, i] = e[i]
@@ -133,7 +133,7 @@ def gmw(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0):
         print print_prefix + "E:\n" + `E`
         print print_prefix + "PT.d2fk+E.P:\n" + `dot(transpose(P), dot(d2fk+E, P))`
         try:
-            chol = cholesky_decomposition(dot(transpose(P), dot(d2fk+E, P)))
+            chol = cholesky(dot(transpose(P), dot(d2fk+E, P)))
             print print_prefix + "chol(PT.d2fk+E.P):\n" + `chol`
             print print_prefix + "rT - chol(PT.d2fk+E.P):\n" + `transpose(r) - chol`
             chol = dot(P, chol)
@@ -141,15 +141,15 @@ def gmw(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0):
             print print_prefix + "chol reconstructed:\n" + `dot(chol, transpose(chol))`
         except LinAlgError:
             print print_prefix + "Matrix is not positive definite - Cholesky decomposition cannot be computed."
-        eigen = eigenvalues(dot(L, transpose(L)))
+        eigen = eig(dot(L, transpose(L)))
         print print_prefix + "Old eigenvalues: " + `old_eigen`
         print print_prefix + "New eigenvalues: " + `eigen`
-        print print_prefix + "Newton dir: " + `-solve_linear_equations(transpose(L), solve_linear_equations(L, dfk))`
-        print print_prefix + "Newton dir using inverse: " + `-matrixmultiply(inverse(d2fk+E), dfk)`
+        print print_prefix + "Newton dir: " + `-solve(transpose(L), solve(L, dfk))`
+        print print_prefix + "Newton dir using inverse: " + `-dot(inv(d2fk+E), dfk)`
 
     # Calculate the Newton direction.
-    y = solve_linear_equations(L, dfk)
+    y = solve(L, dfk)
     if return_matrix:
-        return -solve_linear_equations(transpose(L), y), dot(L, transpose(L))
+        return -solve(transpose(L), y), dot(L, transpose(L))
     else:
-        return -solve_linear_equations(transpose(L), y)
+        return -solve(transpose(L), y)
