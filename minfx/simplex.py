@@ -171,8 +171,8 @@ class Simplex(Min):
         """Order the vertecies of the simplex according to accending function values."""
 
         sorted = argsort(self.simplex_vals)
-        self.simplex = take(self.simplex, sorted)
-        self.simplex_vals = take(self.simplex_vals, sorted)
+        self.simplex = take(self.simplex, sorted, axis=0)
+        self.simplex_vals = take(self.simplex_vals, sorted, axis=0)
 
 
     def reflect(self):

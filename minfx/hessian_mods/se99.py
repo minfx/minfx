@@ -244,7 +244,7 @@ def exec_phasetwo(A, L, P, I, E, j, n, tau, tau_bar, gamma, print_prefix, print_
             jiter_factor(A, L, j, n)
 
         # Final 2*2 submatrix.
-        mini = take(take(A, [n-2, n-1]), [n-2, n-1], 1)
+        mini = take(take(A, [n-2, n-1], axis=0), [n-2, n-1], axis=1)
         mini[0, 1] = mini[1, 0]
         eigenvals = sort(eig(mini))
         delta = max(0.0, -eigenvals[0] + max(tau*(eigenvals[1] - eigenvals[0])/(1.0 - tau), tau_bar*gamma), delta_prev)
