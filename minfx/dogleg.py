@@ -21,14 +21,14 @@
 ###############################################################################
 
 # Python module imports.
-from numpy import float64, dot, identity, outer, sort, sqrt
+from numpy import dot, float64, identity, outer, sort, sqrt
 from numpy.linalg import inv
 from re import match
 
 # Minfx module imports.
+from base_classes import Hessian_mods, Min, Trust_region
 from bfgs import Bfgs
 from newton import Newton
-from base_classes import Hessian_mods, Trust_region, Min
 
 
 def dogleg(func=None, dfunc=None, d2func=None, args=(), x0=None, min_options=(), func_tol=1e-25, grad_tol=None, maxiter=1e6, delta_max=1e10, delta0=1e5, eta=0.0001, mach_acc=1e-16, full_output=0, print_flag=0, print_prefix=""):

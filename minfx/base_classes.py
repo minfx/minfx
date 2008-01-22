@@ -33,7 +33,7 @@
 #########################
 
 from numpy import dot, sqrt
-from numpy.linalg import LinAlgError, inv
+from numpy.linalg import inv, LinAlgError
 from re import match
 
 
@@ -49,8 +49,8 @@ from line_search.more_thuente import more_thuente
 # Hessian modifications.
 ########################
 
-from hessian_mods.eigenvalue import eigenvalue
 from hessian_mods.cholesky import cholesky
+from hessian_mods.eigenvalue import eigenvalue
 from hessian_mods.gmw81 import gmw
 from hessian_mods.gmw81_old import gmw_old
 from hessian_mods.se99 import se99

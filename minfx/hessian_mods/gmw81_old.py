@@ -21,7 +21,7 @@
 ###############################################################################
 
 # Python module imports.
-from numpy import dot, dot, sort, sqrt, transpose
+from numpy import dot, sort, sqrt, transpose
 from numpy.linalg import eig, inv
 
 

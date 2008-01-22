@@ -21,7 +21,7 @@
 ###############################################################################
 
 # Python module imports.
-from numpy import float64, argsort, average, sum, take, zeros
+from numpy import argsort, average, float64, sum, take, zeros
 
 # Minfx module imports.
 from base_classes import Min

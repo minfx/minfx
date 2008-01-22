@@ -24,7 +24,7 @@
 from numpy import dot, sqrt
 
 # Minfx module imports.
-from base_classes import Trust_region, Min
+from base_classes import Min, Trust_region
 
 
 def cauchy_point(func=None, dfunc=None, d2func=None, args=(), x0=None, func_tol=1e-25, grad_tol=None, maxiter=1e6, delta_max=1e5, delta0=1.0, eta=0.2, full_output=0, print_flag=0, print_prefix=""):

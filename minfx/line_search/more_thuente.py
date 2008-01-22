@@ -22,9 +22,9 @@
 
 # Python module imports.
 from copy import deepcopy
-import sys
 from math import sqrt
 from numpy import dot
+import sys
 
 # Minfx module imports.
 from interpolate import cubic_int, cubic_ext, quadratic_fafbga, quadratic_gagb

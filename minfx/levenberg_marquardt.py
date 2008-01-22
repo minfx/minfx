@@ -21,8 +21,8 @@
 ###############################################################################
 
 # Python module imports.
-from numpy.linalg import solve
 from numpy import float64, zeros
+from numpy.linalg import solve
 
 # Minfx module imports.
 from base_classes import Min

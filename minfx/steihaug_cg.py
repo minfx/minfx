@@ -21,11 +21,11 @@
 ###############################################################################
 
 # Python module imports.
-from numpy import float64, dot, sqrt, zeros
+from numpy import dot, float64, sqrt, zeros
 
 # Minfx module imports.
-from newton import Newton
 from base_classes import Min, Trust_region
+from newton import Newton
 
 
 def steihaug(func=None, dfunc=None, d2func=None, args=(), x0=None, func_tol=1e-25, grad_tol=None, maxiter=1e6, epsilon=1e-8, delta_max=1e5, delta0=1.0, eta=0.2, full_output=0, print_flag=0, print_prefix=""):

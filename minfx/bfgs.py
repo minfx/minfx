@@ -21,7 +21,7 @@
 ###############################################################################
 
 # Python module imports.
-from numpy import float64, dot, identity, outer
+from numpy import dot, float64, identity, outer
 
 # Minfx module imports.
 from base_classes import Line_search, Min

@@ -21,13 +21,13 @@
 ###############################################################################
 
 # Python module imports.
-from numpy import float64, dot, outer, sqrt, zeros
+from numpy import dot, float64, outer, sqrt, zeros
 from re import match
 
 # Minfx module imports.
+from base_classes import Min
 #from bound_constraint import Bound_constraint
 from constraint_linear import Constraint_linear
-from base_classes import Min
 
 
 def method_of_multipliers(func=None, dfunc=None, d2func=None, args=(), x0=None, min_options=(), A=None, b=None, l=None, u=None, c=None, dc=None, d2c=None, lambda0=None, init_lambda=1e4, mu0=1e-5, epsilon0=1e-2, gamma0=1e-2, scale_mu=0.5, scale_epsilon=1e-2, scale_gamma=1e-2, func_tol=1e-25, grad_tol=None, maxiter=1e6, inner_maxiter=500, full_output=0, print_flag=0):

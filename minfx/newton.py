@@ -22,7 +22,7 @@
 
 # Python module imports.
 from math import acos
-from numpy import float64, dot, identity, sqrt, zeros
+from numpy import dot, float64, identity, sqrt, zeros
 from re import match
 
 # Minfx module imports.

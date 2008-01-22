@@ -23,7 +23,7 @@
 # Python module imports.
 from math import sqrt
 from numpy import dot, transpose
-from numpy.linalg import LinAlgError, cholesky, eig, inv, solve
+from numpy.linalg import cholesky, eig, inv, LinAlgError, solve
 
 
 def gmw(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0):

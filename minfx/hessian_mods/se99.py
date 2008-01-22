@@ -21,8 +21,8 @@
 ###############################################################################
 
 # Python module imports.
-from numpy import float64, array, dot, identity, sort, sqrt, take, transpose, zeros
-from numpy.linalg import LinAlgError, cholesky, eig, solve
+from numpy import array, dot, float64, identity, sort, sqrt, take, transpose, zeros
+from numpy.linalg import cholesky, eig, LinAlgError, solve
 
 
 def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_matrix=0):

@@ -26,9 +26,9 @@ from numpy.linalg import cholesky, eig, inv, solve
 from re import match
 
 # Minfx module imports.
+from base_classes import Hessian_mods, Min, Trust_region
 from bfgs import Bfgs
 from newton import Newton
-from base_classes import Hessian_mods, Min, Trust_region
 
 
 def exact_trust_region(func=None, dfunc=None, d2func=None, args=(), x0=None, min_options=(), func_tol=1e-25, grad_tol=None, maxiter=1e6, lambda0=0.0, delta_max=1e5, delta0=1.0, eta=0.2, mach_acc=1e-16, full_output=0, print_flag=0, print_prefix=""):
