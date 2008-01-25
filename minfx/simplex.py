@@ -94,7 +94,7 @@ class Simplex(Min):
         self.fk = self.simplex_vals[0]
 
         # Find the center of the simplex.
-        self.center = average(self.simplex)
+        self.center = average(self.simplex, axis=0)
 
 
     def new_param_func(self):
@@ -106,7 +106,7 @@ class Simplex(Min):
         self.reflect_flag = 1
         self.shrink_flag = 0
 
-        self.pivot_point = average(self.simplex[:-1])
+        self.pivot_point = average(self.simplex[:-1], axis=0)
 
         self.reflect()
         if self.reflect_val <= self.simplex_vals[0]:
@@ -130,7 +130,7 @@ class Simplex(Min):
         self.dfk_new = None
 
         # Find the center of the simplex and calculate the distance moved.
-        self.center_new = average(self.simplex)
+        self.center_new = average(self.simplex, axis=0)
         self.dist = sum(abs(self.center_new - self.center))
 
 
