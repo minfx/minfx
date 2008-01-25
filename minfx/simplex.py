@@ -131,7 +131,7 @@ class Simplex(Min):
 
         # Find the center of the simplex and calculate the distance moved.
         self.center_new = average(self.simplex, axis=0)
-        self.dist = sum(abs(self.center_new - self.center))
+        self.dist = sum(abs(self.center_new - self.center), axis=0)
 
 
     def contract(self):
