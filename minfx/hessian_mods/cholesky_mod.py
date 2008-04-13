@@ -24,7 +24,7 @@ from numpy import dot, sqrt, trace, transpose
 from numpy.linalg import LinAlgError, cholesky, solve
 
 
-def cholesky(dfk, d2fk, I, n, print_prefix, print_flag, return_matrix=0):
+def cholesky_mod(dfk, d2fk, I, n, print_prefix, print_flag, return_matrix=0):
     """Cholesky with added multiple of the identity.
 
     Algorithm 6.3 from page 145 of 'Numerical Optimization' by Jorge Nocedal and Stephen J.

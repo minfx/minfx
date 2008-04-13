@@ -48,7 +48,7 @@ from line_search.more_thuente import more_thuente
 # Hessian modifications.
 ########################
 
-from hessian_mods.cholesky import cholesky
+from hessian_mods.cholesky_mod import cholesky_mod
 from hessian_mods.eigenvalue import eigenvalue
 from hessian_mods.gmw81 import gmw
 from hessian_mods.gmw81_old import gmw_old
@@ -624,10 +624,10 @@ class Hessian_mods:
         """Base class containing the generic line search functions."""
 
 
-    def cholesky(self, return_matrix=0):
+    def cholesky_mod(self, return_matrix=0):
         """Function for running the Cholesky Hessian modification."""
 
-        return cholesky(self.dfk, self.d2fk, self.I, self.n, self.print_prefix, self.print_flag, return_matrix)
+        return cholesky_mod(self.dfk, self.d2fk, self.I, self.n, self.print_prefix, self.print_flag, return_matrix)
 
 
     def eigenvalue(self, return_matrix=0):
@@ -673,7 +673,7 @@ class Hessian_mods:
         elif match('^[Cc]hol', self.hessian_mod):
             if self.print_flag:
                 print self.print_prefix + "Hessian modification:  Cholesky with added multiple of the identity."
-            self.get_pk = self.cholesky
+            self.get_pk = self.cholesky_mod
 
         # The Gill, Murray, and Wright modified Cholesky algorithm.
         elif match('^[Gg][Mm][Ww]$', self.hessian_mod):
