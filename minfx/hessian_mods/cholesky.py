@@ -21,7 +21,7 @@
 
 # Python module imports.
 from numpy import dot, sqrt, trace, transpose
-from numpy.linalg import cholesky, solve
+from numpy.linalg import LinAlgError, cholesky, solve
 
 
 def cholesky(dfk, d2fk, I, n, print_prefix, print_flag, return_matrix=0):
@@ -69,7 +69,7 @@ def cholesky(dfk, d2fk, I, n, print_prefix, print_flag, return_matrix=0):
                 print print_prefix + "\tCholesky matrix L:"
                 for i in xrange(n):
                     print print_prefix + "\t\t" + `L[i]`
-        except:
+        except LinAlgError:
             if print_flag >= 3:
                 print print_prefix + "\tLinearAlgebraError, matrix is not positive definite."
 
