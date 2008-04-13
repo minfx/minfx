@@ -166,7 +166,7 @@ class Min:
             elif self.hessian_mod == None and self.valid_hessian_mod(opt):
                 self.hessian_mod = opt
             else:
-                print self.print_prefix + "The minimisation option " + `opt` + " from " + `min_options` + " is neither a valid Hessian type or modification."
+                print self.print_prefix + "The minimisation option " + `opt` + " from " + `min_options` + " is neither a valid Hessian type nor modification."
                 self.init_failure = 1
                 return
 
