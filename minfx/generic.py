@@ -20,7 +20,7 @@
 ###############################################################################
 
 # Python module imports.
-from re import match
+from re import match, search
 
 # Minfx module imports.
 from bfgs import bfgs
@@ -291,11 +291,31 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
     while the default Hessian modification is the GMW algorithm.
     """
 
+    # Catch models with zero parameters.
+    ####################################
+
+    if not len(x0):
+        # Print out.
+        if print_flag:
+            if search('^[Gg]rid', min_algor):
+                print "Cannot run a grid search on a model with zero parameters."
+            else:
+                print "Cannot run optimisation on a model with zero parameters."
+
+        # The function value.
+        fk = func(x0)
+        if print_flag:
+            print "Directly calculating the function value."
+
+        # The results tuple.
+        results = (x0, fk, 0, 1, 0, 0, "No optimisation")
+
+    
     # Parameter initialisation methods.
     ###################################
 
     # Grid search.
-    if match('^[Gg]rid', min_algor):
+    elif match('^[Gg]rid', min_algor):
         xk, fk, k = grid(func=func, args=args, grid_ops=min_options, A=A, b=b, l=l, u=u, c=c, print_flag=print_flag)
         if full_output:
             results = (xk, fk, k, k, 0, 0, None)
