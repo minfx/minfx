@@ -175,6 +175,12 @@ class Method_of_multipliers(Min):
                 print "A:\n" + `self.A`
                 print "b:\n" + `self.b`
 
+            # Check for the essential gradient function.
+            if dfunc == None:
+                print "The essential gradient function has not been supplied."
+                self.init_failure = 1
+                return
+
         # Bound constraints.
         elif l != None and u != None:
             print "Bound constraints are not implemented yet."
