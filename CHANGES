@@ -1,0 +1,15 @@
+Version 1.0.1
+(28 September 2008, from /trunk)
+http://svn.gna.org/svn/minfx/tags/1.0.1
+
+    Features:
+        * Full conversion from Numeric python to numpy.
+        * Improved testing for the Hessian being positive definite in the Cholesky Hessian modification.
+        * Models of zero size can now be handled.
+        * More graceful failure for when the gradient is not supplied when needed.
+
+    Changes:
+        * Switch from GPLv2 to GPLv3.
+
+    Bugfixes:
+        * Module name clash in the Cholesky Hessian modification.
