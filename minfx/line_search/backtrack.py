@@ -77,3 +77,6 @@ def backtrack(func, args, x, f, g, p, a_init=1.0, rho=0.5, c=1e-4, max_iter=500)
 
         # Increment the counter.
         i = i + 1
+
+    # Right, couldn't find it before max_iter so return the function count and a step length significantly smaller than the starting length.
+    return a_init * rho ** 10, f_count
