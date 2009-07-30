@@ -12,7 +12,7 @@ $ svn co svn+ssh://bugman@svn.gna.org/svn/minfx/tags/1.0.1
 
 
 
-* Review the SVN logs and add an entry into the CHANGES file (in the 'docs/' directory) for the current release.  Create three sections titled 'Features', 'Changes', and 'Bugfixes'.  Commit the changes and then port the revision back into the main line.
+* Review the SVN logs and add an entry into the CHANGES file for the current release.  Create three sections titled 'Features', 'Changes', and 'Bugfixes'.  Commit the changes and then port the revision back into the main line.
 
 
 
