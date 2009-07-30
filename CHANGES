@@ -1,3 +1,17 @@
+Version 1.0.2
+(30 August 2009, from /trunk)
+http://svn.gna.org/svn/minfx/tags/1.0.2
+
+    Features:
+        * Added support for Python 2.6 - the variable 'as' can no longer be used as it is now a Python statement!
+
+    Changes:
+        * N/A
+
+    Bugfixes:
+        * Fixed a rare bug in the backtracking line search sub-algorithm affecting very distorted spaces (see bug #12501).
+
+
 Version 1.0.1
 (28 September 2008, from /trunk)
 http://svn.gna.org/svn/minfx/tags/1.0.1
