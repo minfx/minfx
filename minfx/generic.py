@@ -401,7 +401,7 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
         print ""
         if full_output:
             xk, fk, k, f_count, g_count, h_count, warning = results
-            print print_prefix + "Parameter values: " + `xk`
+            print print_prefix + "Parameter values: " + `list(xk)`
             print print_prefix + "Function value:   " + `fk`
             print print_prefix + "Iterations:       " + `k`
             print print_prefix + "Function calls:   " + `f_count`
