@@ -102,7 +102,7 @@ def grid(func=None, grid_ops=None, args=(), A=None, b=None, l=None, u=None, c=No
 
     # Initial print out.
     if print_flag:
-        print "\n" + print_prefix + "Searching the grid."
+        print "\n" + print_prefix + "Searching through %s grid nodes." % total_steps
 
     # Test if the grid is too large (ie total_steps is a long integer)
     if type(total_steps) == long:
