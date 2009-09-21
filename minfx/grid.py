@@ -112,10 +112,6 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
         for k in xrange(n):
             total_steps = total_steps * len(incs[k])
 
-    print incs
-    for k in xrange(n):
-        print len(incs[k])
-
     # Print out.
     if verbosity:
         if verbosity >= 2:
