@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2004, 2008 Edward d'Auvergne                            #
+# Copyright (C) 2003, 2004, 2008-2009 Edward d'Auvergne                       #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -24,50 +24,101 @@ from numpy import float64, ones, zeros
 
 # Minfx module imports.
 from constraint_linear import Constraint_linear
+from errors import MinfxError
 
 
-def grid(func=None, grid_ops=None, args=(), A=None, b=None, l=None, u=None, c=None, print_flag=0, print_prefix=""):
-    """Grid search function.
+def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None, b=None, l=None, u=None, c=None, verbosity=0, print_prefix=""):
+    """The grid search algorithm.
 
-    Keyword Arguments
-    ~~~~~~~~~~~~~~~~~
-
-    func:  The function to minimise.
-
-    grid_ops:  Matrix of options for the grid search.
-
-    args:  The tuple of arguments to supply to the function func.
-
-
-    Grid options
-    ~~~~~~~~~~~~
-
-    The first dimension of grid_ops corresponds to the parameters of the function func, and the
-    second dimension corresponds to:
-        0 - The number of increments.
-        1 - Lower limit.
-        2 - Upper limit.
+    @param func:            The target function.  This should take the parameter vector as the first
+                            argument and return a single float.
+    @type func:             function
+    @keyword args:          A tuple of arguments to pass to the function, if needed.
+    @type args:             tuple
+    @keyword num_incs:      The number of linear increments to be used in the grid search.  The
+                            length should be equal to the number of parameters and each element
+                            corresponds to the number of increments for the respective parameter.
+                            This is overridden if the incs argument is supplied.
+    @type num_incs:         list of int
+    @keyword lower:         The list of lower bounds for the linear grid search.  This must be
+                            supplied if incs is not.
+    @type lower:            list of float
+    @keyword upper:         The list of upper bounds for the linear grid search.  This must be
+                            supplied if incs is not.
+    @type upper:            list of float
+    @keyword incs:          The parameter increment values.  This overrides the num_incs, lower, and
+                            upper arguments used in generating a linear grid.
+    @type incs:             list of lists
+    @keyword A:             The linear constraint matrix A, such that A.x >= b.
+    @type A:                numpy rank-2 array
+    @keyword b:             The linear constraint scalar vectors, such that A.x >= b.
+    @type b:                numpy rank-1 array
+    @keyword l:             The lower bound constraint vector, such that l <= x <= u.
+    @type l:                list of float
+    @keyword u:             The upper bound constraint vector, such that l <= x <= u.
+    @type u:                list of float
+    @keyword c:             A user supplied constraint function.
+    @type c:                function
+    @keyword verbosity:     The verbosity level.  0 corresponds to no output, 1 is standard, and
+                            higher values cause greater and greater amount of output.
+    @type verbosity:        int
+    @keyword print_prefix:  The text to place before the printed output.
+    @type print_prefix:     str
     """
 
+    # Checks.
+    if num_incs == None and incs == None:
+        raise MinfxError("Either the incs arg or the num_incs, lower, and upper args must be supplied.")
+    elif num_incs:
+        # Check that this is a list.
+        if not isinstance(num_incs, list):
+            raise MinfxError("The num_incs argument '%s' must be a list." % num_incs)
+        if not isinstance(lower, list):
+            raise MinfxError("The lower argument '%s' must be a list." % lower)
+        if not isinstance(upper, list):
+            raise MinfxError("The upper argument '%s' must be a list." % upper)
+
+        # Lengths.
+        if len(num_incs) != len(lower):
+            raise MinfxError("The '%s' num_incs and '%s' lower arguments are of different lengths" % (num_incs, lower))
+        if len(num_incs) != len(upper):
+            raise MinfxError("The '%s' num_incs and '%s' upper arguments are of different lengths" % (num_incs, upper))
+
     # Initialise.
-    n = len(grid_ops)
+    if num_incs:
+        n = len(num_incs)
+    else:
+        n = len(incs)
     grid_size = 0
     total_steps = 1
     step_num = ones(n, int)
     params = zeros((n), float64)
     min_params = zeros((n), float64)
-    param_values = []   # This data structure eliminates the round-off error of summing a step size value to the parameter value.
+
+    # Linear grid search.
+    # The incs data structure eliminates the round-off error of summing a step size value to the parameter value.
+    if num_incs:
+        incs = []
+        for k in xrange(n):
+            params[k] = lower[k]
+            min_params[k] = lower[k]
+            total_steps = total_steps * num_incs[k]
+            incs.append([])
+            for i in xrange(num_incs[k]):
+                incs[k].append(lower[k] + i * (upper[k] - lower[k]) / (num_incs[k] - 1))
+
+    # User supplied grid search.
+    else:
+        for k in xrange(n):
+            total_steps = total_steps * len(incs[k])
+
+    print incs
     for k in xrange(n):
-        params[k] = grid_ops[k][1]
-        min_params[k] = grid_ops[k][1]
-        total_steps = total_steps * grid_ops[k][0]
-        param_values.append([])
-        for i in xrange(grid_ops[k][0]):
-            param_values[k].append(grid_ops[k][1] + i * (grid_ops[k][2] - grid_ops[k][1]) / (grid_ops[k][0] - 1))
+        print len(incs[k])
 
     # Print out.
-    if print_flag:
-        if print_flag >= 2:
+    if verbosity:
+        if verbosity >= 2:
             print print_prefix
         print print_prefix
         print print_prefix + "Grid search"
@@ -78,7 +129,7 @@ def grid(func=None, grid_ops=None, args=(), A=None, b=None, l=None, u=None, c=No
         constraint_flag = 1
         constraint_linear = Constraint_linear(A, b)
         c = constraint_linear.func
-        if print_flag >= 3:
+        if verbosity >= 3:
             print print_prefix + "Linear constraint matrices."
             print print_prefix + "A: " + `A`
             print print_prefix + "b: " + `b`
@@ -86,8 +137,7 @@ def grid(func=None, grid_ops=None, args=(), A=None, b=None, l=None, u=None, c=No
     # Bound constraints.
     elif l != None and u != None:
         constraint_flag = 1
-        print "Bound constraints are not implemented yet."
-        return
+        raise MinfxError("Bound constraints are not implemented yet.")
 
     # General constraints.
     elif c != None:
@@ -101,12 +151,12 @@ def grid(func=None, grid_ops=None, args=(), A=None, b=None, l=None, u=None, c=No
     f_min = 1e300
 
     # Initial print out.
-    if print_flag:
+    if verbosity:
         print "\n" + print_prefix + "Searching through %s grid nodes." % total_steps
 
-    # Test if the grid is too large (ie total_steps is a long integer)
-    if type(total_steps) == long:
-        raise NameError, "A grid search of size " + `total_steps` + " is too large."
+    # Test if the grid is too large.
+    if total_steps >= 1e8:
+        raise MinfxError("A grid search of size %s is too large." % total_steps)
 
     # Search the grid.
     k = 0
@@ -116,7 +166,7 @@ def grid(func=None, grid_ops=None, args=(), A=None, b=None, l=None, u=None, c=No
         if constraint_flag:
             ci = c(params)
             if min(ci) < 0.0:
-                if print_flag >= 3:
+                if verbosity >= 3:
                     print print_prefix + "%-3s%-8i%-4s%-65s" % ("k:", k, "xk:", `params`)
                     print print_prefix + "Constraint violated, skipping grid point."
                     print print_prefix + "ci: " + `ci`
@@ -134,17 +184,17 @@ def grid(func=None, grid_ops=None, args=(), A=None, b=None, l=None, u=None, c=No
                 min_params = 1.0 * params
 
                 # Print out code.
-                if print_flag:
+                if verbosity:
                     print print_prefix + "%-3s%-8i%-4s%-65s %-4s%-20s" % ("k:", k, "xk:", `min_params`, "fk:", `f_min`)
 
             # Grid count.
             grid_size = grid_size + 1
 
             # Print out code.
-            if print_flag >= 2:
+            if verbosity >= 2:
                 if f != f_min:
                     print print_prefix + "%-3s%-8i%-4s%-65s %-4s%-20s" % ("k:", k, "xk:", `params`, "fk:", `f`)
-                if print_flag >= 3:
+                if verbosity >= 3:
                     print print_prefix + "%-20s%-20s" % ("Increment:", `step_num`)
                     print print_prefix + "%-20s%-20s" % ("Params:", `params`)
                     print print_prefix + "%-20s%-20s" % ("Min params:", `min_params`)
@@ -156,13 +206,13 @@ def grid(func=None, grid_ops=None, args=(), A=None, b=None, l=None, u=None, c=No
 
         # Increment the grid search.
         for j in xrange(n):
-            if step_num[j] < grid_ops[j][0]:
+            if step_num[j] < len(incs[j]):
                 step_num[j] = step_num[j] + 1
-                params[j] = param_values[j][step_num[j]-1]
+                params[j] = incs[j][step_num[j]-1]
                 break    # Exit so that the other step numbers are not incremented.
             else:
                 step_num[j] = 1
-                params[j] = grid_ops[j][1]
+                params[j] = incs[j][0]
 
     # Return the results.
     return min_params, f_min, grid_size
