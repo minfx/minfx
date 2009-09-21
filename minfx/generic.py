@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2005, 2008 Edward d'Auvergne                             #
+# Copyright (C) 2003-2005, 2008-2009 Edward d'Auvergne                        #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -29,7 +29,6 @@ from coordinate_descent import coordinate_descent
 from dogleg import dogleg
 from exact_trust_region import exact_trust_region
 from fletcher_reeves_cg import fletcher_reeves
-from grid import grid
 from hestenes_stiefel_cg import hestenes_stiefel
 from levenberg_marquardt import levenberg_marquardt
 from method_of_multipliers import method_of_multipliers
@@ -137,16 +136,6 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
 
     To select a minimisation algorithm, set the argument to a string which matches the given
     pattern.
-
-
-    Parameter initialisation methods:
-    ___________________________________________________________________________________________
-    |                                   |                                                     |
-    | Minimisation algorithm            | Patterns                                            |
-    |___________________________________|_____________________________________________________|
-    |                                   |                                                     |
-    | Grid search                       | '^[Gg]rid'                                          |
-    |___________________________________|_____________________________________________________|
 
 
     Unconstrained line search methods:
@@ -297,10 +286,7 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
     if not len(x0):
         # Print out.
         if print_flag:
-            if search('^[Gg]rid', min_algor):
-                print "Cannot run a grid search on a model with zero parameters."
-            else:
-                print "Cannot run optimisation on a model with zero parameters."
+            print "Cannot run optimisation on a model with zero parameters."
 
         # The function value.
         fk = func(x0)
@@ -311,23 +297,11 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
         results = (x0, fk, 0, 1, 0, 0, "No optimisation")
 
     
-    # Parameter initialisation methods.
-    ###################################
-
-    # Grid search.
-    elif match('^[Gg]rid', min_algor):
-        xk, fk, k = grid(func=func, args=args, grid_ops=min_options, A=A, b=b, l=l, u=u, c=c, print_flag=print_flag)
-        if full_output:
-            results = (xk, fk, k, k, 0, 0, None)
-        else:
-            results = xk
-
-
     # Unconstrained line search algorithms.
     #######################################
 
     # Back-and-forth coordinate descent minimisation.
-    elif match('^[Cc][Dd]$', min_algor) or match('^[Cc]oordinate[ _-][Dd]escent$', min_algor):
+    if match('^[Cc][Dd]$', min_algor) or match('^[Cc]oordinate[ _-][Dd]escent$', min_algor):
         results = coordinate_descent(func=func, dfunc=dfunc, args=args, x0=x0, min_options=min_options, func_tol=func_tol, grad_tol=grad_tol, maxiter=maxiter, full_output=full_output, print_flag=print_flag, print_prefix=print_prefix)
 
     # Steepest descent minimisation.
