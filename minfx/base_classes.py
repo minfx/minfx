@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2005, 2008 Edward d'Auvergne                             #
+# Copyright (C) 2003-2005, 2008-2009 Edward d'Auvergne                        #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -212,6 +212,10 @@ class Min:
             self.k2 = 0
             print ""   # Print a new line.
 
+        # Print out format string.
+        print_format = "k: %-8i xk: [ " + "%10.5g, "*(len(self.xk)-1) + "%10.5g] fk: %-20s"
+        
+
         # Iterate until the local minima is found.
         while 1:
             # Print out.
@@ -226,7 +230,7 @@ class Min:
                     if self.k2 == 0:
                         out = 1
                 if out == 1:
-                    print self.print_prefix + "%-3s%-8i%-4s%-65s %-4s%-20s" % ("k:", self.k, "xk:", `self.xk`, "fk:", `self.fk`)
+                    print self.print_prefix + print_format % ((self.k,) + tuple(self.xk) + (self.fk,))
 
             # Get xk+1 (new parameter function).
             try:
