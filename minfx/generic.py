@@ -27,6 +27,7 @@ from bfgs import bfgs
 from cauchy_point import cauchy_point
 from coordinate_descent import coordinate_descent
 from dogleg import dogleg
+from errors import MinfxError
 from exact_trust_region import exact_trust_region
 from fletcher_reeves_cg import fletcher_reeves
 from hestenes_stiefel_cg import hestenes_stiefel
@@ -390,8 +391,7 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
     ###############################
 
     else:
-        print print_prefix + "Minimiser type set incorrectly.  The minimiser " + min_algor + " is not programmed.\n"
-        return
+        raise MinfxError("The '%s' minimisation algorithm is not available.\n" % min_algor)
 
 
     # Finish.
