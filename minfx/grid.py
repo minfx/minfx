@@ -64,6 +64,10 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
     @type verbosity:        int
     @keyword print_prefix:  The text to place before the printed output.
     @type print_prefix:     str
+    @return:                The optimisation information including the parameter vector at the best
+                            grid point, the function value at this grid point, the number of
+                            iterations (equal to the number of function calls), and a warning.
+    @rtype:                 tuple of numpy rank-1 array, float, int, str
     """
 
     # Checks.
@@ -83,6 +87,22 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
             raise MinfxError("The '%s' num_incs and '%s' lower arguments are of different lengths" % (num_incs, lower))
         if len(num_incs) != len(upper):
             raise MinfxError("The '%s' num_incs and '%s' upper arguments are of different lengths" % (num_incs, upper))
+
+    # Catch models with zero parameters.
+    if num_incs == [] or incs == []:
+        # Print out.
+        if verbosity:
+            print("Cannot run a grid search on a model with zero parameters, directly calculating the function value.")
+
+        # Empty parameter vector.
+        x0 = zeros(0, float64)
+
+        # The function value.
+        fk = func(x0)
+
+        # The results tuple.
+        return x0, fk, 1, "No optimisation"
+
 
     # Initialise.
     if num_incs:
@@ -211,4 +231,4 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
                 params[j] = incs[j][0]
 
     # Return the results.
-    return min_params, f_min, grid_size
+    return min_params, f_min, grid_size, None
