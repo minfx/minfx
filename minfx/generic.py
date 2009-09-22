@@ -287,12 +287,10 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
     if not len(x0):
         # Print out.
         if print_flag:
-            print "Cannot run optimisation on a model with zero parameters."
+            print "Cannot run optimisation on a model with zero parameters, directly calculating the function value."
 
         # The function value.
         fk = func(x0)
-        if print_flag:
-            print "Directly calculating the function value."
 
         # The results tuple.
         results = (x0, fk, 0, 1, 0, 0, "No optimisation")
@@ -302,7 +300,7 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
     #######################################
 
     # Back-and-forth coordinate descent minimisation.
-    if match('^[Cc][Dd]$', min_algor) or match('^[Cc]oordinate[ _-][Dd]escent$', min_algor):
+    elif match('^[Cc][Dd]$', min_algor) or match('^[Cc]oordinate[ _-][Dd]escent$', min_algor):
         results = coordinate_descent(func=func, dfunc=dfunc, args=args, x0=x0, min_options=min_options, func_tol=func_tol, grad_tol=grad_tol, maxiter=maxiter, full_output=full_output, print_flag=print_flag, print_prefix=print_prefix)
 
     # Steepest descent minimisation.
