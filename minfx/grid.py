@@ -183,7 +183,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
             ci = c(params)
             if min(ci) < 0.0:
                 if verbosity >= 3:
-                    print print_prefix + ("k: %-8i xk: [ " + "%10.5g, "*(n-1) + "%10.5g]") % ((k,) + tuple(min_params))
+                    print print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g]") % ((k,) + tuple(min_params))
                     print print_prefix + "Constraint violated, skipping grid point."
                     print print_prefix + "ci: " + `ci`
                     print ""
@@ -201,7 +201,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
 
                 # Print out code.
                 if verbosity:
-                    print print_prefix + ("k: %-8i xk: [ " + "%10.5g, "*(n-1) + "%10.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f_min,))
+                    print print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f_min,))
 
             # Grid count.
             grid_size = grid_size + 1
@@ -209,7 +209,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
             # Print out code.
             if verbosity >= 2:
                 if f != f_min:
-                    print print_prefix + ("k: %-8i xk: [ " + "%10.5g, "*(n-1) + "%10.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f,))
+                    print print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f,))
                 if verbosity >= 3:
                     print print_prefix + "%-20s%-20s" % ("Increment:", `step_num`)
                     print print_prefix + "%-20s%-20s" % ("Params:", `params`)

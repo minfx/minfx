@@ -213,7 +213,7 @@ class Min:
             print ""   # Print a new line.
 
         # Print out format string.
-        print_format = "k: %-8i xk: [ " + "%10.5g, "*(len(self.xk)-1) + "%10.5g] fk: %-20s"
+        print_format = "k: %-8i xk: [ " + "%11.5g, "*(len(self.xk)-1) + "%11.5g] fk: %-20s"
         
 
         # Iterate until the local minima is found.
