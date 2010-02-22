@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2004, 2008-2009 Edward d'Auvergne                       #
+# Copyright (C) 2003, 2004, 2008-2010 Edward d'Auvergne                       #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -232,3 +232,77 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
 
     # Return the results.
     return min_params, f_min, grid_size, None
+
+
+def grid_split(divisions=None, lower=None, upper=None, inc=None):
+    """Generator method yielding arrays of grid points.
+
+    This method will loop over the grid points one-by-one, generating a list of points and yielding these for each subdivision.
+
+
+    @keyword divisions: The number of grid subdivisions.
+    @type divisions:    int
+    @keyword lower:     The lower bounds of the grid search which must be equal to the number of parameters in the model.
+    @type lower:        array of numbers
+    @keyword upper:     The upper bounds of the grid search which must be equal to the number of parameters in the model.
+    @type upper:        array of numbers
+    @keyword inc:       The increments for each dimension of the space for the grid search.  The number of elements in the array must equal to the number of parameters in the model.
+    @type inc:          array of int
+    @return:            A list of grid points for each subdivision is yielded.
+    @rtype:             list of list of float
+    """
+
+    # The dimensionality.
+    n = len(inc)
+
+    # Total number of points.
+    total_pts = 1
+    for i in range(n):
+        total_pts = total_pts * inc[i]
+
+    # The subdivision size (round up so the last subdivision is smaller than the rest).
+    size_float = total_pts / float(divisions)
+    size = int(size_float)
+    if size_float % 1:
+        size = size + 1
+
+    # Init.
+    indices = zeros(n, int)
+    pts = zeros((total_pts, n), float64)
+    bucket = zeros((size, n), float64)
+
+    # The increment values for each dimension.
+    incs = []
+    for k in range(n):
+        incs.append([])
+        for i in range(inc[k]):
+            incs[k].append(lower[k] + i * (upper[k] - lower[k]) / (inc[k] - 1))
+
+    # Construct the list of all grid points.
+    for i in range(total_pts):
+        # Loop over the dimensions.
+        for j in range(n):
+            # Add the point coordinate.
+            pts[i][j] = incs[j][indices[j]]
+
+        # Increment the step positions.
+        for j in range(n):
+            if indices[j] < inc[j]-1:
+                indices[j] += 1
+                break    # Exit so that the other step numbers are not incremented.
+            else:
+                indices[j] = 0
+
+    # Subdivide.
+    for i in range(divisions):
+        # The start index.
+        start = i * size
+
+        # The end index.
+        if i != divisions - 1:
+            end = (i + 1) * size
+        else:
+            end = total_pts
+
+        # Yield the subdivision.
+        yield pts[start: end]
