@@ -20,7 +20,7 @@
 ###############################################################################
 
 # Python module imports.
-from numpy import float64, ones, zeros
+from numpy import array, float64, ones, zeros
 
 # Minfx module imports.
 from constraint_linear import Constraint_linear
@@ -234,7 +234,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
     return min_params, f_min, grid_size, None
 
 
-def grid_split(divisions=None, lower=None, upper=None, inc=None):
+def grid_split(divisions=None, lower=None, upper=None, inc=None, A=None, b=None, l=None, u=None, c=None):
     """Generator method yielding arrays of grid points.
 
     This method will loop over the grid points one-by-one, generating a list of points and yielding these for each subdivision.
@@ -248,6 +248,16 @@ def grid_split(divisions=None, lower=None, upper=None, inc=None):
     @type upper:        array of numbers
     @keyword inc:       The increments for each dimension of the space for the grid search.  The number of elements in the array must equal to the number of parameters in the model.
     @type inc:          array of int
+    @keyword A:         The linear constraint matrix A, such that A.x >= b.
+    @type A:            numpy rank-2 array
+    @keyword b:         The linear constraint scalar vectors, such that A.x >= b.
+    @type b:            numpy rank-1 array
+    @keyword l:         The lower bound constraint vector, such that l <= x <= u.
+    @type l:            list of float
+    @keyword u:         The upper bound constraint vector, such that l <= x <= u.
+    @type u:            list of float
+    @keyword c:         A user supplied constraint function.
+    @type c:            function
     @return:            A list of grid points for each subdivision is yielded.
     @rtype:             list of list of float
     """
@@ -255,21 +265,37 @@ def grid_split(divisions=None, lower=None, upper=None, inc=None):
     # The dimensionality.
     n = len(inc)
 
+    # Linear constraints.
+    if A != None and b != None:
+        constraint_flag = True
+        constraint_linear = Constraint_linear(A, b)
+        c = constraint_linear.func
+        if verbosity >= 3:
+            print print_prefix + "Linear constraint matrices."
+            print print_prefix + "A: " + `A`
+            print print_prefix + "b: " + `b`
+
+    # Bound constraints.
+    elif l != None and u != None:
+        constraint_flag = True
+        raise MinfxError("Bound constraints are not implemented yet.")
+
+    # General constraints.
+    elif c != None:
+        constraint_flag = True
+
+    # No constraints.
+    else:
+        constraint_flag = False
+
     # Total number of points.
     total_pts = 1
     for i in range(n):
         total_pts = total_pts * inc[i]
 
-    # The subdivision size (round up so the last subdivision is smaller than the rest).
-    size_float = total_pts / float(divisions)
-    size = int(size_float)
-    if size_float % 1:
-        size = size + 1
-
     # Init.
     indices = zeros(n, int)
     pts = zeros((total_pts, n), float64)
-    bucket = zeros((size, n), float64)
 
     # The increment values for each dimension.
     incs = []
@@ -292,6 +318,31 @@ def grid_split(divisions=None, lower=None, upper=None, inc=None):
                 break    # Exit so that the other step numbers are not incremented.
             else:
                 indices[j] = 0
+
+    # Eliminate points outside of constraints.
+    if constraint_flag:
+        # Loop over all points.
+        pts_trimmed = []
+        for i in range(total_pts):
+            # The constraint values.
+            ci = c(pts[i])
+
+            # No constraint violations, so store the point.
+            if min(ci) >= 0.0:
+                pts_trimmed.append(pts[i])
+
+    # No point elimination.
+    else:
+        pts_trimmed = pts
+
+    # Convert to numpy.
+    pts_trimmed = array(pts_trimmed)
+
+    # The subdivision size (round up so the last subdivision is smaller than the rest).
+    size_float = len(pts_trimmed) / float(divisions)
+    size = int(size_float)
+    if size_float % 1:
+        size = size + 1
 
     # Subdivide.
     for i in range(divisions):
