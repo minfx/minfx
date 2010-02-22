@@ -234,6 +234,68 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
     return min_params, f_min, grid_size, None
 
 
+def grid_point_array(func, args=(), points=None, verbosity=0, print_prefix=""):
+    """The grid search algorithm.
+
+    @param func:            The target function.  This should take the parameter vector as the first argument and return a single float.
+    @type func:             function
+    @keyword args:          A tuple of arguments to pass to the function, if needed.
+    @type args:             tuple
+    @keyword points:        The array of grid points to search over.
+    @type points:           list or array of lists of float
+    @keyword verbosity:     The verbosity level.  0 corresponds to no output, 1 is standard, and higher values cause greater and greater amount of output.
+    @type verbosity:        int
+    @keyword print_prefix:  The text to place before the printed output.
+    @type print_prefix:     str
+    @return:                The optimisation information including the parameter vector at the best grid point, the function value at this grid point, the number of iterations (equal to the number of function calls), and a warning.
+    @rtype:                 tuple of numpy rank-1 array, float, int, str
+    """
+
+    # Initialise.
+    total_steps = len(points)
+    n = len(points[0])
+
+    # Set a ridiculously large initial function value.
+    f_min = 1e300
+
+    # Initial print out.
+    if verbosity:
+        print("\n" + print_prefix + "Searching through %s grid nodes." % total_steps)
+
+    # Test if the grid is too large.
+    if total_steps >= 1e8:
+        raise MinfxError("A grid search of size %s is too large." % total_steps)
+
+    # Search the grid.
+    for k in range(total_steps):
+        # Back calculate the current function value.
+        f = func(*(points[k],)+args)
+
+        # A better point.
+        if f < f_min:
+            # Switch to the new point.
+            f_min = f
+            min_params = 1.0 * points[k]
+
+            # Print out code.
+            if verbosity:
+                print(print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f_min,)))
+
+        # Print out code.
+        if verbosity >= 2:
+            if f != f_min:
+                print(print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f,)))
+            if verbosity >= 3:
+                print(print_prefix + "%-20s%-20s" % ("Increment:", `step_num`))
+                print(print_prefix + "%-20s%-20s" % ("Params:", `points[k]`))
+                print(print_prefix + "%-20s%-20s" % ("Min params:", `min_params`))
+                print(print_prefix + "%-20s%-20g\n" % ("f:", f))
+                print(print_prefix + "%-20s%-20g\n" % ("Min f:", f_min))
+
+    # Return the results.
+    return min_params, f_min, total_steps, None
+
+
 def grid_split(divisions=None, lower=None, upper=None, inc=None, A=None, b=None, l=None, u=None, c=None):
     """Generator method yielding arrays of grid points.
 
