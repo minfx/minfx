@@ -400,14 +400,17 @@ def grid_split(divisions=None, lower=None, upper=None, inc=None, A=None, b=None,
     # Convert to numpy.
     pts_trimmed = array(pts_trimmed)
 
+    # The total number of points has changed.
+    total_pts = len(pts_trimmed)
+
     # The subdivision size (round up so the last subdivision is smaller than the rest).
-    size_float = len(pts_trimmed) / float(divisions)
+    size_float = total_pts / float(divisions)
     size = int(size_float)
     if size_float % 1:
         size = size + 1
 
     # Subdivide.
-    for i in range(divisions):
+    for i in range(min(divisions, total_pts)):
         # The start index.
         start = i * size
 
