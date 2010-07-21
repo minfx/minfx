@@ -286,7 +286,6 @@ def grid_point_array(func, args=(), points=None, verbosity=0, print_prefix=""):
             if f != f_min:
                 print(print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f,)))
             if verbosity >= 3:
-                print(print_prefix + "%-20s%-20s" % ("Increment:", `step_num`))
                 print(print_prefix + "%-20s%-20s" % ("Params:", `points[k]`))
                 print(print_prefix + "%-20s%-20s" % ("Min params:", `min_params`))
                 print(print_prefix + "%-20s%-20g\n" % ("f:", f))
