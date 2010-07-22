@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2005, 2008-2009 Edward d'Auvergne                        #
+# Copyright (C) 2003-2005, 2008-2010 Edward d'Auvergne                        #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -41,14 +41,15 @@ from simplex import simplex
 from steepest_descent import steepest_descent
 from steihaug_cg import steihaug
 
+# Scipy module imports.
+from scipy_subset.anneal import anneal
+
+
 
 def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_algor=None, min_options=None, func_tol=1e-25, grad_tol=None, maxiter=1e6, A=None, b=None, l=None, u=None, c=None, dc=None, d2c=None, full_output=0, print_flag=0, print_prefix=""):
     """Generic minimisation function.
 
-    This is a generic function which can be used to access all minimisers using the same set of
-    function arguments.  These are the function tolerance value for convergence tests, the maximum
-    number of iterations, a flag specifying which data structures should be returned, and a flag
-    specifying the amount of detail to print to screen.
+    This is a generic function which can be used to access all minimisers using the same set of function arguments.  These are the function tolerance value for convergence tests, the maximum number of iterations, a flag specifying which data structures should be returned, and a flag specifying the amount of detail to print to screen.
 
 
     Keyword Arguments
@@ -68,8 +69,7 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
 
     min_options:  A tuple to pass to the minimisation function as the min_options keyword.
 
-    func_tol:  The function tolerance value.  Once the function value between iterations decreases
-    below this value, minimisation is terminated.
+    func_tol:  The function tolerance value.  Once the function value between iterations decreases below this value, minimisation is terminated.
 
     grad_tol:  The gradient tolerance value.
 
@@ -91,9 +91,7 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
 
     full_output:  A flag specifying which data structures should be returned.
 
-    print_flag:  A flag specifying how much information should be printed to standard output during
-    minimisation.  0 means no output, 1 means minimal output, and values above 1 increase the amount
-    of output printed.
+    print_flag:  A flag specifying how much information should be printed to standard output during minimisation.  0 means no output, 1 means minimal output, and values above 1 increase the amount of output printed. 
 
 
     Minimisation output
@@ -118,25 +116,17 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
     Minimisation algorithms
     ~~~~~~~~~~~~~~~~~~~~~~~
 
-    A minimisation function is selected if the minimisation algorithm argument, which should be a
-    string, matches a certain pattern.  Because the python regular expression 'match' statement is
-    used, various strings can be supplied to select the same minimisation algorithm.  Below is a
-    list of the minimisation algorithms available together with the corresponding patterns.
+    A minimisation function is selected if the minimisation algorithm argument, which should be a string, matches a certain pattern.  Because the python regular expression 'match' statement is used, various strings can be supplied to select the same minimisation algorithm.  Below is a list of the minimisation algorithms available together with the corresponding patterns.
 
-    This is a short description of python regular expression, for more information, see the
-    regular expression syntax section of the Python Library Reference.  Some of the regular
-    expression syntax used in this function is:
+    This is a short description of python regular expression, for more information, see the regular expression syntax section of the Python Library Reference.  Some of the regular expression syntax used in this function is:
 
-        '[]':  A sequence or set of characters to match to a single character.  For example,
-        '[Nn]ewton' will match both 'Newton' and 'newton'.
+        '[]':  A sequence or set of characters to match to a single character.  For example, '[Nn]ewton' will match both 'Newton' and 'newton'.
 
         '^':  Match the start of the string.
 
-        '$':  Match the end of the string.  For example, '^[Ll][Mm]$' will match 'lm' and 'LM' but
-        will not match if characters are placed either before or after these strings.
+        '$':  Match the end of the string.  For example, '^[Ll][Mm]$' will match 'lm' and 'LM' but will not match if characters are placed either before or after these strings.
 
-    To select a minimisation algorithm, set the argument to a string which matches the given
-    pattern.
+    To select a minimisation algorithm, set the argument to a string which matches the given pattern.
 
 
     Unconstrained line search methods:
@@ -208,6 +198,16 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
     |___________________________________|_____________________________________________________|
     |                                   |                                                     |
     | Method of Multipliers             | '^[Mm][Oo][Mm]$' or '[Mm]ethod of [Mm]ultipliers$'  |
+    |___________________________________|_____________________________________________________|
+
+
+    Global minimisation methods:
+    ___________________________________________________________________________________________
+    |                                   |                                                     |
+    | Minimisation algorithm            | Patterns                                            |
+    |___________________________________|_____________________________________________________|
+    |                                   |                                                     |
+    | Simulated Annealing               | '^[Ss][Aa]$' or '^[Ss]imulated [Aa]nnealing$'       |
     |___________________________________|_____________________________________________________|
 
 
@@ -383,6 +383,34 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
     # Method of Multipliers.
     elif match('^[Mm][Oo][Mm]$', min_algor) or match('[Mm]ethod of [Mm]ultipliers$', min_algor):
         results = method_of_multipliers(func=func, dfunc=dfunc, d2func=d2func, args=args, x0=x0, min_options=min_options, A=A, b=b, l=l, u=u, c=c, dc=dc, d2c=d2c, func_tol=func_tol, grad_tol=grad_tol, maxiter=maxiter, full_output=full_output, print_flag=print_flag)
+
+
+    # Global optimisation algorithms.
+    #################################
+
+    # Simulated annealing.
+    elif match('^[Ss][Aa]$', min_algor) or match('^[Ss]imulated [Aa]nnealing$', min_algor):
+        output = anneal(func=func, x0=x0, args=args, full_output=full_output, T0=1, maxiter=maxiter)
+
+        # The warning.
+        warning = None
+        if output[1] == 2:
+            warning = "Maximum number of iterations reached"
+        elif output[1] == 3:
+            warning = "Maximum cooling iterations reached"
+        elif output[1] == 4:
+            warning = "Maximum accepted query locations reached"
+
+        # Rearrange the results.
+        results = [
+                output[0],  # Parameter vector.
+                output[2],  # Function value.
+                output[5],  # Number of cooling iterations.
+                output[4],  # Number of function evaluations.
+                0,
+                0,
+                warning
+        ]
 
 
     # No match to minimiser string.
