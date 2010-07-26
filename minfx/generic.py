@@ -42,7 +42,12 @@ from steepest_descent import steepest_descent
 from steihaug_cg import steihaug
 
 # Scipy module imports.
-from scipy_subset.anneal import anneal
+try:
+    from scipy_subset.anneal import anneal
+except ImportError:
+    SA_flag = False
+else:
+    SA_flag = True
 
 
 
@@ -390,6 +395,10 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
 
     # Simulated annealing.
     elif match('^[Ss][Aa]$', min_algor) or match('^[Ss]imulated [Aa]nnealing$', min_algor):
+        # No Scipy installed.
+        if not SA_flag:
+            raise NameError, "Simulated annealing is not available as the scipy Python package has not been installed."
+
         output = anneal(func=func, x0=x0, args=args, full_output=full_output, T0=1, maxiter=maxiter)
 
         # The warning.
