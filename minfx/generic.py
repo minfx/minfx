@@ -399,23 +399,23 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
         if not SA_flag:
             raise NameError, "Simulated annealing is not available as the scipy Python package has not been installed."
 
-        output = anneal(func=func, x0=x0, args=args, full_output=full_output, T0=1, maxiter=maxiter)
+        output = anneal(func=func, x0=x0, args=args, schedule='boltzmann', full_output=full_output, maxiter=maxiter, lower=l, upper=u)
 
         # The warning.
         warning = None
-        if output[1] == 2:
+        if output[6] == 2:
             warning = "Maximum number of iterations reached"
-        elif output[1] == 3:
+        elif output[6] == 3:
             warning = "Maximum cooling iterations reached"
-        elif output[1] == 4:
+        elif output[6] == 4:
             warning = "Maximum accepted query locations reached"
 
         # Rearrange the results.
         results = [
                 output[0],  # Parameter vector.
-                output[2],  # Function value.
-                output[5],  # Number of cooling iterations.
-                output[4],  # Number of function evaluations.
+                output[1],  # Function value.
+                output[4],  # Number of cooling iterations.
+                output[3],  # Number of function evaluations.
                 0,
                 0,
                 warning
