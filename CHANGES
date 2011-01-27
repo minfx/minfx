@@ -1,3 +1,32 @@
+Version 1.0.3
+(27 August 2011, from /trunk)
+http://svn.gna.org/svn/minfx/tags/1.0.3
+
+    Features:
+        * Addition of the scipy anneal.py module for an initial and temporary implementation of simulated annealing.
+        * The grid search accepts an arbitrary list of points to allow a completely non-linear search.
+        * Addition of a minfx specific error system.
+
+    Changes:
+        * Added support for constraints into grid_split(), points which violate the constraints are now eliminated prior to the grid subdivision.
+        * Added the grid_split() generator function.  This takes a linear grid, converts it to a linear array of points, and then splits these returning each grid subdivision.
+        * The optimisation output is more consistent, the numpy array has been even better formatted.
+        * Modified the grid search to return a warning and to handle models with zero parameters.
+        * The output of generic_minimise() has been cleaned up - the numpy parameter is printed as a list.
+        * The optimisation output has been prettified - the numpy array has been better formatted.
+        * Modified the grid search print out to be prettier.
+        * Redesigned the grid search function.  The grid_ops arg has been replaced by the more intuitive num_incs, lower and upper args from the number of increments, lower bound, and upper bound value lists respectively.  The new incs argument has been added to allow custom non-linear grid searches.  The new MinfxError system is now being used, and many arguments are being checked.  The docstring has been converted to epydoc format.
+        * A MinfxError is now raised if the supplied minimisation algorithm cannot be identified.
+        * Removed the grid search option from the generic_minimise() function.  The minimisation options are too messy and inflexible.  The grid search should be preformed by direct calls to grid.grid().
+        * Modified the grid search print out to indicated the number of grid points used.
+
+    Bugfixes:
+        * Print out fix for the grid search when the verbosity level was set great than 2.
+        * Fix for grid_split() for when the number of divisions is more than the total number of points.
+        * Bug fix for the catching of models with zero parameters.
+
+
+
 Version 1.0.2
 (30 August 2009, from /trunk)
 http://svn.gna.org/svn/minfx/tags/1.0.2
