@@ -1,8 +1,8 @@
 * Make a copy of the current head to the tags directory using a command such as:
 
-$ svn cp svn+ssh://bugman@svn.gna.org/svn/minfx/trunk svn+ssh://bugman@svn.gna.org/svn/minfx/tags/1.0.1
+$ svn cp -F svn_msg svn+ssh://bugman@svn.gna.org/svn/minfx/trunk svn+ssh://bugman@svn.gna.org/svn/minfx/tags/1.0.1
 
-In the commit message, have a header line which says 'minfx version 1.0.1.', followed by a short description of the release.
+In the commit message file 'svn_msg', have a header line which says 'minfx version 1.0.1.', followed by a short description of the release.
 
 
 
