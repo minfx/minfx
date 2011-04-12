@@ -119,13 +119,23 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
     # The incs data structure eliminates the round-off error of summing a step size value to the parameter value.
     if num_incs:
         incs = []
+
+        # Loop over the dimensions.
         for k in xrange(n):
             params[k] = lower[k]
             min_params[k] = lower[k]
             total_steps = total_steps * num_incs[k]
             incs.append([])
+
+            # Loop over the increments of dimension k.
             for i in xrange(num_incs[k]):
-                incs[k].append(lower[k] + i * (upper[k] - lower[k]) / (num_incs[k] - 1))
+                # Single grid search increment in dimension k, so use the average of the lower and upper.
+                if num_incs[k] == 1:
+                    incs[k].append((lower[k] + upper[k]) / 2.0)
+
+                # More than 1 increment.
+                else:
+                    incs[k].append(lower[k] + i * (upper[k] - lower[k]) / (num_incs[k] - 1))
 
     # User supplied grid search.
     else:
