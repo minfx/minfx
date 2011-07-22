@@ -210,7 +210,7 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
 
         # Iterative loop.
         return
-        while 1:
+        while True:
             # Safeguard lambda.
             if self.print_flag >= 2:
                 print self.print_prefix + "\n< Iteration " + `iter` + " >"

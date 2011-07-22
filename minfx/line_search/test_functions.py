@@ -32,7 +32,7 @@ from more_thuente import more_thuente
 def run():
     print "\n\n\n\n\n\n\n\n\n\n\n\n\t\t<<< Test Functions >>>\n\n\n"
     print "\nSelect the function to test:"
-    while 1:
+    while True:
         input = raw_input('> ')
         valid_functions = ['1', '2', '3', '4', '5', '6']
         if input in valid_functions:
@@ -42,7 +42,7 @@ def run():
             print "Choose a function number between 1 and 6."
 
     print "\nSelect a0:"
-    while 1:
+    while True:
         input = raw_input('> ')
         valid_vals = ['1e-3', '1e-1', '1e1', '1e3']
         if input in valid_vals:

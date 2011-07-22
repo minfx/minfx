@@ -382,7 +382,7 @@ class Method_of_multipliers(Min):
             sub_print_flag = sub_print_flag - 1
 
         # Iterate until the local minima is found.
-        while 1:
+        while True:
             # Print out.
             if self.print_flag:
                 print "\n%-3s%-8i%-4s%-65s%-4s%-20s" % ("k:", self.k, "xk:", `self.xk`, "fk:", `self.fk`)

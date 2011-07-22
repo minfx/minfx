@@ -89,7 +89,7 @@ def nocedal_wright_wolfe(func, func_prime, args, x, f, g, p, a_init=1.0, max_a=1
         print_data("Pre (a0)", i-1, a0)
         print_data("Pre (a_max)", i-1, a_max)
 
-    while 1:
+    while True:
         if print_flag:
             print "<Line search iteration i = " + `i` + " >"
             print_data("Initial (a)", i, a)
@@ -169,7 +169,7 @@ def zoom(func, func_prime, args, f_count, g_count, x, f, g, p, mu, eta, i, a0, a
     j = 0
     aj_last = deepcopy(a_lo)
 
-    while 1:
+    while True:
         if print_flag:
             print "\n<Zooming iterate j = " + `j` + " >"
 

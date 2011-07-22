@@ -148,7 +148,7 @@ class Min:
         self.hessian_mod = None
 
         # Test if the options are a tuple.
-        if type(min_options) != tuple:
+        if not isinstance(min_options, tuple):
             print self.print_prefix + "The minimisation options " + `min_options` + " is not a tuple."
             self.init_failure = 1
             return
@@ -217,7 +217,7 @@ class Min:
         
 
         # Iterate until the local minima is found.
-        while 1:
+        while True:
             # Print out.
             if self.print_flag:
                 out = 0
@@ -236,14 +236,14 @@ class Min:
             try:
                 self.new_param_func()
             except LinAlgError, message:
-                if type(message.args[0]) == int:
+                if isinstance(message.args[0], int):
                     text = message.args[1]
                 else:
                     text = message.args[0]
                 self.warning = "LinAlgError: " + text + " (fatal minimisation error)."
                 break
             except OverflowError, message:
-                if type(message.args[0]) == int:
+                if isinstance(message.args[0], int):
                     text = message.args[1]
                 else:
                     text = message.args[0]
@@ -270,14 +270,14 @@ class Min:
             try:
                 self.update()
             except OverflowError, message:
-                if type(message.args[0]) == int:
+                if isinstance(message.args[0], int):
                     text = message.args[1]
                 else:
                     text = message.args[0]
                 self.warning = "OverflowError: " + text + " (fatal minimisation error)."
                 break
             except NameError, message:
-                if type(message.args[0]) == int:
+                if isinstance(message.args[0], int):
                     self.warning = message.args[1]
                 else:
                     self.warning = message.args[0]
@@ -354,7 +354,7 @@ class Line_search:
         self.line_search_algor = None
 
         # Test if the options are a tuple.
-        if type(min_options) != tuple:
+        if not isinstance(min_options, tuple):
             print self.print_prefix + "The minimisation options " + `min_options` + " is not a tuple."
             self.init_failure = 1
             return

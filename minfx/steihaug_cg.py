@@ -131,7 +131,7 @@ class Steihaug(Min, Trust_region, Newton):
 
         # Iterate over j.
         j = 0
-        while 1:
+        while True:
             # The curvature.
             curv = dot(self.dj, dot(self.B, self.dj))
             if self.print_flag >= 2:

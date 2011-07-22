@@ -82,7 +82,7 @@ class Newton(Hessian_mods, Line_search, Min):
         self.hessian_mod = None
 
         # Test if the options are a tuple.
-        if type(min_options) != tuple:
+        if not isinstance(min_options, tuple):
             print self.print_prefix + "The minimisation options " + `min_options` + " is not a tuple."
             self.init_failure = 1; return
 

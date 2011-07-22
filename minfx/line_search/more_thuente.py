@@ -79,7 +79,7 @@ def more_thuente(func, func_prime, args, x, f, g, p, a_init=1.0, a_min=1e-25, a_
     if not a_min:
         a_min = 0.0
     if not a_max:
-        a_max = 4.0*max(1.0,a_init)
+        a_max = 4.0*max(1.0, a_init)
     Ik_lim = [0.0, 5.0*a_init]
     width = a_max - a_min
     width2 = 2.0*width
@@ -117,7 +117,7 @@ def more_thuente(func, func_prime, args, x, f, g, p, a_init=1.0, a_min=1e-25, a_
     if a['a'] > a_max:
         raise NameError, "Alpha is greater than alpha_max, " + `a['a']` + " > " + `a_max`
 
-    while 1:
+    while True:
         if print_flag:
             print "\n<Line search iteration k = " + `k+1` + " >"
             print "Bracketed: " + `bracketed`

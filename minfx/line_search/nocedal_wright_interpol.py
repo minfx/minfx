@@ -91,7 +91,7 @@ def nocedal_wright_interpol(func, args, x, f, g, p, a_init=1.0, mu=0.001, print_
     if a['phi'] <= a0['phi'] + mu * a['a'] * a0['phi_prime']:
         return a['a'], f_count
 
-    while 1:
+    while True:
         if print_flag:
             print "<Line search iteration i = " + `i` + " >"
             print_data("Initial (a)", i, a)

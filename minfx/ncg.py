@@ -128,7 +128,7 @@ class Ncg(Line_search, Min):
             print self.print_prefix + "\tp0: " + `pi`
 
         i = 0
-        while 1:
+        while True:
             # Matrix product and curvature.
             Api = dot(self.d2fk, pi)
             curv = dot(pi, Api)

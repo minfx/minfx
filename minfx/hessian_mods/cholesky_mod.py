@@ -55,7 +55,7 @@ def cholesky_mod(dfk, d2fk, I, n, print_prefix, print_flag, return_matrix=0):
         print print_prefix + "tk: " + `tk`
 
     # Loop until the matrix is positive definite.
-    while 1:
+    while True:
         if print_flag >= 3:
             print print_prefix + "Iteration"
 
