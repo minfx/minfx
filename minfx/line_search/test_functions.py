@@ -267,4 +267,5 @@ def dfunc456(alpha, beta1, beta2):
     return temp
 
 
-run()
+if __name__ == '__main__':
+    run()
