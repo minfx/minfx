@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -29,17 +29,15 @@ from base_classes import Line_search, Min
 def ncg(func=None, dfunc=None, d2func=None, args=(), x0=None, min_options=None, func_tol=1e-25, grad_tol=None, maxiter=1e6, a0=1.0, mu=0.0001, eta=0.9, full_output=0, print_flag=0, print_prefix=""):
     """Line search Newton conjugate gradient algorithm.
 
-    Page 140 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.
+    Page 140 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.  The algorithm is:
 
-    The algorithm is:
-
-    Given initial point x0.
-    while 1:
-        Compute a search direction pk by applying the CG method to Hk.pk = -gk, starting from
-            x0 = 0.  Terminate when ||rk|| <= min(0.5,sqrt(||gk||)), or if negative curvature is
-            encountered.
-        Set xk+1 = xk + ak.pk, where ak satisfies the Wolfe, Goldstein, or Armijo backtracking
-            conditions.
+        Given initial point x0.
+        while 1:
+            Compute a search direction pk by applying the CG method to Hk.pk = -gk, starting from
+                x0 = 0.  Terminate when ||rk|| <= min(0.5,sqrt(||gk||)), or if negative curvature is
+                encountered.
+            Set xk+1 = xk + ak.pk, where ak satisfies the Wolfe, Goldstein, or Armijo backtracking
+                conditions.
     """
 
     if print_flag:
@@ -60,8 +58,7 @@ class Ncg(Line_search, Min):
     def __init__(self, func, dfunc, d2func, args, x0, min_options, func_tol, grad_tol, maxiter, a0, mu, eta, full_output, print_flag, print_prefix):
         """Class for newton conjugate gradient  minimisation specific functions.
 
-        Unless you know what you are doing, you should call the function 'ncg' rather than using
-        this class.
+        Unless you know what you are doing, you should call the function 'ncg' rather than using this class.
         """
 
         # Function arguments.

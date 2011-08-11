@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -37,12 +37,11 @@ secant = quadratic_gagb
 def more_thuente(func, func_prime, args, x, f, g, p, a_init=1.0, a_min=1e-25, a_max=None, a_tol=1e-10, phi_min=-1e3, mu=0.001, eta=0.1, print_flag=0):
     """A line search algorithm from More and Thuente.
 
-    More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient
-    decrease. ACM Trans. Math. Softw. 20, 286-307.
+    More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient decrease. ACM Trans. Math. Softw. 20, 286-307.
 
 
     Internal variables
-    ~~~~~~~~~~~~~~~~~~
+    ==================
 
     a0, the null sequence data structure containing the following keys:
         'a'        - 0
@@ -59,10 +58,14 @@ def more_thuente(func, func_prime, args, x, f, g, p, a_init=1.0, a_min=1e-25, a_
         'phi'        - The interval [phi(al), phi(au)]
         'phi_prime'    - The interval [phi'(al), phi'(au)]
 
-    Instead of using the modified function:
+    Instead of using the modified function::
+
         psi(a) = phi(a) - phi(0) - a.phi'(0),
-    the function:
+
+    the function::
+
         psi(a) = phi(a) - a.phi'(0),
+
     was used as the phi(0) component has no effect on the results.
     """
 
@@ -284,24 +287,23 @@ def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66,
     """Trial value selection and interval updating.
 
     Trial value selection
-    ~~~~~~~~~~~~~~~~~~~~~
+    =====================
 
-    fl, fu, ft, gl, gu, and gt are the function and gradient values at the interval end points al
-        and au, and at the trial point at.
+    fl, fu, ft, gl, gu, and gt are the function and gradient values at the interval end points al and au, and at the trial point at.
     ac is the minimiser of the cubic that interpolates fl, ft, gl, and gt.
     aq is the minimiser of the quadratic that interpolates fl, ft, and gl.
     as is the minimiser of the quadratic that interpolates fl, gl, and gt.
 
     The trial value selection is divided into four cases.
 
-    Case 1: ft > fl.  In this case compute ac and aq, and set
+    Case 1: ft > fl.  In this case compute ac and aq, and set::
 
                / ac,            if |ac - al| < |aq - al|,
         at+ = <
                \ 1/2(aq + ac),  otherwise.
 
 
-    Case 2: ft <= fl and gt.gl < 0.  In this case compute ac and as, and set
+    Case 2: ft <= fl and gt.gl < 0.  In this case compute ac and as, and set::
 
                / ac,            if |ac - at| >= |as - at|,
         at+ = <
@@ -310,10 +312,10 @@ def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66,
 
     Case 3: ft <= fl and gt.gl >= 0, and |gt| <= |gl|.  In this case at+ is chosen by extrapolating
     the function values at al and at, so the trial value at+ lies outside th interval with at and al
-    as endpoints.  Compute ac and as.
+    as endpoints.  Compute ac and as:
 
         If the cubic tends to infinity in the direction of the step and the minimum of the cubic is
-        beyound at, set
+        beyound at, set::
 
                    / ac,            if |ac - at| < |as - at|,
             at+ = <
@@ -322,7 +324,7 @@ def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66,
         Otherwise set at+ = as.
 
 
-        Redefine at+ by setting
+        Redefine at+ by setting::
 
                    / min{at + d(au - at), at+},        if at > al.
             at+ = <
@@ -336,10 +338,11 @@ def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66,
 
 
     Interval updating
-    ~~~~~~~~~~~~~~~~~
+    =================
 
     Given a trial value at in I, the endpoints al+ and au+ of the updated interval I+ are determined
     as follows:
+
         Case U1: If f(at) > f(al), then al+ = al and au+ = at.
         Case U2: If f(at) <= f(al) and f'(at)(al - at) > 0, then al+ = at and au+ = au.
         Case U3: If f(at) <= f(al) and f'(at)(al - at) < 0, then al+ = at and au+ = al.

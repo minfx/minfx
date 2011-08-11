@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -27,39 +27,33 @@ from numpy.linalg import solve
 from base_classes import Min
 
 
-def levenberg_marquardt(chi2_func=None, dchi2_func=None, dfunc=None, errors=None, args=(), x0=None, func_tol=1e-25, grad_tol=None, maxiter=1e6, full_output=0, print_flag=0, print_prefix=""):
-    """Levenberg-Marquardt minimimisation.
+def levenberg_marquardt(chi2_func=None, dchi2_func=None, dfunc=None, errors=None, args=(), x0=None, func_tol=1e-25, grad_tol=None, maxiter=1e6, print_flag=0, print_prefix="", full_output=False):
+    """Levenberg-Marquardt minimisation.
 
-    Function options
-    ~~~~~~~~~~~~~~~~
-
-    chi2_func:  User supplied chi-squared function which is run with the function parameters and
-    args as options.
-
-    dchi2_func:  User supplied chi-squared gradient function which is run with the function
-    parameters and args as options.
-
-    dfunc:  User supplied function which should return a vector of partial derivatives of the
-    function which back calculates values for the chi-squared function.
-
-    params:  The initial function parameter values.
-
-    errors:  The experimental errors.
-
-    args:  A tuple containing the arguments to send to chi2_func and dchi2_func.
-
-    maxiter:  The maximum number of iterations.
-
-    full_output:  A flag specifying what should be returned.
-
-
-    Output
-    ~~~~~~
-
-    If full_output = 0, the parameter values and chi-squared value are returned as a tuple.
-
-    If full_output = 1, the parameter values, chi-squared value, number of iterations, and the
-    warning flag are returned as a tuple.
+    @keyword chi2_func:     User supplied chi-squared function which is run with the function parameters and args as options.
+    @keyword chi2_func:     func
+    @keyword dchi2_func:    User supplied chi-squared gradient function which is run with the function parameters and args as options.
+    @keyword dchi2_func:    func
+    @keyword dfunc:         User supplied function which should return a vector of partial derivatives of the function which back calculates values for the chi-squared function.
+    @keyword dfunc:         func
+    @keyword errors:        The experimental errors.
+    @keyword errors:        numpy rank-1 array
+    @keyword args:          A tuple containing the arguments to send to chi2_func and dchi2_func.
+    @keyword args:          tuple
+    @keyword x0:            The initial function parameter values.
+    @keyword x0:            numpy rank-1 array
+    @keyword func_tol:      The function tolerance value.  Once the function value between iterations decreases below this value, minimisation is terminated.
+    @type func_tol:         float
+    @keyword grad_tol:      The gradient tolerance value.
+    @type grad_tol:         float
+    @keyword maxiter:       The maximum number of iterations.
+    @keyword maxiter:       int
+    @keyword print_flag:    A flag specifying how much information should be printed to standard output during minimisation.  0 means no output, 1 means minimal output, and values above 1 increase the amount of output printed. 
+    @type print_flag:       int
+    @keyword print_prefix:  The text to add out to the front of all print outs.
+    @type print_prefix:     str
+    @keyword full_output:   A flag specifying what should be returned.  If full_output is False, the parameter values and chi-squared value are returned as a tuple.  If full_output is True, the parameter values, chi-squared value, number of iterations, and the warning flag are returned as a tuple.
+    @keyword full_output:   bool
     """
 
     if print_flag:
@@ -77,8 +71,7 @@ class Levenberg_marquardt(Min):
     def __init__(self, chi2_func, dchi2_func, dfunc, errors, args, x0, func_tol, grad_tol, maxiter, full_output, print_flag, print_prefix):
         """Class for Levenberg-Marquardt minimisation specific functions.
 
-        Unless you know what you are doing, you should call the function
-        'levenberg_marquardt' rather than using this class.
+        Unless you know what you are doing, you should call the function 'levenberg_marquardt' rather than using this class.
         """
 
         # Function arguments.
@@ -124,7 +117,7 @@ class Levenberg_marquardt(Min):
     def create_lm_matrix(self):
         """Function to create the Levenberg-Marquardt matrix.
 
-        The matrix is:
+        The matrix is::
 
                            _n_
                            \   /     1        d y(xi)   d y(xi)                \ 
@@ -132,7 +125,7 @@ class Levenberg_marquardt(Min):
                            /__ \ sigma_i**2     dj        dk                   /
                            i=1
 
-        where j == k is one of the function parameters.
+        where j == k is one of the function parameters, and::
 
                            _n_
                            \   /     1        d y(xi)   d y(xi) \ 
@@ -205,8 +198,7 @@ class Levenberg_marquardt(Min):
     def test_mod(self, fk_new, fk, dfk_new):
         """Modified convergence test.
 
-        This is needed to prevent the Levenberg-Marquardt minimiser from terminating if there is no
-        movement during an iteration due to an uphill step being encountered.
+        This is needed to prevent the Levenberg-Marquardt minimiser from terminating if there is no movement during an iteration due to an uphill step being encountered.
         """
 
         if self.move_flag:

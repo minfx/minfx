@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -29,16 +29,18 @@ from base_classes import Min, Trust_region
 def cauchy_point(func=None, dfunc=None, d2func=None, args=(), x0=None, func_tol=1e-25, grad_tol=None, maxiter=1e6, delta_max=1e5, delta0=1.0, eta=0.2, full_output=0, print_flag=0, print_prefix=""):
     """Cauchy Point trust region algorithm.
 
-    Page 69 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.
-    The Cauchy point is defined by:
+    Page 69 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.  The Cauchy point is defined by::
 
                          delta
         pCk  =  - tau_k ------- dfk
                         ||dfk||
 
     where:
+
         delta_k is the trust region radius,
         dfk is the gradient vector,
+
+    and::
 
                  / 1                        if dfk . Bk . dfk <= 0
         tau_k = <
@@ -60,8 +62,7 @@ class Cauchy_point(Trust_region, Min):
     def __init__(self, func, dfunc, d2func, args, x0, func_tol, grad_tol, maxiter, delta_max, delta0, eta, full_output, print_flag, print_prefix):
         """Class for Cauchy Point trust region minimisation specific functions.
 
-        Unless you know what you are doing, you should call the function 'cauchy_point' rather than
-        using this class.
+        Unless you know what you are doing, you should call the function 'cauchy_point' rather than using this class.
         """
 
         # Function arguments.

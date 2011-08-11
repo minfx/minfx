@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -27,35 +27,41 @@ def cubic_int(a, b, fa, fb, ga, gb):
     """Cubic interpolation using f(a), f(b), g(a), and g(b).
 
     Equations
-    ~~~~~~~~~
+    =========
 
-    f(a) = a'a**3 + b'a**2 + c'a + d'
-    f(b) = a'b**3 + b'b**2 + c'b + d'
-    g(a) = 3a'a**2 + 2b'a + c'
-    g(b) = 3a'b**2 + 2b'b + c'
+    The equations used are::
+
+        f(a) = a'a**3 + b'a**2 + c'a + d'
+        f(b) = a'b**3 + b'b**2 + c'b + d'
+        g(a) = 3a'a**2 + 2b'a + c'
+        g(b) = 3a'b**2 + 2b'b + c'
 
 
     Interpolation
-    ~~~~~~~~~~~~~
+    =============
 
-    The extrema are the roots of the quadratic equation:
+    The extrema are the roots of the quadratic equation::
 
         3a'*alpha**2 + 2b'*alpha + c' = 0
 
-    The cubic interpolant is given by the formula:
+    The cubic interpolant is given by the formula::
 
                            g(b) + beta2 - beta1
         ac = b - (b - a) . ---------------------
                            g(b) - g(a) + 2*beta2
 
-    where:
+    where::
+
                                   f(a) - f(b)
         beta1 = g(a) + g(b) - 3 . -----------
                                      a - b
 
         if a < b:
+
             beta2 = sqrt(beta1**2 - g(a).g(b))
+
         else:
+
             beta2 = -sqrt(beta1**2 - g(a).g(b))
     """
 
@@ -77,27 +83,30 @@ def cubic_ext(a, b, fa, fb, ga, gb, full_output=0):
     """Cubic Extrapolation using f(a), f(b), g(a), and g(b).
 
     Extrapolation
-    ~~~~~~~~~~~~~
+    =============
 
-    The extrema are the roots of the quadratic equation:
+    The extrema are the roots of the quadratic equation::
 
         3a'*alpha**2 + 2b'*alpha + c' = 0
 
-    The cubic extrapolant is given by the formula:
+    The cubic extrapolant is given by the formula::
 
                            g(b) + beta2 - beta1
         ac = b - (b - a) . ---------------------
                            g(b) - g(a) + 2*beta2
 
-    where:
+    where::
 
                                   f(a) - f(b)
         beta1 = g(a) + g(b) - 3 . -----------
                                      a - b
 
         if a < b:
+
             beta2 = sqrt(max(0.0, beta1**2 - g(a).g(b)))
+
         else:
+
             beta2 = -sqrt(max(0.0, beta1**2 - g(a).g(b)))
     """
 
@@ -123,7 +132,7 @@ def cubic_ext(a, b, fa, fb, ga, gb, full_output=0):
 def quadratic_fafbga(a, b, fa, fb, ga):
     """Quadratic interpolation using f(a), f(b), and g(a).
 
-    The extremum of the quadratic is given by:
+    The extremum of the quadratic is given by::
 
                      1             g(a)
         aq  =  a  +  - . -------------------------
@@ -140,7 +149,7 @@ def quadratic_fafbga(a, b, fa, fb, ga):
 def quadratic_gagb(a, b, ga, gb):
     """Quadratic interpolation using g(a) and g(b).
 
-    The extremum of the quadratic is given by:
+    The extremum of the quadratic is given by::
 
                bg(a) - ag(b)
         aq  =  -------------

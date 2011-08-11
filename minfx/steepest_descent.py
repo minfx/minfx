@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
+# Copyright (C) 2003-2008 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -47,8 +47,7 @@ class Steepest_descent(Line_search, Min):
     def __init__(self, func, dfunc, args, x0, min_options, func_tol, grad_tol, maxiter, a0, mu, eta, full_output, print_flag, print_prefix):
         """Class for steepest descent minimisation specific functions.
 
-        Unless you know what you are doing, you should call the function 'steepest_descent' rather
-        than using this class.
+        Unless you know what you are doing, you should call the function 'steepest_descent' rather than using this class.
         """
 
         # Function arguments.

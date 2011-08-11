@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2005-2006, 2008 Edward d'Auvergne                       #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -49,8 +49,7 @@ class Newton(Hessian_mods, Line_search, Min):
     def __init__(self, func, dfunc, d2func, args, x0, min_options, func_tol, grad_tol, maxiter, a0, mu, eta, mach_acc, full_output, print_flag, print_prefix):
         """Class for Newton minimisation specific functions.
 
-        Unless you know what you are doing, you should call the function 'newton' rather than using
-        this class.
+        Unless you know what you are doing, you should call the function 'newton' rather than using this class.
         """
 
         # Function arguments.

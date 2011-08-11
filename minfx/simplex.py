@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -44,8 +44,7 @@ class Simplex(Min):
     def __init__(self, func, args, x0, func_tol, maxiter, full_output, print_flag, print_prefix):
         """Class for downhill simplex minimisation specific functions.
 
-        Unless you know what you are doing, you should call the function 'simplex' rather than using
-        this class.
+        Unless you know what you are doing, you should call the function 'simplex' rather than using this class.
         """
 
         # Function arguments.
@@ -167,7 +166,7 @@ class Simplex(Min):
 
 
     def order_simplex(self):
-        """Order the vertecies of the simplex according to accending function values."""
+        """Order the vertices of the simplex according to ascending function values."""
 
         sorted = argsort(self.simplex_vals)
         self.simplex = take(self.simplex, sorted, axis=0)
@@ -193,8 +192,7 @@ class Simplex(Min):
     def conv_test(self, *args):
         """Convergence test.
 
-        Finish minimising when the function difference between the highest and lowest simplex
-        vertecies is insignificant or if the simplex doesn't move.
+        Finish minimising when the function difference between the highest and lowest simplex vertices is insignificant or if the simplex doesn't move.
         """
 
         if self.print_flag >= 2:

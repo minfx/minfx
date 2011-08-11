@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2004, 2008-2010 Edward d'Auvergne                       #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -30,24 +30,17 @@ from errors import MinfxError
 def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None, b=None, l=None, u=None, c=None, verbosity=0, print_prefix=""):
     """The grid search algorithm.
 
-    @param func:            The target function.  This should take the parameter vector as the first
-                            argument and return a single float.
+    @param func:            The target function.  This should take the parameter vector as the first argument and return a single float.
     @type func:             function
     @keyword args:          A tuple of arguments to pass to the function, if needed.
     @type args:             tuple
-    @keyword num_incs:      The number of linear increments to be used in the grid search.  The
-                            length should be equal to the number of parameters and each element
-                            corresponds to the number of increments for the respective parameter.
-                            This is overridden if the incs argument is supplied.
+    @keyword num_incs:      The number of linear increments to be used in the grid search.  The length should be equal to the number of parameters and each element corresponds to the number of increments for the respective parameter. This is overridden if the incs argument is supplied.
     @type num_incs:         list of int
-    @keyword lower:         The list of lower bounds for the linear grid search.  This must be
-                            supplied if incs is not.
+    @keyword lower:         The list of lower bounds for the linear grid search.  This must be supplied if incs is not.
     @type lower:            list of float
-    @keyword upper:         The list of upper bounds for the linear grid search.  This must be
-                            supplied if incs is not.
+    @keyword upper:         The list of upper bounds for the linear grid search.  This must be supplied if incs is not.
     @type upper:            list of float
-    @keyword incs:          The parameter increment values.  This overrides the num_incs, lower, and
-                            upper arguments used in generating a linear grid.
+    @keyword incs:          The parameter increment values.  This overrides the num_incs, lower, and upper arguments used in generating a linear grid.
     @type incs:             list of lists
     @keyword A:             The linear constraint matrix A, such that A.x >= b.
     @type A:                numpy rank-2 array
@@ -59,14 +52,11 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
     @type u:                list of float
     @keyword c:             A user supplied constraint function.
     @type c:                function
-    @keyword verbosity:     The verbosity level.  0 corresponds to no output, 1 is standard, and
-                            higher values cause greater and greater amount of output.
+    @keyword verbosity:     The verbosity level.  0 corresponds to no output, 1 is standard, and higher values cause greater and greater amount of output.
     @type verbosity:        int
     @keyword print_prefix:  The text to place before the printed output.
     @type print_prefix:     str
-    @return:                The optimisation information including the parameter vector at the best
-                            grid point, the function value at this grid point, the number of
-                            iterations (equal to the number of function calls), and a warning.
+    @return:                The optimisation information including the parameter vector at the best grid point, the function value at this grid point, the number of iterations (equal to the number of function calls), and a warning.
     @rtype:                 tuple of numpy rank-1 array, float, int, str
     """
 

@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2005, 2008 Edward d'Auvergne                             #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -33,31 +33,29 @@ from newton import Newton
 def dogleg(func=None, dfunc=None, d2func=None, args=(), x0=None, min_options=(), func_tol=1e-25, grad_tol=None, maxiter=1e6, delta_max=1e10, delta0=1e5, eta=0.0001, mach_acc=1e-16, full_output=0, print_flag=0, print_prefix=""):
     """Dogleg trust region algorithm.
 
-    Page 71 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.
-    The dogleg method is defined by the trajectory p(tau):
+    Page 71 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.  The dogleg method is defined by the trajectory p(tau)::
 
                   / tau . pU            0 <= tau <= 1,
         p(tau) = <
                   \ pU + (tau - 1)(pB - pU),    1 <= tau <= 2.
 
     where:
-        tau is in [0, 2]
-        pU is the unconstrained minimiser along the steepest descent direction.
-        pB is the full step.
+        tau - is in [0, 2]
+        pU - is the unconstrained minimiser along the steepest descent direction.
+        pB - is the full step.
 
-    pU is defined by the formula:
+    pU is defined by the formula::
 
                 gT.g
         pU = - ------ g
                gT.B.g
 
-    and pB by the formula:
+    and pB by the formula::
 
         pB = - B^(-1).g
 
-    If the full step is within the trust region it is taken.  Otherwise the point at which the
-    dogleg trajectory intersects the trust region is taken.  This point can be found by solving the
-    scalar quadratic equation:
+    If the full step is within the trust region it is taken.  Otherwise the point at which the dogleg trajectory intersects the trust region is taken.  This point can be found by solving the scalar quadratic equation::
+
         ||pU + (tau - 1)(pB - pU)||^2 = delta^2
     """
 
@@ -79,8 +77,7 @@ class Dogleg(Hessian_mods, Trust_region, Min, Bfgs, Newton):
     def __init__(self, func, dfunc, d2func, args, x0, min_options, func_tol, grad_tol, maxiter, delta_max, delta0, eta, mach_acc, full_output, print_flag, print_prefix):
         """Class for Dogleg trust region minimisation specific functions.
 
-        Unless you know what you are doing, you should call the function 'dogleg' rather than using
-        this class.
+        Unless you know what you are doing, you should call the function 'dogleg' rather than using this class.
         """
 
         # Function arguments.
@@ -227,8 +224,7 @@ class Dogleg(Hessian_mods, Trust_region, Min, Bfgs, Newton):
     def update(self):
         """Update function.
 
-        Run the trust region update.  If this update decides to shift xk+1 to xk, then run the BFGS
-        or Newton updates.
+        Run the trust region update.  If this update decides to shift xk+1 to xk, then run the BFGS or Newton updates.
         """
 
         self.trust_region_update()

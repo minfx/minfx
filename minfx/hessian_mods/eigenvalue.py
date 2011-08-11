@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -27,8 +27,7 @@ from numpy.linalg import eig, inv
 def eigenvalue(dfk, d2fk, I, print_prefix, print_flag, return_matrix=0):
     """The eigenvalue Hessian modification.
 
-    This modification is based on equation 6.14 from page 144 of 'Numerical Optimization' by
-    Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.
+    This modification is based on equation 6.14 from page 144 of 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.
 
     Returns the modified Newton step.
     """

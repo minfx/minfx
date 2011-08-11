@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -47,8 +47,7 @@ class Bfgs(Line_search, Min):
     def __init__(self, func, dfunc, args, x0, min_options, func_tol, grad_tol, maxiter, a0, mu, eta, full_output, print_flag, print_prefix):
         """Class for Quasi-Newton BFGS minimisation specific functions.
 
-        Unless you know what you are doing, you should call the function 'bfgs' rather than using
-        this class.
+        Unless you know what you are doing, you should call the function 'bfgs' rather than using this class.
         """
 
         # Function arguments.
@@ -125,8 +124,7 @@ class Bfgs(Line_search, Min):
     def setup_bfgs(self):
         """Setup function.
 
-        Create the identity matrix I and calculate the function, gradient and initial BFGS inverse
-        Hessian matrix.
+        Create the identity matrix I and calculate the function, gradient and initial BFGS inverse Hessian matrix.
         """
 
         # Set the Identity matrix I.

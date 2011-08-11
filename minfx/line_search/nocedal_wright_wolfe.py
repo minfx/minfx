@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -33,31 +33,39 @@ quadratic = quadratic_fafbga
 def nocedal_wright_wolfe(func, func_prime, args, x, f, g, p, a_init=1.0, max_a=1e5, mu=0.001, eta=0.9, tol=1e-10, print_flag=0):
     """A line search algorithm implemented using the strong Wolfe conditions.
 
-    Algorithm 3.2, page 59, from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright,
-    1999, 2nd ed.
+    Algorithm 3.2, page 59, from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.
 
     Requires the gradient function.
 
-    #######################################################################################
-    These functions require serious debugging and recoding to work properly (especially the
-    safeguarding).
-    #######################################################################################
+    These functions require serious debugging and recoding to work properly (especially the safeguarding)!
 
-    Function options
-    ~~~~~~~~~~~~~~~~
 
-    func       - The function to minimise.
-    func_prime - The function which returns the gradient vector.
-    args       - The tuple of arguments to supply to the functions func and dfunc.
-    x          - The parameter vector at minimisation step k.
-    f          - The function value at the point x.
-    g          - The function gradient vector at the point x.
-    p          - The descent direction.
-    a_init     - Initial step length.
-    a_max      - The maximum value for the step length.
-    mu         - Constant determining the slope for the sufficient decrease condition
-        (0 < mu < eta < 1).
-    eta        - Constant used for the Wolfe curvature condition (0 < mu < eta < 1).
+    @param func:            The function to minimise.
+    @type func:             func
+    @param func_prime:      The function which returns the gradient vector.
+    @type func_prime:       func
+    @param args:            The tuple of arguments to supply to the functions func and dfunc.
+    @type args:             args
+    @param x:               The parameter vector at minimisation step k.
+    @type x:                numpy array
+    @param f:               The function value at the point x.
+    @type f:                float
+    @param g:               The function gradient vector at the point x.
+    @type g:                numpy array
+    @param p:               The descent direction.
+    @type p:                numpy array
+    @keyword a_init:        Initial step length.
+    @type a_init:           flaot
+    @keyword a_max:         The maximum value for the step length.
+    @type a_max:            float
+    @keyword mu:            Constant determining the slope for the sufficient decrease condition (0 < mu < eta < 1).
+    @type mu:               float
+    @keyword eta:           Constant used for the Wolfe curvature condition (0 < mu < eta < 1).
+    @type eta:              float
+    @keyword tol:           The function tolerance.
+    @type tol:              float
+    @keyword print_flag:    The higher the value, the greater the amount of info printed out.
+    @type print_flag:       int
     """
 
     # Initialise values.
@@ -160,8 +168,7 @@ def print_data(text, k, a):
 def zoom(func, func_prime, args, f_count, g_count, x, f, g, p, mu, eta, i, a0, a_lo, a_hi, tol, print_flag=0):
     """Find the minimum function value in the open interval (a_lo, a_hi)
 
-    Algorithm 3.3, page 60, from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright,
-    1999, 2nd ed.
+    Algorithm 3.3, page 60, from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.
     """
 
     # Initialize aj.
@@ -217,4 +224,3 @@ def zoom(func, func_prime, args, f_count, g_count, x, f, g, p, mu, eta, i, a0, a
         # Update.
         aj_last = deepcopy(aj)
         j = j + 1
-

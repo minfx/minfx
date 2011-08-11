@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2004, 2008 Edward d'Auvergne                            #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -28,8 +28,7 @@ from numpy.linalg import cholesky, eig, inv, LinAlgError, solve
 def gmw(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0):
     """The Gill, Murray, and Wright modified Cholesky algorithm.
 
-    Algorithm 6.5 from page 148 of 'Numerical Optimization' by Jorge Nocedal and Stephen J.
-    Wright, 1999, 2nd ed.
+    Algorithm 6.5 from page 148 of 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.
 
     Returns the modified Newton step.
     """

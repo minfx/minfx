@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -29,19 +29,17 @@ from base_classes import Conjugate_gradient, Line_search, Min
 def fletcher_reeves(func=None, dfunc=None, args=(), x0=None, min_options=None, func_tol=1e-25, grad_tol=None, maxiter=1e6, a0=1.0, mu=0.0001, eta=0.1, full_output=0, print_flag=0, print_prefix=""):
     """Fletcher-Reeves conjugate gradient algorithm.
 
-    Page 120 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.
+    Page 120 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.  The algorithm is:
 
-    The algorithm is:
-
-    Given x0
-    Evaluate f0 = f(x0), g0 = g(x0)
-    Set p0 = -g0, k = 0
-    while g0 != 0:
-        Compute ak and set xk+1 = xk + ak.pk
-        Evaluate gk+1
-        bk+1 = dot(gk+1, gk+1) / dot(gk, gk)
-        pk+1 = -gk+1 + bk+1.pk
-        k = k + 1
+        Given x0
+        Evaluate f0 = f(x0), g0 = g(x0)
+        Set p0 = -g0, k = 0
+        while g0 != 0:
+            Compute ak and set xk+1 = xk + ak.pk
+            Evaluate gk+1
+            bk+1 = dot(gk+1, gk+1) / dot(gk, gk)
+            pk+1 = -gk+1 + bk+1.pk
+            k = k + 1
     """
 
     if print_flag:
@@ -62,8 +60,7 @@ class Fletcher_reeves(Conjugate_gradient, Line_search, Min):
     def __init__(self, func, dfunc, args, x0, min_options, func_tol, grad_tol, maxiter, a0, mu, eta, full_output, print_flag, print_prefix):
         """Class for Fletcher-Reeves conjugate gradient minimisation specific functions.
 
-        Unless you know what you are doing, you should call the function 'fletcher_reeves' rather
-        than using this class.
+        Unless you know what you are doing, you should call the function 'fletcher_reeves' rather than using this class.
         """
 
         # Function arguments.
@@ -111,7 +108,7 @@ class Fletcher_reeves(Conjugate_gradient, Line_search, Min):
 
 
     def calc_bk(self):
-        """Function to calcaluate the Fletcher-Reeves beta value."""
+        """Function to calculate the Fletcher-Reeves beta value."""
 
         # Calculate beta at k+1.
         return self.dot_dfk_new / self.dot_dfk

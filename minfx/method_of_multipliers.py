@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2004, 2008 Edward d'Auvergne                            #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -32,48 +32,40 @@ from constraint_linear import Constraint_linear
 def method_of_multipliers(func=None, dfunc=None, d2func=None, args=(), x0=None, min_options=(), A=None, b=None, l=None, u=None, c=None, dc=None, d2c=None, lambda0=None, init_lambda=1e4, mu0=1e-5, epsilon0=1e-2, gamma0=1e-2, scale_mu=0.5, scale_epsilon=1e-2, scale_gamma=1e-2, func_tol=1e-25, grad_tol=None, maxiter=1e6, inner_maxiter=500, full_output=0, print_flag=0):
     """The method of multipliers, also known as the augmented Lagrangian method.
 
-    Page 515 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.
+    Page 515 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.  The algorithm is:
 
-    The algorithm is:
-
-    Given u0 > 0, tolerance t0 > 0, starting points x0s and lambda0
-    while 1:
-        Find an approximate minimiser xk of LA(.,lambdak; uk), starting at xks, and terminating when
-            the augmented Lagrangian gradient <= tk
-        Final convergence test
-        Update Lagrange multipliers using formula 17.58
-        Choose new penalty parameter uk+1 within (0, uk)
-        Set starting point for the next iteration to xk+1s = xk
-        k = k + 1
+        Given u0 > 0, tolerance t0 > 0, starting points x0s and lambda0
+        while 1:
+            Find an approximate minimiser xk of LA(.,lambdak; uk), starting at xks, and terminating when
+                the augmented Lagrangian gradient <= tk
+            Final convergence test
+            Update Lagrange multipliers using formula 17.58
+            Choose new penalty parameter uk+1 within (0, uk)
+            Set starting point for the next iteration to xk+1s = xk
+            k = k + 1
 
 
-    Three types of inequality constraint are supported.  These are linear, bound, and general
-    constraints and must be setup as follows.  The vector x is the vector of model parameters.
-    Don't use bound constriants yet as this code is incomplete!
+    Three types of inequality constraint are supported.  These are linear, bound, and general constraints and must be setup as follows.  The vector x is the vector of model parameters.  Don't use bound constraints yet as this code is incomplete!
 
     Equality constraints are currently unimplemented.
 
 
     Linear constraints
-    ~~~~~~~~~~~~~~~~~~
+    ==================
 
-    These are defined as:
+    These are defined as::
 
         A.x >= b
 
     where:
-        A is an m*n matrix where the rows are the transposed vectors, ai, of length n.  The elements
-        of ai are the coefficients of the model parameters.
 
-        x is the vector of model parameters of dimension n.
+        A - is an m*n matrix where the rows are the transposed vectors, ai, of length n.  The elements of ai are the coefficients of the model parameters.
+        x - is the vector of model parameters of dimension n.
+        b - is the vector of scalars of dimension m.
+        m - is the number of constraints.
+        n - is the number of model parameters.
 
-        b is the vector of scalars of dimension m.
-
-        m is the number of constraints.
-
-        n is the number of model parameters.
-
-    eg if 0 <= q <= 1, q >= 1 - 2r, and 0 <= r, then:
+    E.g. if 0 <= q <= 1, q >= 1 - 2r, and 0 <= r, then::
 
         | 1  0 |            |  0 |
         |      |            |    |
@@ -87,15 +79,13 @@ def method_of_multipliers(func=None, dfunc=None, d2func=None, args=(), x0=None, 
 
 
     Bound constraints
-    ~~~~~~~~~~~~~~~~~
+    =================
 
-    Bound constraints are defined as:
+    Bound constraints are defined as::
 
-        l <= x <= u
+        l <= x <= u,
 
-    where l and u are the vectors of lower and upper bounds respectively.
-
-    eg if 0 <= q <= 1, r >= 0, s <= 3, then:
+    where l and u are the vectors of lower and upper bounds respectively.  E.g. if 0 <= q <= 1, r >= 0, s <= 3, then::
 
         |  0  |    | q |    |  1  |
         |  0  | <= | r | <= | inf |
@@ -105,23 +95,19 @@ def method_of_multipliers(func=None, dfunc=None, d2func=None, args=(), x0=None, 
 
 
     General constraints
-    ~~~~~~~~~~~~~~~~~~~
+    ===================
 
-    These are defined as:
+    These are defined as::
 
-        ci(x) >= 0
+        ci(x) >= 0,
 
     where ci(x) are the constraint functions.
 
-    To use general constrains the functions c, dc, and d2c need to be supplied.  The function c is
-    the constraint function which should return the vector of constraint values.  The function dc is
-    the constraint gradient function which should return the matrix of constraint gradients.  The
-    function d2c is the constraint Hessian function which should return the 3D matrix of constraint
-    Hessians.
+    To use general constrains the functions c, dc, and d2c need to be supplied.  The function c is the constraint function which should return the vector of constraint values.  The function dc is the constraint gradient function which should return the matrix of constraint gradients.  The function d2c is the constraint Hessian function which should return the 3D matrix of constraint Hessians.
 
 
     Initial values
-    ~~~~~~~~~~~~~~
+    ==============
 
     These are the default initial values:
 
@@ -149,8 +135,7 @@ class Method_of_multipliers(Min):
     def __init__(self, func, dfunc, d2func, args, x0, min_options, A, b, l, u, c, dc, d2c, lambda0, init_lambda, mu0, epsilon0, gamma0, scale_mu, scale_epsilon, scale_gamma, func_tol, grad_tol, maxiter, inner_maxiter, full_output, print_flag):
         """Class for Newton minimisation specific functions.
 
-        Unless you know what you are doing, you should call the function 'method_of_multipliers'
-        rather than using this class.
+        Unless you know what you are doing, you should call the function 'method_of_multipliers' rather than using this class.
         """
 
         # Import the 'generic_minimise' function from 'generic.py'.  It is important that
@@ -269,11 +254,11 @@ class Method_of_multipliers(Min):
     def func_LA(self, *args):
         """The augmented Lagrangian function.
 
-        The equation is:
+        The equation is::
 
             L(x, lambda_k; muk) = f(x) + sum(psi(ci(x), lambdai_k; muk))
 
-        where:
+        where::
 
                             /  -s.t + t^2/(2m)    if t - ms <= 0,
             psi(t, s; m) = <

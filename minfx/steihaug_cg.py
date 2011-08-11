@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -30,28 +30,26 @@ from newton import Newton
 def steihaug(func=None, dfunc=None, d2func=None, args=(), x0=None, func_tol=1e-25, grad_tol=None, maxiter=1e6, epsilon=1e-8, delta_max=1e5, delta0=1.0, eta=0.2, full_output=0, print_flag=0, print_prefix=""):
     """Steihaug conjugate-gradient trust region algorithm.
 
-    Page 75 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.
+    Page 75 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.  The CG-Steihaug algorithm is:
 
-    The CG-Steihaug algorithm is:
-
-    epsilon > 0
-    p0 = 0, r0 = g, d0 = -r0
-    if ||r0|| < epsilon:
-        return p = p0
-    while 1:
-        if djT.B.dj <= 0:
-            Find tau such that p = pj + tau.dj minimises m(p) in (4.9) and satisfies ||p|| = delta
-            return p
-        aj = rjT.rj / djT.B.dj
-        pj+1 = pj + aj.dj
-        if ||pj+1|| >= delta:
-            Find tau such that p = pj + tau.dj satisfies ||p|| = delta
-            return p
-        rj+1 = rj + aj.B.dj
-        if ||rj+1|| < epsilon.||r0||:
-            return p = pj+1
-        bj+1 = rj+1T.rj+1 / rjT.rj
-        dj+1 = rj+1 + bj+1.dj
+        epsilon > 0
+        p0 = 0, r0 = g, d0 = -r0
+        if ||r0|| < epsilon:
+            return p = p0
+        while 1:
+            if djT.B.dj <= 0:
+                Find tau such that p = pj + tau.dj minimises m(p) in (4.9) and satisfies ||p|| = delta
+                return p
+            aj = rjT.rj / djT.B.dj
+            pj+1 = pj + aj.dj
+            if ||pj+1|| >= delta:
+                Find tau such that p = pj + tau.dj satisfies ||p|| = delta
+                return p
+            rj+1 = rj + aj.B.dj
+            if ||rj+1|| < epsilon.||r0||:
+                return p = pj+1
+            bj+1 = rj+1T.rj+1 / rjT.rj
+            dj+1 = rj+1 + bj+1.dj
     """
 
     if print_flag:
@@ -69,8 +67,7 @@ class Steihaug(Min, Trust_region, Newton):
     def __init__(self, func, dfunc, d2func, args, x0, func_tol, grad_tol, maxiter, epsilon, delta_max, delta0, eta, full_output, print_flag, print_prefix):
         """Class for Steihaug conjugate-gradient trust region minimisation specific functions.
 
-        Unless you know what you are doing, you should call the function 'steihaug' rather than
-        using this class.
+        Unless you know what you are doing, you should call the function 'steihaug' rather than using this class.
         """
 
         # Function arguments.
@@ -211,8 +208,7 @@ class Steihaug(Min, Trust_region, Newton):
     def update(self):
         """Update function.
 
-        Run the trust region update.  If this update decides to shift xk+1 to xk, then run the
-        Newton update.
+        Run the trust region update.  If this update decides to shift xk+1 to xk, then run the Newton update.
         """
 
         self.trust_region_update()

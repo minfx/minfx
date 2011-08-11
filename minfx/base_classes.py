@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2005, 2008-2009 Edward d'Auvergne                        #
+# Copyright (C) 2003-201 Edward d'Auvergne                                    #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -62,16 +62,14 @@ class Min:
     def __init__(self):
         """Base class containing the main minimisation iterative loop algorithm.
 
-        The algorithm is defined in the minimise function.  Also supplied are generic setup,
-        convergence tests, and update functions.
+        The algorithm is defined in the minimise function.  Also supplied are generic setup, convergence tests, and update functions.
         """
 
 
     def double_test(self, fk_new, fk, gk):
         """Default base class function for both function and gradient convergence tests.
 
-        Test if the minimum function tolerance between fk and fk+1 has been reached as well as if
-        the minimum gradient tolerance has been reached.
+        Test if the minimum function tolerance between fk and fk+1 has been reached as well as if the minimum gradient tolerance has been reached.
         """
 
         # Test the function tolerance.
@@ -114,9 +112,7 @@ class Min:
     def grad_test(self, fk_new, fk, gk):
         """Default base class function for the gradient convergence test.
 
-        Test if the minimum gradient tolerance has been reached.  Minimisation will also terminate
-        if the function value difference between fk and fk+1 is zero.  This modification is
-        essential for the quasi-Newton techniques.
+        Test if the minimum gradient tolerance has been reached.  Minimisation will also terminate if the function value difference between fk and fk+1 is zero.  This modification is essential for the quasi-Newton techniques.
         """
 
         # Test the gradient tolerance.
@@ -139,8 +135,7 @@ class Min:
     def hessian_type_and_mod(self, min_options, default_type='Newton', default_mod='GMW'):
         """Hessian type and modification options.
 
-        Function for sorting out the minimisation options when either the Hessian type or Hessian
-        modification can be selected.
+        Function for sorting out the minimisation options when either the Hessian type or Hessian modification can be selected.
         """
 
         # Initialise.
@@ -198,12 +193,12 @@ class Min:
 
         This algorithm is designed to be compatible with all iterative minimisers.  The outline is:
 
-        k = 0
-        while 1:
-            New parameter function
-            Convergence tests
-            Update function
-            k = k + 1
+            k = 0
+            while 1:
+                New parameter function
+                Convergence tests
+                Update function
+                k = k + 1
         """
 
         # Start the iteration counter.
@@ -463,16 +458,13 @@ class Trust_region:
 
         Page 68 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.
 
-        First calculate rho using the formula:
+        First calculate rho using the formula::
 
                     f(xk) - f(xk + pk)
-            rho  =  ------------------
+            rho  =  ------------------,
                       mk(0) - mk(pk)
 
-        Where the numerator is called the actual reduction and the denominator is the predicted reduction.
-
-        Secondly choose the trust region radius for the next iteration.
-        Finally decide if xk+1 should be shifted to xk.
+        where the numerator is called the actual reduction and the denominator is the predicted reduction.  Secondly choose the trust region radius for the next iteration.  Finally decide if xk+1 should be shifted to xk.
         """
 
         # Actual reduction.
@@ -569,9 +561,7 @@ class Conjugate_gradient:
     def old_cg_conv_test(self):
         """Convergence tests.
 
-        This is old code implementing the conjugate gradient convergence test given on page 124 of
-        'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.  This
-        function is currently unused.
+        This is old code implementing the conjugate gradient convergence test given on page 124 of 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.  This function is currently unused.
         """
 
         inf_norm = 0.0

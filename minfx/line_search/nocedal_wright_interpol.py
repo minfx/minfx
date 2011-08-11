@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -38,18 +38,24 @@ def nocedal_wright_interpol(func, args, x, f, g, p, a_init=1.0, mu=0.001, print_
     Requires the gradient function.
 
 
-    Function options
-    ~~~~~~~~~~~~~~~~
-
-    func       - The function to minimise.
-    func_prime - The function which returns the gradient vector.
-    args       - The tuple of arguments to supply to the functions func and dfunc.
-    x          - The parameter vector at minimisation step k.
-    f          - The function value at the point x.
-    g          - The function gradient vector at the point x.
-    p          - The descent direction.
-    a_init     - Initial step length.
-    mu         - Constant determining the slope for the sufficient decrease condition (0 < mu < 1).
+    @param func:            The function to minimise.
+    @type func:             func
+    @param func_prime:      The function which returns the gradient vector.
+    @type func_prime:       func
+    @param x:               The parameter vector at minimisation step k.
+    @type x:                numpy array
+    @param f:               The function value at the point x.
+    @type f:                float
+    @param g:               The function gradient vector at the point x.
+    @type g:                numpy array
+    @param p:               The descent direction.
+    @type p:                numpy array
+    @keyword a_init:        Initial step length.
+    @type a_init:           flaot
+    @keyword mu:            Constant determining the slope for the sufficient decrease condition (0 < mu < 1).
+    @type mu:               float
+    @keyword print_flag:    The higher the value, the greater the amount of info printed out.
+    @type print_flag:       int
     """
 
     # Initialise values.

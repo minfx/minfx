@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -51,8 +51,7 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
     def __init__(self, func, dfunc, d2func, args, x0, min_options, func_tol, grad_tol, maxiter, lambda0, delta_max, delta0, eta, mach_acc, full_output, print_flag, print_prefix):
         """Class for Exact trust region minimisation specific functions.
 
-        Unless you know what you are doing, you should call the function 'exact_trust_region' rather
-        than using this class.
+        Unless you know what you are doing, you should call the function 'exact_trust_region' rather than using this class.
         """
 
         # Function arguments.
@@ -109,10 +108,7 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
     def new_param_func(self):
         """Find the exact trust region solution.
 
-        Algorithm 4.4 from page 81 of 'Numerical Optimization' by Jorge Nocedal and Stephen J.
-        Wright, 1999, 2nd ed.
-
-        This is only implemented for positive definite matrices.
+        Algorithm 4.4 from page 81 of 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.  This is only implemented for positive definite matrices.
         """
 
         # Matrix modification.
@@ -165,10 +161,7 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
     def old_param_func(self):
         """Find the exact trust region solution.
 
-        More, J. J., and Sorensen D. C. 1983, Computing a trust region step.  SIAM J. Sci. Stat.
-        Comput. 4, 553-572.
-
-        This function is incomplete.
+        More, J. J., and Sorensen D. C. 1983, Computing a trust region step.  SIAM J. Sci. Stat. Comput. 4, 553-572.  This function is incomplete.
         """
 
         self.warning = "Incomplete code, minimisation bypassed."
@@ -329,8 +322,7 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
     def update(self):
         """Update function.
 
-        Run the trust region update.  If this update decides to shift xk+1 to xk, then run the
-        Newton update.
+        Run the trust region update.  If this update decides to shift xk+1 to xk, then run the Newton update.
         """
 
         self.trust_region_update()

@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2005, 2008-2010 Edward d'Auvergne                        #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -51,63 +51,21 @@ else:
 
 
 
-def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_algor=None, min_options=None, func_tol=1e-25, grad_tol=None, maxiter=1e6, A=None, b=None, l=None, u=None, c=None, dc=None, d2c=None, full_output=0, print_flag=0, print_prefix=""):
+def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_algor=None, min_options=None, func_tol=1e-25, grad_tol=None, maxiter=1e6, A=None, b=None, l=None, u=None, c=None, dc=None, d2c=None, print_flag=0, print_prefix="", full_output=False):
     """Generic minimisation function.
 
     This is a generic function which can be used to access all minimisers using the same set of function arguments.  These are the function tolerance value for convergence tests, the maximum number of iterations, a flag specifying which data structures should be returned, and a flag specifying the amount of detail to print to screen.
 
 
-    Keyword Arguments
-    ~~~~~~~~~~~~~~~~~
-
-    func:  The function which returns the value.
-
-    dfunc:  The function which returns the gradient.
-
-    d2func:  The function which returns the Hessian.
-
-    args:  The tuple of arguments to supply to the functions func, dfunc, and d2func.
-
-    x0:  The vector of initial parameter value estimates (as an array).
-
-    min_algor:  A string specifying which minimisation technique to use.
-
-    min_options:  A tuple to pass to the minimisation function as the min_options keyword.
-
-    func_tol:  The function tolerance value.  Once the function value between iterations decreases below this value, minimisation is terminated.
-
-    grad_tol:  The gradient tolerance value.
-
-    maxiter:  The maximum number of iterations.
-
-    A:  Linear constraint matrix m*n (A.x >= b).
-
-    b:  Linear constraint scalar vector (A.x >= b).
-
-    l:  Lower bound constraint vector (l <= x <= u).
-
-    u:  Upper bound constraint vector (l <= x <= u).
-
-    c:  User supplied constraint function.
-
-    dc:  User supplied constraint gradient function.
-
-    d2c:  User supplied constraint Hessian function.
-
-    full_output:  A flag specifying which data structures should be returned.
-
-    print_flag:  A flag specifying how much information should be printed to standard output during minimisation.  0 means no output, 1 means minimal output, and values above 1 increase the amount of output printed. 
-
-
     Minimisation output
-    ~~~~~~~~~~~~~~~~~~~
+    ===================
 
-    The following values of the 'full_output' flag will return, in tuple form, the following data
+    The following values of the 'full_output' flag will return, in tuple form, the following data:
 
         0:  'xk',
         1:  '(xk, fk, k, f_count, g_count, h_count, warning)',
 
-    where the data names correspond to
+    where the data names correspond to:
 
         'xk':      The array of minimised parameter values,
         'fk':      The minimised function value,
@@ -119,7 +77,7 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
 
 
     Minimisation algorithms
-    ~~~~~~~~~~~~~~~~~~~~~~~
+    =======================
 
     A minimisation function is selected if the minimisation algorithm argument, which should be a string, matches a certain pattern.  Because the python regular expression 'match' statement is used, various strings can be supplied to select the same minimisation algorithm.  Below is a list of the minimisation algorithms available together with the corresponding patterns.
 
@@ -134,156 +92,193 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
     To select a minimisation algorithm, set the argument to a string which matches the given pattern.
 
 
-    Unconstrained line search methods:
-    ___________________________________________________________________________________________
-    |                                   |                                                     |
-    | Minimisation algorithm            | Patterns                                            |
-    |___________________________________|_____________________________________________________|
-    |                                   |                                                     |
-    | Back-and-forth coordinate descent | '^[Cc][Dd]$' or '^[Cc]oordinate[ _-][Dd]escent$'    |
-    |                                   |                                                     |
-    | Steepest descent                  | '^[Ss][Dd]$' or '^[Ss]teepest[ _-][Dd]escent$'      |
-    |                                   |                                                     |
-    | Quasi-Newton BFGS                 | '^[Bb][Ff][Gg][Ss]$'                                |
-    |                                   |                                                     |
-    | Newton                            | '^[Nn]ewton$'                                       |
-    |                                   |                                                     |
-    | Newton-CG                         | '^[Nn]ewton[ _-][Cc][Gg]$' or '^[Nn][Cc][Gg]$'      |
-    |___________________________________|_____________________________________________________|
+    Unconstrained line search methods::
+        ___________________________________________________________________________________________
+        |                                   |                                                     |
+        | Minimisation algorithm            | Patterns                                            |
+        |___________________________________|_____________________________________________________|
+        |                                   |                                                     |
+        | Back-and-forth coordinate descent | '^[Cc][Dd]$' or '^[Cc]oordinate[ _-][Dd]escent$'    |
+        |                                   |                                                     |
+        | Steepest descent                  | '^[Ss][Dd]$' or '^[Ss]teepest[ _-][Dd]escent$'      |
+        |                                   |                                                     |
+        | Quasi-Newton BFGS                 | '^[Bb][Ff][Gg][Ss]$'                                |
+        |                                   |                                                     |
+        | Newton                            | '^[Nn]ewton$'                                       |
+        |                                   |                                                     |
+        | Newton-CG                         | '^[Nn]ewton[ _-][Cc][Gg]$' or '^[Nn][Cc][Gg]$'      |
+        |___________________________________|_____________________________________________________|
 
 
-    Unconstrained trust-region methods:
-    ___________________________________________________________________________________________
-    |                                   |                                                     |
-    | Minimisation algorithm            | Patterns                                            |
-    |___________________________________|_____________________________________________________|
-    |                                   |                                                     |
-    | Cauchy point                      | '^[Cc]auchy'                                        |
-    |                                   |                                                     |
-    | Dogleg                            | '^[Dd]ogleg'                                        |
-    |                                   |                                                     |
-    | CG-Steihaug                       | '^[Cc][Gg][-_ ][Ss]teihaug' or '^[Ss]teihaug'       |
-    |                                   |                                                     |
-    | Exact trust region                | '^[Ee]xact'                                         |
-    |___________________________________|_____________________________________________________|
+    Unconstrained trust-region methods::
+        ___________________________________________________________________________________________
+        |                                   |                                                     |
+        | Minimisation algorithm            | Patterns                                            |
+        |___________________________________|_____________________________________________________|
+        |                                   |                                                     |
+        | Cauchy point                      | '^[Cc]auchy'                                        |
+        |                                   |                                                     |
+        | Dogleg                            | '^[Dd]ogleg'                                        |
+        |                                   |                                                     |
+        | CG-Steihaug                       | '^[Cc][Gg][-_ ][Ss]teihaug' or '^[Ss]teihaug'       |
+        |                                   |                                                     |
+        | Exact trust region                | '^[Ee]xact'                                         |
+        |___________________________________|_____________________________________________________|
 
 
-    Unconstrained conjugate gradient methods:
-    ___________________________________________________________________________________________
-    |                                   |                                                     |
-    | Minimisation algorithm            | Patterns                                            |
-    |___________________________________|_____________________________________________________|
-    |                                   |                                                     |
-    | Fletcher-Reeves                   | '^[Ff][Rr]$' or '^[Ff]letcher[-_ ][Rr]eeves$'       |
-    |                                   |                                                     |
-    | Polak-Ribiere                     | '^[Pp][Rr]$' or '^[Pp]olak[-_ ][Rr]ibiere$'         |
-    |                                   |                                                     |
-    | Polak-Ribiere +                   | '^[Pp][Rr]\+$' or '^[Pp]olak[-_ ][Rr]ibiere\+$'     |
-    |                                   |                                                     |
-    | Hestenes-Stiefel                  | '^[Hh][Ss]$' or '^[Hh]estenes[-_ ][Ss]tiefel$'      |
-    |___________________________________|_____________________________________________________|
+    Unconstrained conjugate gradient methods::
+        ___________________________________________________________________________________________
+        |                                   |                                                     |
+        | Minimisation algorithm            | Patterns                                            |
+        |___________________________________|_____________________________________________________|
+        |                                   |                                                     |
+        | Fletcher-Reeves                   | '^[Ff][Rr]$' or '^[Ff]letcher[-_ ][Rr]eeves$'       |
+        |                                   |                                                     |
+        | Polak-Ribiere                     | '^[Pp][Rr]$' or '^[Pp]olak[-_ ][Rr]ibiere$'         |
+        |                                   |                                                     |
+        | Polak-Ribiere +                   | '^[Pp][Rr]\+$' or '^[Pp]olak[-_ ][Rr]ibiere\+$'     |
+        |                                   |                                                     |
+        | Hestenes-Stiefel                  | '^[Hh][Ss]$' or '^[Hh]estenes[-_ ][Ss]tiefel$'      |
+        |___________________________________|_____________________________________________________|
 
 
-    Miscellaneous unconstrained methods:
-    ___________________________________________________________________________________________
-    |                                   |                                                     |
-    | Minimisation algorithm            | Patterns                                            |
-    |___________________________________|_____________________________________________________|
-    |                                   |                                                     |
-    | Simplex                           | '^[Ss]implex$'                                      |
-    |                                   |                                                     |
-    | Levenberg-Marquardt               | '^[Ll][Mm]$' or '^[Ll]evenburg-[Mm]arquardt$'       |
-    |___________________________________|_____________________________________________________|
+    Miscellaneous unconstrained methods::
+        ___________________________________________________________________________________________
+        |                                   |                                                     |
+        | Minimisation algorithm            | Patterns                                            |
+        |___________________________________|_____________________________________________________|
+        |                                   |                                                     |
+        | Simplex                           | '^[Ss]implex$'                                      |
+        |                                   |                                                     |
+        | Levenberg-Marquardt               | '^[Ll][Mm]$' or '^[Ll]evenburg-[Mm]arquardt$'       |
+        |___________________________________|_____________________________________________________|
 
 
-    Constrained methods:
-    ___________________________________________________________________________________________
-    |                                   |                                                     |
-    | Minimisation algorithm            | Patterns                                            |
-    |___________________________________|_____________________________________________________|
-    |                                   |                                                     |
-    | Method of Multipliers             | '^[Mm][Oo][Mm]$' or '[Mm]ethod of [Mm]ultipliers$'  |
-    |___________________________________|_____________________________________________________|
+    Constrained methods::
+        ___________________________________________________________________________________________
+        |                                   |                                                     |
+        | Minimisation algorithm            | Patterns                                            |
+        |___________________________________|_____________________________________________________|
+        |                                   |                                                     |
+        | Method of Multipliers             | '^[Mm][Oo][Mm]$' or '[Mm]ethod of [Mm]ultipliers$'  |
+        |___________________________________|_____________________________________________________|
 
 
-    Global minimisation methods:
-    ___________________________________________________________________________________________
-    |                                   |                                                     |
-    | Minimisation algorithm            | Patterns                                            |
-    |___________________________________|_____________________________________________________|
-    |                                   |                                                     |
-    | Simulated Annealing               | '^[Ss][Aa]$' or '^[Ss]imulated [Aa]nnealing$'       |
-    |___________________________________|_____________________________________________________|
+    Global minimisation methods::
+        ___________________________________________________________________________________________
+        |                                   |                                                     |
+        | Minimisation algorithm            | Patterns                                            |
+        |___________________________________|_____________________________________________________|
+        |                                   |                                                     |
+        | Simulated Annealing               | '^[Ss][Aa]$' or '^[Ss]imulated [Aa]nnealing$'       |
+        |___________________________________|_____________________________________________________|
 
 
 
     Minimisation options
-    ~~~~~~~~~~~~~~~~~~~~
+    ====================
 
     The minimisation options can be given in any order.
 
 
-    Line search algorithms.  These are used in the line search methods and the conjugate gradient
-    methods.  The default is the Backtracking line search.
-    ___________________________________________________________________________________________
-    |                                   |                                                     |
-    | Line search algorithm             | Patterns                                            |
-    |___________________________________|_____________________________________________________|
-    |                                   |                                                     |
-    | Backtracking line search          | '^[Bb]ack'                                          |
-    |                                   |                                                     |
-    | Nocedal and Wright interpolation  | '^[Nn][Ww][Ii]' or                                  |
-    | based line search                 | '^[Nn]ocedal[ _][Ww]right[ _][Ii]nt'                |
-    |                                   |                                                     |
-    | Nocedal and Wright line search    | '^[Nn][Ww][Ww]' or                                  |
-    | for the Wolfe conditions          | '^[Nn]ocedal[ _][Ww]right[ _][Ww]olfe'              |
-    |                                   |                                                     |
-    | More and Thuente line search      | '^[Mm][Tt]' or '^[Mm]ore[ _][Tt]huente$'            |
-    |                                   |                                                     |
-    | No line search                    | '^[Nn]o [Ll]ine [Ss]earch$'                         |
-    |___________________________________|_____________________________________________________|
+    Line search algorithms.  These are used in the line search methods and the conjugate gradient methods.  The default is the Backtracking line search.  The algorithms are::
+        ___________________________________________________________________________________________
+        |                                   |                                                     |
+        | Line search algorithm             | Patterns                                            |
+        |___________________________________|_____________________________________________________|
+        |                                   |                                                     |
+        | Backtracking line search          | '^[Bb]ack'                                          |
+        |                                   |                                                     |
+        | Nocedal and Wright interpolation  | '^[Nn][Ww][Ii]' or                                  |
+        | based line search                 | '^[Nn]ocedal[ _][Ww]right[ _][Ii]nt'                |
+        |                                   |                                                     |
+        | Nocedal and Wright line search    | '^[Nn][Ww][Ww]' or                                  |
+        | for the Wolfe conditions          | '^[Nn]ocedal[ _][Ww]right[ _][Ww]olfe'              |
+        |                                   |                                                     |
+        | More and Thuente line search      | '^[Mm][Tt]' or '^[Mm]ore[ _][Tt]huente$'            |
+        |                                   |                                                     |
+        | No line search                    | '^[Nn]o [Ll]ine [Ss]earch$'                         |
+        |___________________________________|_____________________________________________________|
 
 
 
-    Hessian modifications.  These are used in the Newton, Dogleg, and Exact trust region algorithms.
-    ___________________________________________________________________________________________
-    |                                   |                                                     |
-    | Hessian modification              | Patterns                                            |
-    |___________________________________|_____________________________________________________|
-    |                                   |                                                     |
-    | Unmodified Hessian                | '^[Nn]o [Hh]essian [Mm]od'                          |
-    |                                   |                                                     |
-    | Eigenvalue modification           | '^[Ee]igen'                                         |
-    |                                   |                                                     |
-    | Cholesky with added multiple of   | '^[Cc]hol'                                          |
-    | the identity                      |                                                     |
-    |                                   |                                                     |
-    | The Gill, Murray, and Wright      | '^[Gg][Mm][Ww]$'                                    |
-    | modified Cholesky algorithm       |                                                     |
-    |                                   |                                                     |
-    | The Schnabel and Eskow 1999       | '^[Ss][Ee]99'                                       |
-    | algorithm                         |                                                     |
-    |___________________________________|_____________________________________________________|
+    Hessian modifications.  These are used in the Newton, Dogleg, and Exact trust region algorithms::
+        ___________________________________________________________________________________________
+        |                                   |                                                     |
+        | Hessian modification              | Patterns                                            |
+        |___________________________________|_____________________________________________________|
+        |                                   |                                                     |
+        | Unmodified Hessian                | '^[Nn]o [Hh]essian [Mm]od'                          |
+        |                                   |                                                     |
+        | Eigenvalue modification           | '^[Ee]igen'                                         |
+        |                                   |                                                     |
+        | Cholesky with added multiple of   | '^[Cc]hol'                                          |
+        | the identity                      |                                                     |
+        |                                   |                                                     |
+        | The Gill, Murray, and Wright      | '^[Gg][Mm][Ww]$'                                    |
+        | modified Cholesky algorithm       |                                                     |
+        |                                   |                                                     |
+        | The Schnabel and Eskow 1999       | '^[Ss][Ee]99'                                       |
+        | algorithm                         |                                                     |
+        |___________________________________|_____________________________________________________|
 
 
 
-    Hessian type, these are used in a few of the trust region methods including the Dogleg and Exact
-    trust region algorithms.  In these cases, when the Hessian type is set to Newton, a Hessian
-    modification can also be supplied as above.  The default Hessian type is Newton, and the default
-    Hessian modification when Newton is selected is the GMW algorithm.
-    ___________________________________________________________________________________________
-    |                                   |                                                     |
-    | Hessian type                      | Patterns                                            |
-    |___________________________________|_____________________________________________________|
-    |                                   |                                                     |
-    | Quasi-Newton BFGS                 | '^[Bb][Ff][Gg][Ss]$'                                |
-    |                                   |                                                     |
-    | Newton                            | '^[Nn]ewton$'                                       |
-    |___________________________________|_____________________________________________________|
+    Hessian type, these are used in a few of the trust region methods including the Dogleg and Exact trust region algorithms.  In these cases, when the Hessian type is set to Newton, a Hessian modification can also be supplied as above.  The default Hessian type is Newton, and the default Hessian modification when Newton is selected is the GMW algorithm::
+        ___________________________________________________________________________________________
+        |                                   |                                                     |
+        | Hessian type                      | Patterns                                            |
+        |___________________________________|_____________________________________________________|
+        |                                   |                                                     |
+        | Quasi-Newton BFGS                 | '^[Bb][Ff][Gg][Ss]$'                                |
+        |                                   |                                                     |
+        | Newton                            | '^[Nn]ewton$'                                       |
+        |___________________________________|_____________________________________________________|
 
 
-    For Newton minimisation, the default line search algorithm is the More and Thuente line search,
-    while the default Hessian modification is the GMW algorithm.
+    For Newton minimisation, the default line search algorithm is the More and Thuente line search, while the default Hessian modification is the GMW algorithm.
+
+
+    @keyword func:          The function which returns the value.
+    @type func:             func
+    @keyword dfunc:         The function which returns the gradient.
+    @type dfunc:            func
+    @keyword d2func:        The function which returns the Hessian.
+    @type d2func:           func
+    @keyword args:          The tuple of arguments to supply to the functions func, dfunc, and d2func.
+    @type args:             tuple
+    @keyword x0:            The vector of initial parameter value estimates (as an array).
+    @type x0:               numpy rank-1 array
+    @keyword min_algor:     A string specifying which minimisation technique to use.
+    @type min_algor:        str
+    @keyword min_options:   A tuple to pass to the minimisation function as the min_options keyword.
+    @type min_options:      tuple
+    @keyword func_tol:      The function tolerance value.  Once the function value between iterations decreases below this value, minimisation is terminated.
+    @type func_tol:         float
+    @keyword grad_tol:      The gradient tolerance value.
+    @type grad_tol:         float
+    @keyword maxiter:       The maximum number of iterations.
+    @type maxiter:          int
+    @keyword A:             Linear constraint matrix m*n (A.x >= b).
+    @type A:                numpy rank-2 array
+    @keyword b:             Linear constraint scalar vector (A.x >= b).
+    @type b:                numpy rank-1 array
+    @keyword l:             Lower bound constraint vector (l <= x <= u).
+    @type l:                numpy rank-1 array
+    @keyword u:             Upper bound constraint vector (l <= x <= u).
+    @type u:                numpy rank-1 array
+    @keyword c:             User supplied constraint function.
+    @type c:                func
+    @keyword dc:            User supplied constraint gradient function.
+    @type dc:               func
+    @keyword d2c:           User supplied constraint Hessian function.
+    @type d2c:              func
+    @keyword print_flag:    A flag specifying how much information should be printed to standard output during minimisation.  0 means no output, 1 means minimal output, and values above 1 increase the amount of output printed. 
+    @type print_flag:       int
+    @keyword print_prefix:  The text to add out to the front of all print outs.
+    @type print_prefix:     str
+    @keyword full_output:   A flag specifying which data structures should be returned.
+    @type full_output:      bool
     """
 
     # Catch models with zero parameters.

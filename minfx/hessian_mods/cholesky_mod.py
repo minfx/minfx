@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2006, 2008 Edward d'Auvergne                            #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -27,8 +27,7 @@ from numpy.linalg import LinAlgError, cholesky, solve
 def cholesky_mod(dfk, d2fk, I, n, print_prefix, print_flag, return_matrix=0):
     """Cholesky with added multiple of the identity.
 
-    Algorithm 6.3 from page 145 of 'Numerical Optimization' by Jorge Nocedal and Stephen J.
-    Wright, 1999, 2nd ed.
+    Algorithm 6.3 from page 145 of 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.
 
     Returns the modified Newton step.
     """

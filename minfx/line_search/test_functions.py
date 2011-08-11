@@ -2,7 +2,7 @@
 
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -89,10 +89,10 @@ def run():
 def func1(alpha, beta=2.0):
     """Test function 1.
 
-    From More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient
-    decrease. ACM Trans. Math. Softw. 20, 286-307.
+    From More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient decrease. ACM Trans. Math. Softw. 20, 286-307.
 
-    The function is:
+    The function is::
+
                               alpha
         phi(alpha)  =  - ---------------
                          alpha**2 + beta
@@ -104,10 +104,10 @@ def func1(alpha, beta=2.0):
 def dfunc1(alpha, beta=2.0):
     """Derivative of test function 1.
 
-    From More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient
-    decrease. ACM Trans. Math. Softw. 20, 286-307.
+    From More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient decrease. ACM Trans. Math. Softw. 20, 286-307.
 
-    The gradient is:
+    The gradient is::
+
                              2*alpha**2                 1
         phi'(alpha)  =  --------------------  -  ---------------
                         (alpha**2 + beta)**2     alpha**2 + beta
@@ -126,10 +126,9 @@ def dfunc1(alpha, beta=2.0):
 def func2(alpha, beta=0.004):
     """Test function 2.
 
-    From More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient
-    decrease. ACM Trans. Math. Softw. 20, 286-307.
+    From More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient decrease. ACM Trans. Math. Softw. 20, 286-307.
 
-    The function is:
+    The function is::
 
         phi(alpha)  =  (alpha + beta)**5 - 2(alpha + beta)**4
     """
@@ -140,10 +139,9 @@ def func2(alpha, beta=0.004):
 def dfunc2(alpha, beta=0.004):
     """Derivative of test function 2.
 
-    From More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient
-    decrease. ACM Trans. Math. Softw. 20, 286-307.
+    From More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient decrease. ACM Trans. Math. Softw. 20, 286-307.
 
-    The gradient is:
+    The gradient is::
 
         phi'(alpha)  =  5(alpha + beta)**4 - 8(alpha + beta)**3
     """
@@ -156,16 +154,16 @@ def dfunc2(alpha, beta=0.004):
 def func3(alpha, beta=0.01, l=39.0):
     """Test function 3.
 
-    From More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient
-    decrease. ACM Trans. Math. Softw. 20, 286-307.
+    From More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient decrease. ACM Trans. Math. Softw. 20, 286-307.
 
-    The function is:
+    The function is::
 
                                      2(1 - beta)       / l*pi         \ 
         phi(alpha)  =  phi0(alpha) + ----------- . sin | ---- . alpha |
                                         l*pi           \  2           /
 
-        where:
+    where::
+
                             /  1 - alpha,                     if alpha <= 1 - beta,
                             |
                             |  alpha - 1,                     if alpha >= 1 + beta,
@@ -189,15 +187,15 @@ def func3(alpha, beta=0.01, l=39.0):
 def dfunc3(alpha, beta=0.01, l=39.0):
     """Derivative of test function 3.
 
-    From More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient
-    decrease. ACM Trans. Math. Softw. 20, 286-307.
+    From More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient decrease. ACM Trans. Math. Softw. 20, 286-307.
 
-    The gradient is:
+    The gradient is::
                                                        / l*pi         \ 
         phi(alpha)  =  phi0'(alpha) + (1 - beta) . cos | ---- . alpha |
                                                        \  2           /
 
-        where:
+    where::
+
                              /  -1,        if alpha <= 1 - beta,
                              |
                              |  1,         if alpha >= 1 + beta,
@@ -223,15 +221,15 @@ def dfunc3(alpha, beta=0.01, l=39.0):
 def func456(alpha, beta1, beta2):
     """Test functions 4, 5, and 6.
 
-    From More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient
-    decrease. ACM Trans. Math. Softw. 20, 286-307.
+    From More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient decrease. ACM Trans. Math. Softw. 20, 286-307.
 
-    The function is:
+    The function is::
 
         phi(alpha)  =  gamma(beta1) * sqrt((1 - alpha)**2 + beta2**2)
                            + gamma(beta2) * sqrt(alpha**2 + beta1**2)
 
-        where:
+    where::
+
             gamma(beta) = sqrt(1 + beta**2) - beta
     """
 
@@ -243,10 +241,9 @@ def func456(alpha, beta1, beta2):
 def dfunc456(alpha, beta1, beta2):
     """Test functions 4, 5, and 6.
 
-    From More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient
-    decrease. ACM Trans. Math. Softw. 20, 286-307.
+    From More, J. J., and Thuente, D. J. 1994, Line search algorithms with guaranteed sufficient decrease. ACM Trans. Math. Softw. 20, 286-307.
 
-    The function is:
+    The function is::
 
                                                   (1 - alpha)
         phi'(alpha)  =  - gamma(beta1) * -------------------------------
@@ -256,7 +253,8 @@ def dfunc456(alpha, beta1, beta2):
                             + gamma(beta2) * -------------------------
                                              sqrt(alpha**2 + beta1**2)
 
-        where:
+    where::
+
             gamma(beta) = sqrt(1 + beta**2) - beta
     """
 

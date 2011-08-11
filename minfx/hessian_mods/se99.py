@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003, 2008 Edward d'Auvergne                                  #
+# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -27,8 +27,7 @@ from numpy.linalg import cholesky, eig, LinAlgError, solve
 def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_matrix=0):
     """A revised modified cholesky factorisation algorithm.
 
-    Schnabel, R. B. and Eskow, E. 1999, A revised modifed cholesky factorisation algorithm.
-    SIAM J. Optim. 9, 1135-1148.
+    Schnabel, R. B. and Eskow, E. 1999, A revised modifed cholesky factorisation algorithm. SIAM J. Optim. 9, 1135-1148.
     """
 
     # Test matrix.
