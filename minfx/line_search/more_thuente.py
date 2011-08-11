@@ -44,19 +44,22 @@ def more_thuente(func, func_prime, args, x, f, g, p, a_init=1.0, a_min=1e-25, a_
     ==================
 
     a0, the null sequence data structure containing the following keys:
-        'a'        - 0
-        'phi'        - phi(0)
-        'phi_prime'    - phi'(0)
+
+        - 'a'        - 0
+        - 'phi'        - phi(0)
+        - 'phi_prime'    - phi'(0)
 
     a, the sequence data structure containing the following keys:
-        'a'        - alpha
-        'phi'        - phi(alpha)
-        'phi_prime'    - phi'(alpha)
+
+        - 'a'        - alpha
+        - 'phi'        - phi(alpha)
+        - 'phi_prime'    - phi'(alpha)
 
     Ik, the interval data structure containing the following keys:
-        'a'        - The current interval Ik = [al, au]
-        'phi'        - The interval [phi(al), phi(au)]
-        'phi_prime'    - The interval [phi'(al), phi'(au)]
+
+        - 'a'        - The current interval Ik = [al, au]
+        - 'phi'        - The interval [phi(al), phi(au)]
+        - 'phi_prime'    - The interval [phi'(al), phi'(au)]
 
     Instead of using the modified function::
 
@@ -310,27 +313,24 @@ def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66,
                \ as,            otherwise.
 
 
-    Case 3: ft <= fl and gt.gl >= 0, and |gt| <= |gl|.  In this case at+ is chosen by extrapolating
-    the function values at al and at, so the trial value at+ lies outside th interval with at and al
-    as endpoints.  Compute ac and as:
+    Case 3: ft <= fl and gt.gl >= 0, and |gt| <= |gl|.  In this case at+ is chosen by extrapolating the function values at al and at, so the trial value at+ lies outside th interval with at and al as endpoints.  Compute ac and as.
 
-        If the cubic tends to infinity in the direction of the step and the minimum of the cubic is
-        beyound at, set::
+        - If the cubic tends to infinity in the direction of the step and the minimum of the cubic is beyound at, set::
 
                    / ac,            if |ac - at| < |as - at|,
             at+ = <
                    \ as,            otherwise.
 
-        Otherwise set at+ = as.
+        - Otherwise set at+ = as.
 
 
-        Redefine at+ by setting::
+        - Redefine at+ by setting::
 
                    / min{at + d(au - at), at+},        if at > al.
             at+ = <
                    \ max{at + d(au - at), at+},        otherwise,
 
-        for some d < 1.
+        - for some d < 1.
 
 
     Case 4: ft <= fl and gt.gl >= 0, and |gt| > |gl|.  In this case choose at+ as the minimiser of
@@ -343,9 +343,9 @@ def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66,
     Given a trial value at in I, the endpoints al+ and au+ of the updated interval I+ are determined
     as follows:
 
-        Case U1: If f(at) > f(al), then al+ = al and au+ = at.
-        Case U2: If f(at) <= f(al) and f'(at)(al - at) > 0, then al+ = at and au+ = au.
-        Case U3: If f(at) <= f(al) and f'(at)(al - at) < 0, then al+ = at and au+ = al.
+        - Case U1: If f(at) > f(al), then al+ = al and au+ = at.
+        - Case U2: If f(at) <= f(al) and f'(at)(al - at) > 0, then al+ = at and au+ = au.
+        - Case U3: If f(at) <= f(al) and f'(at)(al - at) < 0, then al+ = at and au+ = al.
     """
 
     # Trial value selection.

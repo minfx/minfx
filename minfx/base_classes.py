@@ -193,12 +193,12 @@ class Min:
 
         This algorithm is designed to be compatible with all iterative minimisers.  The outline is:
 
-            k = 0
-            while 1:
-                New parameter function
-                Convergence tests
-                Update function
-                k = k + 1
+            - k = 0
+            - while 1:
+                - New parameter function
+                - Convergence tests
+                - Update function
+                - k = k + 1
         """
 
         # Start the iteration counter.

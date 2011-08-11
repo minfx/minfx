@@ -62,18 +62,18 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
 
     The following values of the 'full_output' flag will return, in tuple form, the following data:
 
-        0:  'xk',
-        1:  '(xk, fk, k, f_count, g_count, h_count, warning)',
+        - 0:  'xk',
+        - 1:  '(xk, fk, k, f_count, g_count, h_count, warning)',
 
     where the data names correspond to:
 
-        'xk':      The array of minimised parameter values,
-        'fk':      The minimised function value,
-        'k':       The number of iterations,
-        'f_count': The number of function calls,
-        'g_count': The number of gradient calls,
-        'h_count': The number of Hessian calls,
-        'warning': The warning string.
+        - 'xk':      The array of minimised parameter values,
+        - 'fk':      The minimised function value,
+        - 'k':       The number of iterations,
+        - 'f_count': The number of function calls,
+        - 'g_count': The number of gradient calls,
+        - 'h_count': The number of Hessian calls,
+        - 'warning': The warning string.
 
 
     Minimisation algorithms
@@ -83,11 +83,11 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
 
     This is a short description of python regular expression, for more information, see the regular expression syntax section of the Python Library Reference.  Some of the regular expression syntax used in this function is:
 
-        '[]':  A sequence or set of characters to match to a single character.  For example, '[Nn]ewton' will match both 'Newton' and 'newton'.
+        - '[]':  A sequence or set of characters to match to a single character.  For example, '[Nn]ewton' will match both 'Newton' and 'newton'.
 
-        '^':  Match the start of the string.
+        - '^':  Match the start of the string.
 
-        '$':  Match the end of the string.  For example, '^[Ll][Mm]$' will match 'lm' and 'LM' but will not match if characters are placed either before or after these strings.
+        - '$':  Match the end of the string.  For example, '^[Ll][Mm]$' will match 'lm' and 'LM' but will not match if characters are placed either before or after these strings.
 
     To select a minimisation algorithm, set the argument to a string which matches the given pattern.
 

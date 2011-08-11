@@ -40,8 +40,8 @@ def nocedal_wright_interpol(func, args, x, f, g, p, a_init=1.0, mu=0.001, print_
 
     @param func:            The function to minimise.
     @type func:             func
-    @param func_prime:      The function which returns the gradient vector.
-    @type func_prime:       func
+    @param args:            The tuple of arguments to supply to the functions func.
+    @type args:             tuple
     @param x:               The parameter vector at minimisation step k.
     @type x:                numpy array
     @param f:               The function value at the point x.

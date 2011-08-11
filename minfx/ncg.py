@@ -31,13 +31,10 @@ def ncg(func=None, dfunc=None, d2func=None, args=(), x0=None, min_options=None, 
 
     Page 140 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.  The algorithm is:
 
-        Given initial point x0.
-        while 1:
-            Compute a search direction pk by applying the CG method to Hk.pk = -gk, starting from
-                x0 = 0.  Terminate when ||rk|| <= min(0.5,sqrt(||gk||)), or if negative curvature is
-                encountered.
-            Set xk+1 = xk + ak.pk, where ak satisfies the Wolfe, Goldstein, or Armijo backtracking
-                conditions.
+        - Given initial point x0.
+        - while 1:
+            - Compute a search direction pk by applying the CG method to Hk.pk = -gk, starting from x0 = 0.  Terminate when ||rk|| <= min(0.5,sqrt(||gk||)), or if negative curvature is encountered.
+            - Set xk+1 = xk + ak.pk, where ak satisfies the Wolfe, Goldstein, or Armijo backtracking conditions.
     """
 
     if print_flag:

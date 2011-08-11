@@ -37,8 +37,8 @@ def cauchy_point(func=None, dfunc=None, d2func=None, args=(), x0=None, func_tol=
 
     where:
 
-        delta_k is the trust region radius,
-        dfk is the gradient vector,
+        - delta_k is the trust region radius,
+        - dfk is the gradient vector,
 
     and::
 

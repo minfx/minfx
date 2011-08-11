@@ -33,11 +33,11 @@ class Constraint_linear:
 
         where:
 
-            A - is an m*n matrix where the rows are the transposed vectors, ai, of length n.  The elements of ai are the coefficients of the model parameters.
-            x - is the vector of model parameters of dimension n.
-            b - is the vector of scalars of dimension m.
-            m - is the number of constraints.
-            n - is the number of model parameters.
+            - A is an m*n matrix where the rows are the transposed vectors, ai, of length n.  The elements of ai are the coefficients of the model parameters.
+            - x is the vector of model parameters of dimension n.
+            - b is the vector of scalars of dimension m.
+            - m is the number of constraints.
+            - n is the number of model parameters.
 
         E.g. if 0 <= q <= 1, q >= 1 - 2r, and 0 <= r, then::
 

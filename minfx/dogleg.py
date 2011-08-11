@@ -40,9 +40,10 @@ def dogleg(func=None, dfunc=None, d2func=None, args=(), x0=None, min_options=(),
                   \ pU + (tau - 1)(pB - pU),    1 <= tau <= 2.
 
     where:
-        tau - is in [0, 2]
-        pU - is the unconstrained minimiser along the steepest descent direction.
-        pB - is the full step.
+
+        - tau is in [0, 2]
+        - pU is the unconstrained minimiser along the steepest descent direction.
+        - pB is the full step.
 
     pU is defined by the formula::
 

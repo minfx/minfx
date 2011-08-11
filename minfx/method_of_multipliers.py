@@ -34,15 +34,14 @@ def method_of_multipliers(func=None, dfunc=None, d2func=None, args=(), x0=None, 
 
     Page 515 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.  The algorithm is:
 
-        Given u0 > 0, tolerance t0 > 0, starting points x0s and lambda0
-        while 1:
-            Find an approximate minimiser xk of LA(.,lambdak; uk), starting at xks, and terminating when
-                the augmented Lagrangian gradient <= tk
-            Final convergence test
-            Update Lagrange multipliers using formula 17.58
-            Choose new penalty parameter uk+1 within (0, uk)
-            Set starting point for the next iteration to xk+1s = xk
-            k = k + 1
+        - Given u0 > 0, tolerance t0 > 0, starting points x0s and lambda0
+        - while 1:
+            - Find an approximate minimiser xk of LA(.,lambdak; uk), starting at xks, and terminating when the augmented Lagrangian gradient <= tk
+            - Final convergence test
+            - Update Lagrange multipliers using formula 17.58
+            - Choose new penalty parameter uk+1 within (0, uk)
+            - Set starting point for the next iteration to xk+1s = xk
+            - k = k + 1
 
 
     Three types of inequality constraint are supported.  These are linear, bound, and general constraints and must be setup as follows.  The vector x is the vector of model parameters.  Don't use bound constraints yet as this code is incomplete!
@@ -59,11 +58,11 @@ def method_of_multipliers(func=None, dfunc=None, d2func=None, args=(), x0=None, 
 
     where:
 
-        A - is an m*n matrix where the rows are the transposed vectors, ai, of length n.  The elements of ai are the coefficients of the model parameters.
-        x - is the vector of model parameters of dimension n.
-        b - is the vector of scalars of dimension m.
-        m - is the number of constraints.
-        n - is the number of model parameters.
+        - A is an m*n matrix where the rows are the transposed vectors, ai, of length n.  The elements of ai are the coefficients of the model parameters.
+        - x is the vector of model parameters of dimension n.
+        - b is the vector of scalars of dimension m.
+        - m is the number of constraints.
+        - n is the number of model parameters.
 
     E.g. if 0 <= q <= 1, q >= 1 - 2r, and 0 <= r, then::
 
@@ -109,7 +108,7 @@ def method_of_multipliers(func=None, dfunc=None, d2func=None, args=(), x0=None, 
     Initial values
     ==============
 
-    These are the default initial values:
+    These are the default initial values::
 
         mu0 = 1e-5
         epsilon0 = 1e-2

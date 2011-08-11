@@ -31,15 +31,15 @@ def polak_ribiere(func=None, dfunc=None, args=(), x0=None, min_options=None, fun
 
     Page 121-122 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.  The algorithm is:
 
-        Given x0
-        Evaluate f0 = f(x0), g0 = g(x0)
-        Set p0 = -g0, k = 0
-        while g0 != 0:
-            Compute ak and set xk+1 = xk + ak.pk
-            Evaluate gk+1
-            bk+1 = dot(gk+1, (gk+1 - gk)) / dot(gk, gk)
-            pk+1 = -gk+1 + bk+1.pk
-            k = k + 1
+        - Given x0
+        - Evaluate f0 = f(x0), g0 = g(x0)
+        - Set p0 = -g0, k = 0
+        - while g0 != 0:
+            - Compute ak and set xk+1 = xk + ak.pk
+            - Evaluate gk+1
+            - bk+1 = dot(gk+1, (gk+1 - gk)) / dot(gk, gk)
+            - pk+1 = -gk+1 + bk+1.pk
+            - k = k + 1
     """
 
     if print_flag:

@@ -32,24 +32,24 @@ def steihaug(func=None, dfunc=None, d2func=None, args=(), x0=None, func_tol=1e-2
 
     Page 75 from 'Numerical Optimization' by Jorge Nocedal and Stephen J. Wright, 1999, 2nd ed.  The CG-Steihaug algorithm is:
 
-        epsilon > 0
-        p0 = 0, r0 = g, d0 = -r0
-        if ||r0|| < epsilon:
-            return p = p0
-        while 1:
-            if djT.B.dj <= 0:
-                Find tau such that p = pj + tau.dj minimises m(p) in (4.9) and satisfies ||p|| = delta
-                return p
-            aj = rjT.rj / djT.B.dj
-            pj+1 = pj + aj.dj
-            if ||pj+1|| >= delta:
-                Find tau such that p = pj + tau.dj satisfies ||p|| = delta
-                return p
-            rj+1 = rj + aj.B.dj
-            if ||rj+1|| < epsilon.||r0||:
-                return p = pj+1
-            bj+1 = rj+1T.rj+1 / rjT.rj
-            dj+1 = rj+1 + bj+1.dj
+        - epsilon > 0
+        - p0 = 0, r0 = g, d0 = -r0
+        - if ||r0|| < epsilon:
+            - return p = p0
+        - while 1:
+            - if djT.B.dj <= 0:
+                - Find tau such that p = pj + tau.dj minimises m(p) in (4.9) and satisfies ||p|| = delta
+                - return p
+            - aj = rjT.rj / djT.B.dj
+            - pj+1 = pj + aj.dj
+            - if ||pj+1|| >= delta:
+                - Find tau such that p = pj + tau.dj satisfies ||p|| = delta
+                - return p
+            - rj+1 = rj + aj.B.dj
+            - if ||rj+1|| < epsilon.||r0||:
+                - return p = pj+1
+            - bj+1 = rj+1T.rj+1 / rjT.rj
+            - dj+1 = rj+1 + bj+1.dj
     """
 
     if print_flag:
