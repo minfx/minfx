@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -196,23 +196,23 @@ class Simplex(Min):
         """
 
         if self.print_flag >= 2:
-            print self.print_prefix + "diff = " + `self.simplex_vals[-1] - self.simplex_vals[0]`
-            print self.print_prefix + "|diff| = " + `abs(self.simplex_vals[-1] - self.simplex_vals[0])`
-            print self.print_prefix + "f_tol = " + `self.func_tol`
-            print self.print_prefix + "center = " + `self.pivot_point`
+            print self.print_prefix + "diff = " + repr(self.simplex_vals[-1] - self.simplex_vals[0])
+            print self.print_prefix + "|diff| = " + repr(abs(self.simplex_vals[-1] - self.simplex_vals[0]))
+            print self.print_prefix + "f_tol = " + repr(self.func_tol)
+            print self.print_prefix + "center = " + repr(self.pivot_point)
             try:
-                print self.print_prefix + "old center = " + `self.old_pivot`
-                print self.print_prefix + "center diff = " + `self.pivot_point - self.old_pivot`
+                print self.print_prefix + "old center = " + repr(self.old_pivot)
+                print self.print_prefix + "center diff = " + repr(self.pivot_point - self.old_pivot)
             except AttributeError:
                 pass
             self.old_pivot = 1.0 * self.pivot_point
         if abs(self.simplex_vals[-1] - self.simplex_vals[0]) <= self.func_tol:
             if self.print_flag >= 2:
                 print "\n" + self.print_prefix + "???Function tolerance reached."
-                print self.print_prefix + "simplex_vals[-1]: " + `self.simplex_vals[-1]`
-                print self.print_prefix + "simplex_vals[0]:  " + `self.simplex_vals[0]`
-                print self.print_prefix + "|diff|:           " + `abs(self.simplex_vals[-1] - self.simplex_vals[0])`
-                print self.print_prefix + "tol:              " + `self.func_tol`
+                print self.print_prefix + "simplex_vals[-1]: " + repr(self.simplex_vals[-1])
+                print self.print_prefix + "simplex_vals[0]:  " + repr(self.simplex_vals[0])
+                print self.print_prefix + "|diff|:           " + repr(abs(self.simplex_vals[-1] - self.simplex_vals[0]))
+                print self.print_prefix + "tol:              " + repr(self.func_tol)
             self.xk_new = self.simplex[0]
             self.fk_new = self.simplex_vals[0]
             return 1

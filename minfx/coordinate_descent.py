@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -138,8 +138,8 @@ class Coordinate_descent(Line_search, Min):
                 self.back = 0
                 self.n = self.n + 1
         if self.print_flag >= 2:
-            print self.print_prefix + "back_flag: " + `self.back`
-            print self.print_prefix + "n: " + `self.n`
+            print self.print_prefix + "back_flag: " + repr(self.back)
+            print self.print_prefix + "n: " + repr(self.n)
 
         # Store old data.
         self.fk_last = self.fk

@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -117,9 +117,9 @@ class Steihaug(Min, Trust_region, Newton):
         length_test = self.epsilon * len_r0
 
         if self.print_flag >= 2:
-            print self.print_prefix + "p0: " + `self.pj`
-            print self.print_prefix + "r0: " + `self.rj`
-            print self.print_prefix + "d0: " + `self.dj`
+            print self.print_prefix + "p0: " + repr(self.pj)
+            print self.print_prefix + "r0: " + repr(self.rj)
+            print self.print_prefix + "d0: " + repr(self.dj)
 
         if len_r0 < self.epsilon:
             if self.print_flag >= 2:
@@ -132,32 +132,32 @@ class Steihaug(Min, Trust_region, Newton):
             # The curvature.
             curv = dot(self.dj, dot(self.B, self.dj))
             if self.print_flag >= 2:
-                print self.print_prefix + "\nIteration j = " + `j`
-                print self.print_prefix + "Curv: " + `curv`
+                print self.print_prefix + "\nIteration j = " + repr(j)
+                print self.print_prefix + "Curv: " + repr(curv)
 
             # First test.
             if curv <= 0.0:
                 tau = self.get_tau()
                 if self.print_flag >= 2:
-                    print self.print_prefix + "curv <= 0.0, therefore tau = " + `tau`
+                    print self.print_prefix + "curv <= 0.0, therefore tau = " + repr(tau)
                 return self.pj + tau * self.dj
 
             aj = dot(self.rj, self.rj) / curv
             self.pj_new = self.pj + aj * self.dj
             if self.print_flag >= 2:
-                print self.print_prefix + "aj: " + `aj`
-                print self.print_prefix + "pj+1: " + `self.pj_new`
+                print self.print_prefix + "aj: " + repr(aj)
+                print self.print_prefix + "pj+1: " + repr(self.pj_new)
 
             # Second test.
             if sqrt(dot(self.pj_new, self.pj_new)) >= self.delta:
                 tau = self.get_tau()
                 if self.print_flag >= 2:
-                    print self.print_prefix + "sqrt(dot(self.pj_new, self.pj_new)) >= self.delta, therefore tau = " + `tau`
+                    print self.print_prefix + "sqrt(dot(self.pj_new, self.pj_new)) >= self.delta, therefore tau = " + repr(tau)
                 return self.pj + tau * self.dj
 
             self.rj_new = self.rj + aj * dot(self.B, self.dj)
             if self.print_flag >= 2:
-                print self.print_prefix + "rj+1: " + `self.rj_new`
+                print self.print_prefix + "rj+1: " + repr(self.rj_new)
 
             # Third test.
             if sqrt(dot(self.rj_new, self.rj_new)) < length_test:
@@ -168,10 +168,10 @@ class Steihaug(Min, Trust_region, Newton):
             bj_new = dot(self.rj_new, self.rj_new) / dot(self.rj, self.rj)
             self.dj_new = -self.rj_new + bj_new * self.dj
             if self.print_flag >= 2:
-                print self.print_prefix + "len rj+1: " + `sqrt(dot(self.rj_new, self.rj_new))`
-                print self.print_prefix + "epsilon.||r0||: " + `length_test`
-                print self.print_prefix + "bj+1: " + `bj_new`
-                print self.print_prefix + "dj+1: " + `self.dj_new`
+                print self.print_prefix + "len rj+1: " + repr(sqrt(dot(self.rj_new, self.rj_new)))
+                print self.print_prefix + "epsilon.||r0||: " + repr(length_test)
+                print self.print_prefix + "bj+1: " + repr(bj_new)
+                print self.print_prefix + "dj+1: " + repr(self.dj_new)
 
             # Update j+1 to j.
             self.pj = self.pj_new * 1.0

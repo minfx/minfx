@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -164,8 +164,8 @@ class Levenberg_marquardt(Min):
         self.create_lm_matrix()
 
         # Solve the Levenberg-Marquardt equation to get the vector of function parameter changes.
-        #print "\nself.lm_matrix:\n" + `self.lm_matrix`
-        #print "\nself.dfk:\n" + `self.dfk`
+        #print "\nself.lm_matrix:\n" + repr(self.lm_matrix)
+        #print "\nself.dfk:\n" + repr(self.dfk)
         self.pk = solve(self.lm_matrix, self.dfk)
 
         # Find the new parameter vector and function value at that point.
@@ -186,13 +186,13 @@ class Levenberg_marquardt(Min):
 
         # Print out.
         if self.print_flag >= 2:
-            print self.print_prefix + "xk_new:    " + `self.xk_new`
-            print self.print_prefix + "lm_matrix: " + `self.lm_matrix`
-            print self.print_prefix + "df:   " + `self.df`
-            print self.print_prefix + "l:    " + `self.l`
-            print self.print_prefix + "fk+1: " + `self.fk_new`
-            print self.print_prefix + "fk:   " + `self.fk`
-            print self.print_prefix + "move_flag: " + `self.move_flag`
+            print self.print_prefix + "xk_new:    " + repr(self.xk_new)
+            print self.print_prefix + "lm_matrix: " + repr(self.lm_matrix)
+            print self.print_prefix + "df:   " + repr(self.df)
+            print self.print_prefix + "l:    " + repr(self.l)
+            print self.print_prefix + "fk+1: " + repr(self.fk_new)
+            print self.print_prefix + "fk:   " + repr(self.fk)
+            print self.print_prefix + "move_flag: " + repr(self.move_flag)
 
 
     def test_mod(self, fk_new, fk, dfk_new):

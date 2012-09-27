@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-201 Edward d'Auvergne                                    #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -76,19 +76,19 @@ class Min:
         if abs(fk_new - fk) <= self.func_tol:
             if self.print_flag >= 2:
                 print "\n" + self.print_prefix + "Function tolerance reached."
-                print self.print_prefix + "fk:          " + `fk`
-                print self.print_prefix + "fk+1:        " + `fk_new`
-                print self.print_prefix + "|fk+1 - fk|: " + `abs(fk_new - fk)`
-                print self.print_prefix + "tol:         " + `self.func_tol`
+                print self.print_prefix + "fk:          " + repr(fk)
+                print self.print_prefix + "fk+1:        " + repr(fk_new)
+                print self.print_prefix + "|fk+1 - fk|: " + repr(abs(fk_new - fk))
+                print self.print_prefix + "tol:         " + repr(self.func_tol)
             return 1
 
         # Test the gradient tolerance.
         elif sqrt(dot(gk, gk)) <= self.grad_tol:
             if self.print_flag >= 2:
                 print "\n" + self.print_prefix + "Gradient tolerance reached."
-                print self.print_prefix + "gk+1:     " + `gk`
-                print self.print_prefix + "||gk+1||: " + `sqrt(dot(gk, gk))`
-                print self.print_prefix + "tol:      " + `self.grad_tol`
+                print self.print_prefix + "gk+1:     " + repr(gk)
+                print self.print_prefix + "||gk+1||: " + repr(sqrt(dot(gk, gk)))
+                print self.print_prefix + "tol:      " + repr(self.grad_tol)
             return 1
 
 
@@ -102,10 +102,10 @@ class Min:
         if abs(fk_new - fk) <= self.func_tol:
             if self.print_flag >= 2:
                 print "\n" + self.print_prefix + "Function tolerance reached."
-                print self.print_prefix + "fk:          " + `fk`
-                print self.print_prefix + "fk+1:        " + `fk_new`
-                print self.print_prefix + "|fk+1 - fk|: " + `abs(fk_new - fk)`
-                print self.print_prefix + "tol:         " + `self.func_tol`
+                print self.print_prefix + "fk:          " + repr(fk)
+                print self.print_prefix + "fk+1:        " + repr(fk_new)
+                print self.print_prefix + "|fk+1 - fk|: " + repr(abs(fk_new - fk))
+                print self.print_prefix + "tol:         " + repr(self.func_tol)
             return 1
 
 
@@ -119,9 +119,9 @@ class Min:
         if sqrt(dot(gk, gk)) <= self.grad_tol:
             if self.print_flag >= 2:
                 print "\n" + self.print_prefix + "Gradient tolerance reached."
-                print self.print_prefix + "gk+1:     " + `gk`
-                print self.print_prefix + "||gk+1||: " + `sqrt(dot(gk, gk))`
-                print self.print_prefix + "tol:      " + `self.grad_tol`
+                print self.print_prefix + "gk+1:     " + repr(gk)
+                print self.print_prefix + "||gk+1||: " + repr(sqrt(dot(gk, gk)))
+                print self.print_prefix + "tol:      " + repr(self.grad_tol)
             return 1
 
         # No change in function value (prevents the minimiser from iterating without moving).
@@ -144,7 +144,7 @@ class Min:
 
         # Test if the options are a tuple.
         if not isinstance(min_options, tuple):
-            print self.print_prefix + "The minimisation options " + `min_options` + " is not a tuple."
+            print self.print_prefix + "The minimisation options " + repr(min_options) + " is not a tuple."
             self.init_failure = 1
             return
 
@@ -161,7 +161,7 @@ class Min:
             elif self.hessian_mod == None and self.valid_hessian_mod(opt):
                 self.hessian_mod = opt
             else:
-                print self.print_prefix + "The minimisation option " + `opt` + " from " + `min_options` + " is neither a valid Hessian type nor modification."
+                print self.print_prefix + "The minimisation option " + repr(opt) + " from " + repr(min_options) + " is neither a valid Hessian type nor modification."
                 self.init_failure = 1
                 return
 
@@ -217,7 +217,7 @@ class Min:
             if self.print_flag:
                 out = 0
                 if self.print_flag >= 2:
-                    print "\n" + self.print_prefix + "Main iteration k=" + `self.k`
+                    print "\n" + self.print_prefix + "Main iteration k=" + repr(self.k)
                     out = 1
                 else:
                     if self.k2 == 100:
@@ -350,7 +350,7 @@ class Line_search:
 
         # Test if the options are a tuple.
         if not isinstance(min_options, tuple):
-            print self.print_prefix + "The minimisation options " + `min_options` + " is not a tuple."
+            print self.print_prefix + "The minimisation options " + repr(min_options) + " is not a tuple."
             self.init_failure = 1
             return
 
@@ -365,7 +365,7 @@ class Line_search:
             if self.valid_line_search(opt):
                 self.line_search_algor = opt
             else:
-                print self.print_prefix + "The minimisation option " + `opt` + " from " + `min_options` + " is not a valid line search algorithm."
+                print self.print_prefix + "The minimisation option " + repr(opt) + " from " + repr(min_options) + " is not a valid line search algorithm."
                 self.init_failure = 1
                 return
 
@@ -483,10 +483,10 @@ class Trust_region:
         self.norm_pk = sqrt(dot(self.pk, self.pk))
 
         if self.print_flag >= 2:
-            print self.print_prefix + "Actual reduction: " + `act_red`
-            print self.print_prefix + "Predicted reduction: " + `pred_red`
-            print self.print_prefix + "rho: " + `self.rho`
-            print self.print_prefix + "||pk||: " + `self.norm_pk`
+            print self.print_prefix + "Actual reduction: " + repr(act_red)
+            print self.print_prefix + "Predicted reduction: " + repr(pred_red)
+            print self.print_prefix + "rho: " + repr(self.rho)
+            print self.print_prefix + "||pk||: " + repr(self.norm_pk)
 
         # Rho is close to zero or negative, therefore the trust region is shrunk.
         if self.rho < 0.25 or pred_red < 0.0:
@@ -506,19 +506,19 @@ class Trust_region:
                 print self.print_prefix + "Trust region is unaltered."
 
         if self.print_flag >= 2:
-            print self.print_prefix + "New trust region: " + `self.delta`
+            print self.print_prefix + "New trust region: " + repr(self.delta)
 
         # Choose the position for the next iteration.
         if self.rho > self.eta and pred_red > 0.0:
             self.shift_flag = 1
             if self.print_flag >= 2:
-                print self.print_prefix + "rho > eta, " + `self.rho` + " > " + `self.eta`
-                print self.print_prefix + "Moving to, self.xk_new: " + `self.xk_new`
+                print self.print_prefix + "rho > eta, " + repr(self.rho) + " > " + repr(self.eta)
+                print self.print_prefix + "Moving to, self.xk_new: " + repr(self.xk_new)
         else:
             self.shift_flag = 0
             if self.print_flag >= 2:
-                print self.print_prefix + "rho < eta, " + `self.rho` + " < " + `self.eta`
-                print self.print_prefix + "Not moving, self.xk: " + `self.xk`
+                print self.print_prefix + "rho < eta, " + repr(self.rho) + " < " + repr(self.eta)
+                print self.print_prefix + "Not moving, self.xk: " + repr(self.xk)
 
 
 
@@ -548,14 +548,14 @@ class Conjugate_gradient:
 
         if self.print_flag >= 2:
             print self.print_prefix + "New param func:"
-            print self.print_prefix + "\ta:    " + `self.alpha`
-            print self.print_prefix + "\tpk:   " + `self.pk`
-            print self.print_prefix + "\txk:   " + `self.xk`
-            print self.print_prefix + "\txk+1: " + `self.xk_new`
-            print self.print_prefix + "\tfk:   " + `self.fk`
-            print self.print_prefix + "\tfk+1: " + `self.fk_new`
-            print self.print_prefix + "\tgk:   " + `self.dfk`
-            print self.print_prefix + "\tgk+1: " + `self.dfk_new`
+            print self.print_prefix + "\ta:    " + repr(self.alpha)
+            print self.print_prefix + "\tpk:   " + repr(self.pk)
+            print self.print_prefix + "\txk:   " + repr(self.xk)
+            print self.print_prefix + "\txk+1: " + repr(self.xk_new)
+            print self.print_prefix + "\tfk:   " + repr(self.fk)
+            print self.print_prefix + "\tfk+1: " + repr(self.fk_new)
+            print self.print_prefix + "\tgk:   " + repr(self.dfk)
+            print self.print_prefix + "\tgk+1: " + repr(self.dfk_new)
 
 
     def old_cg_conv_test(self):
@@ -594,8 +594,8 @@ class Conjugate_gradient:
 
         if self.print_flag >= 2:
             print self.print_prefix + "Update func:"
-            print self.print_prefix + "\tpk:     " + `self.pk`
-            print self.print_prefix + "\tpk+1:   " + `self.pk_new`
+            print self.print_prefix + "\tpk:     " + repr(self.pk)
+            print self.print_prefix + "\tpk+1:   " + repr(self.pk_new)
 
         # Update.
         self.xk = self.xk_new * 1.0

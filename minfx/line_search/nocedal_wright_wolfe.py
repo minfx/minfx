@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -99,7 +99,7 @@ def nocedal_wright_wolfe(func, func_prime, args, x, f, g, p, a_init=1.0, max_a=1
 
     while True:
         if print_flag:
-            print "<Line search iteration i = " + `i` + " >"
+            print "<Line search iteration i = " + repr(i) + " >"
             print_data("Initial (a)", i, a)
             print_data("Initial (a_last)", i, a_last)
 
@@ -159,10 +159,10 @@ def print_data(text, k, a):
     """Temp func for debugging."""
 
     print text + " data printout:"
-    print "   Iteration:      " + `k`
-    print "   a:              " + `a['a']`
-    print "   phi:            " + `a['phi']`
-    print "   phi_prime:      " + `a['phi_prime']`
+    print "   Iteration:      " + repr(k)
+    print "   a:              " + repr(a['a'])
+    print "   phi:            " + repr(a['phi'])
+    print "   phi_prime:      " + repr(a['phi_prime'])
 
 
 def zoom(func, func_prime, args, f_count, g_count, x, f, g, p, mu, eta, i, a0, a_lo, a_hi, tol, print_flag=0):
@@ -178,7 +178,7 @@ def zoom(func, func_prime, args, f_count, g_count, x, f, g, p, mu, eta, i, a0, a
 
     while True:
         if print_flag:
-            print "\n<Zooming iterate j = " + `j` + " >"
+            print "\n<Zooming iterate j = " + repr(j) + " >"
 
         # Interpolate to find a trial step length aj between a_lo and a_hi.
         aj_new = quadratic(a_lo['a'], a_hi['a'], a_lo['phi'], a_hi['phi'], a_lo['phi_prime'])
@@ -204,7 +204,7 @@ def zoom(func, func_prime, args, f_count, g_count, x, f, g, p, mu, eta, i, a0, a
             # Check if the curvature condition is met and if so, return the step length ai which satisfies the strong Wolfe conditions.
             if abs(aj['phi_prime']) <= -eta * a0['phi_prime']:
                 if print_flag:
-                    print "aj: " + `aj`
+                    print "aj: " + repr(aj)
                     print "<Finished zooming>"
                 return aj['a'], f_count, g_count
 

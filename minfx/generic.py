@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -431,18 +431,18 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
         print ""
         if full_output:
             xk, fk, k, f_count, g_count, h_count, warning = results
-            print print_prefix + "Parameter values: " + `list(xk)`
-            print print_prefix + "Function value:   " + `fk`
-            print print_prefix + "Iterations:       " + `k`
-            print print_prefix + "Function calls:   " + `f_count`
-            print print_prefix + "Gradient calls:   " + `g_count`
-            print print_prefix + "Hessian calls:    " + `h_count`
+            print print_prefix + "Parameter values: " + repr(list(xk))
+            print print_prefix + "Function value:   " + repr(fk)
+            print print_prefix + "Iterations:       " + repr(k)
+            print print_prefix + "Function calls:   " + repr(f_count)
+            print print_prefix + "Gradient calls:   " + repr(g_count)
+            print print_prefix + "Hessian calls:    " + repr(h_count)
             if warning:
                 print print_prefix + "Warning:          " + warning
             else:
                 print print_prefix + "Warning:          None"
         else:
-            print print_prefix + "Parameter values: " + `results`
+            print print_prefix + "Parameter values: " + repr(results)
         print ""
 
     return results

@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -215,11 +215,11 @@ class Dogleg(Hessian_mods, Trust_region, Min, Bfgs, Newton):
 
         if self.print_flag >= 2:
             print self.print_prefix + "Fin."
-            print self.print_prefix + "   pk:     " + `self.pk`
-            print self.print_prefix + "   xk:     " + `self.xk`
-            print self.print_prefix + "   xk_new: " + `self.xk_new`
-            print self.print_prefix + "   fk:     " + `self.fk`
-            print self.print_prefix + "   fk_new: " + `self.fk_new`
+            print self.print_prefix + "   pk:     " + repr(self.pk)
+            print self.print_prefix + "   xk:     " + repr(self.xk)
+            print self.print_prefix + "   xk_new: " + repr(self.xk_new)
+            print self.print_prefix + "   fk:     " + repr(self.fk)
+            print self.print_prefix + "   fk_new: " + repr(self.fk_new)
 
 
     def update(self):

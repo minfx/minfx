@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -156,8 +156,8 @@ class Method_of_multipliers(Min):
             self.m = len(self.b)
             if print_flag >= 2:
                 print "Linear constraint matrices."
-                print "A:\n" + `self.A`
-                print "b:\n" + `self.b`
+                print "A:\n" + repr(self.A)
+                print "b:\n" + repr(self.b)
 
             # Check for the essential gradient function.
             if dfunc == None:
@@ -279,16 +279,16 @@ class Method_of_multipliers(Min):
 
         if self.print_flag >= 4:
             print ""
-            print "\taug Lagr value:       " + `L`
-            print "\tfunction value:       " + `self.fk`
-            print "\tck:                   " + `self.ck`
-            print "\tMu:                   " + `self.mu`
-            print "\tck - mu.lambda_k:     " + `self.ck - self.mu * self.lambda_k`
-            print "\tlambda_k - ck/mu:     " + `self.lambda_k - self.ck / self.mu`
-            print "\tepsilon:              " + `self.epsilon`
-            print "\tgamma:                " + `self.gamma`
-            print "\tLagrange multipliers: " + `self.lambda_k`
-            print "\tTest structure:       " + `self.test_str`
+            print "\taug Lagr value:       " + repr(L)
+            print "\tfunction value:       " + repr(self.fk)
+            print "\tck:                   " + repr(self.ck)
+            print "\tMu:                   " + repr(self.mu)
+            print "\tck - mu.lambda_k:     " + repr(self.ck - self.mu * self.lambda_k)
+            print "\tlambda_k - ck/mu:     " + repr(self.lambda_k - self.ck / self.mu)
+            print "\tepsilon:              " + repr(self.epsilon)
+            print "\tgamma:                " + repr(self.gamma)
+            print "\tLagrange multipliers: " + repr(self.lambda_k)
+            print "\tTest structure:       " + repr(self.test_str)
 
         return L
 
@@ -307,10 +307,10 @@ class Method_of_multipliers(Min):
 
         if self.print_flag >= 4:
             print ""
-            print "\taug Lagr grad:       " + `dL`
-            print "\tfunction grad:       " + `dfk`
-            print "\tdck:                   " + `self.dck`
-            print "\tTest structure:       " + `self.test_str`
+            print "\taug Lagr grad:       " + repr(dL)
+            print "\tfunction grad:       " + repr(dfk)
+            print "\tdck:                   " + repr(self.dck)
+            print "\tTest structure:       " + repr(self.test_str)
 
         return dL
 
@@ -346,9 +346,9 @@ class Method_of_multipliers(Min):
 
         if self.print_flag >= 4:
             print ""
-            print "\taug Lagr Hess:       " + `d2L`
-            print "\tfunction Hess:       " + `d2fk`
-            print "\tTest structure:       " + `self.test_str`
+            print "\taug Lagr Hess:       " + repr(d2L)
+            print "\tfunction Hess:       " + repr(d2fk)
+            print "\tTest structure:       " + repr(self.test_str)
 
         return d2L
 
@@ -369,7 +369,7 @@ class Method_of_multipliers(Min):
         while True:
             # Print out.
             if self.print_flag:
-                print "\n%-3s%-8i%-4s%-65s%-4s%-20s" % ("k:", self.k, "xk:", `self.xk`, "fk:", `self.fk`)
+                print "\n%-3s%-8i%-4s%-65s%-4s%-20s" % ("k:", self.k, "xk:", repr(self.xk), "fk:", repr(self.fk))
                 if self.print_flag >= 2:
                     self.printout()
                 print "Entering sub-algorithm."
@@ -446,12 +446,12 @@ class Method_of_multipliers(Min):
     def printout(self):
         """Function to print out various data structures."""
 
-        print "aug Lagr value:       " + `self.L`
-        print "function value:       " + `self.fk`
-        print "ck:                   " + `self.ck`
-        print "Mu:                   " + `self.mu`
-        print "ck - mu.lambda_k:     " + `self.ck - self.mu * self.lambda_k`
-        print "epsilon:              " + `self.epsilon`
-        print "gamma:                " + `self.gamma`
-        print "Lagrange multipliers: " + `self.lambda_k`
-        print "Test structure:       " + `self.test_str`
+        print "aug Lagr value:       " + repr(self.L)
+        print "function value:       " + repr(self.fk)
+        print "ck:                   " + repr(self.ck)
+        print "Mu:                   " + repr(self.mu)
+        print "ck - mu.lambda_k:     " + repr(self.ck - self.mu * self.lambda_k)
+        print "epsilon:              " + repr(self.epsilon)
+        print "gamma:                " + repr(self.gamma)
+        print "Lagrange multipliers: " + repr(self.lambda_k)
+        print "Test structure:       " + repr(self.test_str)

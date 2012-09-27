@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -49,9 +49,9 @@ def cholesky_mod(dfk, d2fk, I, n, print_prefix, print_flag, return_matrix=0):
 
     # Debugging.
     if print_flag >= 3:
-        print print_prefix + "Frobenius norm: " + `norm`
-        print print_prefix + "min aii: " + `min_aii`
-        print print_prefix + "tk: " + `tk`
+        print print_prefix + "Frobenius norm: " + repr(norm)
+        print print_prefix + "min aii: " + repr(min_aii)
+        print print_prefix + "tk: " + repr(tk)
 
     # Loop until the matrix is positive definite.
     while True:
@@ -67,7 +67,7 @@ def cholesky_mod(dfk, d2fk, I, n, print_prefix, print_flag, return_matrix=0):
             if print_flag >= 3:
                 print print_prefix + "\tCholesky matrix L:"
                 for i in xrange(n):
-                    print print_prefix + "\t\t" + `L[i]`
+                    print print_prefix + "\t\t" + repr(L[i])
         except LinAlgError:
             if print_flag >= 3:
                 print print_prefix + "\tLinearAlgebraError, matrix is not positive definite."

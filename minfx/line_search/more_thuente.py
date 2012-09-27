@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -111,22 +111,22 @@ def more_thuente(func, func_prime, args, x, f, g, p, a_init=1.0, a_min=1e-25, a_
     # Test for errors.
     if a0['phi_prime'] > 0.0:
         if print_flag:
-            print "xk = " + `x`
-            print "fk = " + `f`
-            print "dfk = " + `g`
-            print "pk = " + `p`
-            print "dot(dfk, pk) = " + `dot(g, p)`
-            print "a0['phi_prime'] = " + `a0['phi_prime']`
+            print "xk = " + repr(x)
+            print "fk = " + repr(f)
+            print "dfk = " + repr(g)
+            print "pk = " + repr(p)
+            print "dot(dfk, pk) = " + repr(dot(g, p))
+            print "a0['phi_prime'] = " + repr(a0['phi_prime'])
         raise NameError, "The gradient at point 0 of this line search is positive, ie p is not a descent direction and the line search will not work."
     if a['a'] < a_min:
-        raise NameError, "Alpha is less than alpha_min, " + `a['a']` + " > " + `a_min`
+        raise NameError, "Alpha is less than alpha_min, " + repr(a['a']) + " > " + repr(a_min)
     if a['a'] > a_max:
-        raise NameError, "Alpha is greater than alpha_max, " + `a['a']` + " > " + `a_max`
+        raise NameError, "Alpha is greater than alpha_max, " + repr(a['a']) + " > " + repr(a_max)
 
     while True:
         if print_flag:
-            print "\n<Line search iteration k = " + `k+1` + " >"
-            print "Bracketed: " + `bracketed`
+            print "\n<Line search iteration k = " + repr(k+1) + " >"
+            print "Bracketed: " + repr(bracketed)
             print_data("Initial", k, a, Ik, Ik_lim)
 
         # Test values.
@@ -223,7 +223,7 @@ def more_thuente(func, func_prime, args, x, f, g, p, a_init=1.0, a_min=1e-25, a_
         # Limit.
         if print_flag:
             print "Limiting"
-            print "   Ik_lim: " + `Ik_lim`
+            print "   Ik_lim: " + repr(Ik_lim)
         if bracketed:
             if print_flag:
                 print "   Bracketed."
@@ -232,12 +232,12 @@ def more_thuente(func, func_prime, args, x, f, g, p, a_init=1.0, a_min=1e-25, a_
         else:
             if print_flag:
                 print "   Not bracketed."
-                print "   a_new['a']: " + `a_new['a']`
-                print "   xtrapl:     " + `1.1`
+                print "   a_new['a']: " + repr(a_new['a'])
+                print "   xtrapl:     " + repr(1.1)
             Ik_lim[0] = a_new['a'] + 1.1 * (a_new['a'] - Ik_new['a'][0])
             Ik_lim[1] = a_new['a'] + 4.0 * (a_new['a'] - Ik_new['a'][0])
         if print_flag:
-            print "   Ik_lim: " + `Ik_lim`
+            print "   Ik_lim: " + repr(Ik_lim)
 
         if bracketed:
             if a_new['a'] <= Ik_lim[0] or a_new['a'] >= Ik_lim[1] or Ik_lim[1] - Ik_lim[0] <= a_tol * Ik_lim[1]:
@@ -266,7 +266,7 @@ def more_thuente(func, func_prime, args, x, f, g, p, a_init=1.0, a_min=1e-25, a_
         # Shift data from k+1 to k.
         k = k + 1
         if print_flag:
-            print "Bracketed: " + `bracketed`
+            print "Bracketed: " + repr(bracketed)
             print_data("Final", k, a_new, Ik_new, Ik_lim)
         a = deepcopy(a_new)
         Ik = deepcopy(Ik_new)
@@ -276,14 +276,14 @@ def print_data(text, k, a, Ik, Ik_lim):
     """Temp func for debugging."""
 
     print text + " data printout:"
-    print "   Iteration:   " + `k+1`
-    print "   a:           " + `a['a']`
-    print "   phi:         " + `a['phi']`
-    print "   phi_prime:   " + `a['phi_prime']`
-    print "   Ik:          " + `Ik['a']`
-    print "   phi_I:       " + `Ik['phi']`
-    print "   phi_I_prime: " + `Ik['phi_prime']`
-    print "   Ik_lim:      " + `Ik_lim`
+    print "   Iteration:   " + repr(k+1)
+    print "   a:           " + repr(a['a'])
+    print "   phi:         " + repr(a['phi'])
+    print "   phi_prime:   " + repr(a['phi_prime'])
+    print "   Ik:          " + repr(Ik['a'])
+    print "   phi_I:       " + repr(Ik['phi'])
+    print "   phi_I_prime: " + repr(Ik['phi_prime'])
+    print "   Ik_lim:      " + repr(Ik_lim)
 
 
 def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66, print_flag=0):
@@ -361,19 +361,19 @@ def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66,
         ac = cubic(al, at, fl, ft, gl, gt)
         aq = quadratic(al, at, fl, ft, gl)
         if print_flag:
-            print "\t\tac: " + `ac`
-            print "\t\taq: " + `aq`
+            print "\t\tac: " + repr(ac)
+            print "\t\taq: " + repr(aq)
 
         # Return at+.
         if abs(ac - al) < abs(aq - al):
             if print_flag:
-                print "\t\tabs(ac - al) < abs(aq - al), " + `abs(ac - al)` + " < " + `abs(aq - al)`
-                print "\t\tat_new = ac = " + `ac`
+                print "\t\tabs(ac - al) < abs(aq - al), " + repr(abs(ac - al)) + " < " + repr(abs(aq - al))
+                print "\t\tat_new = ac = " + repr(ac)
             at_new = ac
         else:
             if print_flag:
-                print "\t\tabs(ac - al) >= abs(aq - al), " + `abs(ac - al)` + " >= " + `abs(aq - al)`
-                print "\t\tat_new = 1/2(aq + ac) = " + `0.5*(aq + ac)`
+                print "\t\tabs(ac - al) >= abs(aq - al), " + repr(abs(ac - al)) + " >= " + repr(abs(aq - al))
+                print "\t\tat_new = 1/2(aq + ac) = " + repr(0.5*(aq + ac))
             at_new = 0.5*(aq + ac)
 
 
@@ -388,19 +388,19 @@ def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66,
         ac = cubic(al, at, fl, ft, gl, gt)
         asec = secant(al, at, gl, gt)
         if print_flag:
-            print "\t\tac: " + `ac`
-            print "\t\tasec: " + `asec`
+            print "\t\tac: " + repr(ac)
+            print "\t\tasec: " + repr(asec)
 
         # Return at+.
         if abs(ac - at) >= abs(asec - at):
             if print_flag:
-                print "\t\tabs(ac - at) >= abs(asec - at), " + `abs(ac - at)` + " >= " + `abs(asec - at)`
-                print "\t\tat_new = ac = " + `ac`
+                print "\t\tabs(ac - at) >= abs(asec - at), " + repr(abs(ac - at)) + " >= " + repr(abs(asec - at))
+                print "\t\tat_new = ac = " + repr(ac)
             at_new = ac
         else:
             if print_flag:
-                print "\t\tabs(ac - at) < abs(asec - at), " + `abs(ac - at)` + " < " + `abs(asec - at)`
-                print "\t\tat_new = asec = " + `asec`
+                print "\t\tabs(ac - at) < abs(asec - at), " + repr(abs(ac - at)) + " < " + repr(abs(asec - at))
+                print "\t\tat_new = asec = " + repr(asec)
             at_new = asec
 
 
@@ -419,7 +419,7 @@ def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66,
         elif at > al:
             # Set ac to the upper limit.
             if print_flag:
-                print "\t\tat > al, " + `at` + " > " + `al`
+                print "\t\tat > al, " + repr(at) + " > " + repr(al)
             ac = Ik_lim[1]
         else:
             # Set ac to the lower limit.
@@ -428,8 +428,8 @@ def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66,
         asec = secant(al, at, gl, gt)
 
         if print_flag:
-            print "\t\tac: " + `ac`
-            print "\t\tasec: " + `asec`
+            print "\t\tac: " + repr(ac)
+            print "\t\tasec: " + repr(asec)
 
         # Test if bracketed.
         if bracketed:
@@ -437,13 +437,13 @@ def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66,
                 print "\t\tBracketed"
             if abs(ac - at) < abs(asec - at):
                 if print_flag:
-                    print "\t\t\tabs(ac - at) < abs(asec - at), " + `abs(ac - at)` + " < " + `abs(asec - at)`
-                    print "\t\t\tat_new = ac = " + `ac`
+                    print "\t\t\tabs(ac - at) < abs(asec - at), " + repr(abs(ac - at)) + " < " + repr(abs(asec - at))
+                    print "\t\t\tat_new = ac = " + repr(ac)
                 at_new = ac
             else:
                 if print_flag:
-                    print "\t\t\tabs(ac - at) >= abs(asec - at), " + `abs(ac - at)` + " >= " + `abs(asec - at)`
-                    print "\t\t\tat_new = asec = " + `asec`
+                    print "\t\t\tabs(ac - at) >= abs(asec - at), " + repr(abs(ac - at)) + " >= " + repr(abs(asec - at))
+                    print "\t\t\tat_new = asec = " + repr(asec)
                 at_new = asec
 
             # Redefine at+.
@@ -452,25 +452,25 @@ def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66,
             if at > al:
                 at_new = min(at + d*(au - at), at_new)
                 if print_flag:
-                    print "\t\t\tat > al, " + `at` + " > " + `al`
-                    print "\t\t\tat_new = " + `at_new`
+                    print "\t\t\tat > al, " + repr(at) + " > " + repr(al)
+                    print "\t\t\tat_new = " + repr(at_new)
             else:
                 at_new = max(at + d*(au - at), at_new)
                 if print_flag:
-                    print "\t\t\tat <= al, " + `at` + " <= " + `al`
-                    print "\t\t\tat_new = " + `at_new`
+                    print "\t\t\tat <= al, " + repr(at) + " <= " + repr(al)
+                    print "\t\t\tat_new = " + repr(at_new)
         else:
             if print_flag:
                 print "\t\tNot bracketed"
             if abs(ac - at) > abs(asec - at):
                 if print_flag:
-                    print "\t\t\tabs(ac - at) > abs(asec - at), " + `abs(ac - at)` + " > " + `abs(asec - at)`
-                    print "\t\t\tat_new = ac = " + `ac`
+                    print "\t\t\tabs(ac - at) > abs(asec - at), " + repr(abs(ac - at)) + " > " + repr(abs(asec - at))
+                    print "\t\t\tat_new = ac = " + repr(ac)
                 at_new = ac
             else:
                 if print_flag:
-                    print "\t\t\tabs(ac - at) <= abs(asec - at), " + `abs(ac - at)` + " <= " + `abs(asec - at)`
-                    print "\t\t\tat_new = asec = " + `asec`
+                    print "\t\t\tabs(ac - at) <= abs(asec - at), " + repr(abs(ac - at)) + " <= " + repr(abs(asec - at))
+                    print "\t\t\tat_new = asec = " + repr(asec)
                 at_new = asec
 
             # Check limits.
@@ -478,13 +478,13 @@ def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66,
                 print "\t\tChecking limits."
             if at_new < Ik_lim[0]:
                 if print_flag:
-                    print "\t\t\tat_new < Ik_lim[0], " + `at_new` + " < " + `Ik_lim[0]`
-                    print "\t\t\tat_new = " + `Ik_lim[0]`
+                    print "\t\t\tat_new < Ik_lim[0], " + repr(at_new) + " < " + repr(Ik_lim[0])
+                    print "\t\t\tat_new = " + repr(Ik_lim[0])
                 at_new = Ik_lim[0]
             if at_new > Ik_lim[1]:
                 if print_flag:
-                    print "\t\t\tat_new > Ik_lim[1], " + `at_new` + " > " + `Ik_lim[1]`
-                    print "\t\t\tat_new = " + `Ik_lim[1]`
+                    print "\t\t\tat_new > Ik_lim[1], " + repr(at_new) + " > " + repr(Ik_lim[1])
+                    print "\t\t\tat_new = " + repr(Ik_lim[1])
                 at_new = Ik_lim[1]
 
 
@@ -497,16 +497,16 @@ def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66,
                 print "\t\tbracketed."
             at_new = cubic(au, at, fu, ft, gu, gt)
             if print_flag:
-                print "\t\tat_new = " + `at_new`
+                print "\t\tat_new = " + repr(at_new)
         elif at > al:
             if print_flag:
-                print "\t\tnot bracketed but at > al, " + `at` + " > " + `al`
-                print "\t\tat_new = " + `Ik_lim[1]`
+                print "\t\tnot bracketed but at > al, " + repr(at) + " > " + repr(al)
+                print "\t\tat_new = " + repr(Ik_lim[1])
             at_new = Ik_lim[1]
         else:
             if print_flag:
-                print "\t\tnot bracketed but at <= al, " + `at` + " <= " + `al`
-                print "\t\tat_new = " + `Ik_lim[0]`
+                print "\t\tnot bracketed but at <= al, " + repr(at) + " <= " + repr(al)
+                print "\t\tat_new = " + repr(Ik_lim[0])
             at_new = Ik_lim[0]
 
 
@@ -535,11 +535,11 @@ def update(a, Ik, at, al, au, ft, fl, fu, gt, gl, gu, bracketed, Ik_lim, d=0.66,
 
         if print_flag:
             print "\tIk update, case c."
-            print "\t\tat:                  " + `at`
-            print "\t\ta['phi']:            " + `a['phi']`
-            print "\t\ta['phi_prime']:      " + `a['phi_prime']`
-            print "\t\tIk_new['a']:         " + `Ik_new['a']`
-            print "\t\tIk_new['phi']:       " + `Ik_new['phi']`
-            print "\t\tIk_new['phi_prime']: " + `Ik_new['phi_prime']`
+            print "\t\tat:                  " + repr(at)
+            print "\t\ta['phi']:            " + repr(a['phi'])
+            print "\t\ta['phi_prime']:      " + repr(a['phi_prime'])
+            print "\t\tIk_new['a']:         " + repr(Ik_new['a'])
+            print "\t\tIk_new['phi']:       " + repr(Ik_new['phi'])
+            print "\t\tIk_new['phi_prime']: " + repr(Ik_new['phi_prime'])
 
     return at_new, Ik_new, bracketed

@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -112,8 +112,8 @@ class Cauchy_point(Trust_region, Min):
             self.tau_k = min(norm_dfk ** 3 / (self.delta * curv), 1.0)
 
         if self.print_flag >= 2:
-            print self.print_prefix + "dfk . Bk . dfk: " + `curv`
-            print self.print_prefix + "tau_k:          " + `self.tau_k`
+            print self.print_prefix + "dfk . Bk . dfk: " + repr(curv)
+            print self.print_prefix + "tau_k:          " + repr(self.tau_k)
 
         # Cauchy point.
         self.pk = - self.tau_k * self.delta * self.dfk / norm_dfk

@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -140,7 +140,7 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
             lambda_l = max(0.0, lambda_l)
 
             if self.print_flag >= 2:
-                print self.print_prefix + "\tl: " + `l` + ", lambda(l) fin: " + `lambda_l`
+                print self.print_prefix + "\tl: " + repr(l) + ", lambda(l) fin: " + repr(lambda_l)
 
             l = l + 1
 
@@ -150,7 +150,7 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
         self.pk = -solve(transpose(R), y)
 
         if self.print_flag >= 2:
-            print self.print_prefix + "Step: " + `self.pk`
+            print self.print_prefix + "Step: " + repr(self.pk)
 
         # Find the new parameter vector and function value at that point.
         self.xk_new = self.xk + self.pk
@@ -192,26 +192,26 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
             eigen = eig(self.d2fk)
             eigenvals = sort(eigen[0])
             for i in xrange(len(self.d2fk)):
-                print self.print_prefix + "\tB[" + `i` + ", " + `i` + "] = " + `self.d2fk[i, i]`
-            print self.print_prefix + "\tEigenvalues: " + `eigenvals`
-            print self.print_prefix + "\t||g||/delta: " + `a`
-            print self.print_prefix + "\t||B||1: " + `b`
-            print self.print_prefix + "\tl:  " + `self.l`
-            print self.print_prefix + "\tlL: " + `self.lL`
-            print self.print_prefix + "\tlU: " + `self.lU`
-            print self.print_prefix + "\tlS: " + `self.lS`
+                print self.print_prefix + "\tB[" + repr(i) + ", " + repr(i) + "] = " + repr(self.d2fk[i, i])
+            print self.print_prefix + "\tEigenvalues: " + repr(eigenvals)
+            print self.print_prefix + "\t||g||/delta: " + repr(a)
+            print self.print_prefix + "\t||B||1: " + repr(b)
+            print self.print_prefix + "\tl:  " + repr(self.l)
+            print self.print_prefix + "\tlL: " + repr(self.lL)
+            print self.print_prefix + "\tlU: " + repr(self.lU)
+            print self.print_prefix + "\tlS: " + repr(self.lS)
 
         # Iterative loop.
         return
         while True:
             # Safeguard lambda.
             if self.print_flag >= 2:
-                print self.print_prefix + "\n< Iteration " + `iter` + " >"
+                print self.print_prefix + "\n< Iteration " + repr(iter) + " >"
                 print self.print_prefix + "Safeguarding lambda."
-                print self.print_prefix + "\tInit l: " + `self.l`
-                print self.print_prefix + "\tlL: " + `self.lL`
-                print self.print_prefix + "\tlU: " + `self.lU`
-                print self.print_prefix + "\tlS: " + `self.lS`
+                print self.print_prefix + "\tInit l: " + repr(self.l)
+                print self.print_prefix + "\tlL: " + repr(self.lL)
+                print self.print_prefix + "\tlU: " + repr(self.lU)
+                print self.print_prefix + "\tlS: " + repr(self.lS)
             self.l = max(self.l, self.lL)
             self.l = min(self.l, self.lU)
             if self.l <= self.lS:
@@ -219,35 +219,35 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
                     print self.print_prefix + "\tself.l <= self.lS"
                 self.l = max(0.001*self.lU, sqrt(self.lL*self.lU))
             if self.print_flag >= 2:
-                print self.print_prefix + "\tFinal l: " + `self.l`
+                print self.print_prefix + "\tFinal l: " + repr(self.l)
 
             # Calculate the matrix 'B + lambda.I' and factor 'B + lambda(l).I = RT.R'
             matrix = self.d2fk + self.l * self.I
             pos_def = 1
             if self.print_flag >= 2:
                 print self.print_prefix + "Cholesky decomp."
-                print self.print_prefix + "\tB + lambda.I: " + `matrix`
+                print self.print_prefix + "\tB + lambda.I: " + repr(matrix)
                 eigen = eig(matrix)
                 eigenvals = sort(eigen[0])
-                print self.print_prefix + "\tEigenvalues: " + `eigenvals`
+                print self.print_prefix + "\tEigenvalues: " + repr(eigenvals)
             try:
                 func = cholesky
                 R = func(matrix)
                 if self.print_flag >= 2:
-                    print self.print_prefix + "\tCholesky matrix R: " + `R`
+                    print self.print_prefix + "\tCholesky matrix R: " + repr(R)
             except "LinearAlgebraError":
                 if self.print_flag >= 2:
                     print self.print_prefix + "\tLinearAlgebraError, matrix is not positive definite."
                 pos_def = 0
             if self.print_flag >= 2:
-                print self.print_prefix + "\tPos def: " + `pos_def`
+                print self.print_prefix + "\tPos def: " + repr(pos_def)
 
             if pos_def:
                 # Solve p = -inv(RT.R).g
                 p = -dot(inv(matrix), self.dfk)
                 if self.print_flag >= 2:
                     print self.print_prefix + "Solve p = -inv(RT.R).g"
-                    print self.print_prefix + "\tp: " + `p`
+                    print self.print_prefix + "\tp: " + repr(p)
 
                 # Compute tau and z if ||p|| < delta.
                 dot_p = dot(p, p)
@@ -263,8 +263,8 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
 
                     if self.print_flag >= 2:
                         print self.print_prefix + "||p|| < delta"
-                        print self.print_prefix + "\tz: " + `z`
-                        print self.print_prefix + "\ttau: " + `tau`
+                        print self.print_prefix + "\tz: " + repr(z)
+                        print self.print_prefix + "\ttau: " + repr(tau)
                 else:
                     if self.print_flag >= 2:
                         print self.print_prefix + "||p|| >= delta"
@@ -291,7 +291,7 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
             # Update lL
             self.lL = max(self.lL, self.lS)
             if self.print_flag >= 2:
-                print self.print_prefix + "Update lL: " + `self.lL`
+                print self.print_prefix + "Update lL: " + repr(self.lL)
 
             # Check the convergence criteria.
 
@@ -312,7 +312,7 @@ class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
         if self.lambda_l < -eigenvals[0]:
             self.lambda_l = -eigenvals[0] + 1.0
             if self.print_flag >= 2:
-                print self.print_prefix + "\tSafeguarding. lambda(l) = " + `self.lambda_l`
+                print self.print_prefix + "\tSafeguarding. lambda(l) = " + repr(self.lambda_l)
         elif self.lambda_l <= 0.0:
             if self.print_flag >= 2:
                 print self.print_prefix + "\tSafeguarding. lambda(l)=0"

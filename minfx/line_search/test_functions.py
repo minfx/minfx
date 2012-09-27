@@ -2,7 +2,7 @@
 
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -51,7 +51,7 @@ def run():
         else:
             print "Choose a0 as one of ['1e-3', '1e-1', '1e1', '1e3']."
 
-    print "Testing line minimiser using test function " + `func`
+    print "Testing line minimiser using test function " + repr(func)
     if func == 1:
         f, df = func1, dfunc1
         mu, eta = 0.001, 0.1
@@ -83,7 +83,7 @@ def run():
     f0 = f(*(xk,)+args)
     g0 = df(*(xk,)+args)
     a = more_thuente(f, df, args, xk, pk, f0, g0, a_init=a0, mu=mu, eta=eta, print_flag=1)
-    print "The minimum is at " + `a`
+    print "The minimum is at " + repr(a)
 
 
 def func1(alpha, beta=2.0):

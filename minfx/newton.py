@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -82,7 +82,7 @@ class Newton(Hessian_mods, Line_search, Min):
 
         # Test if the options are a tuple.
         if not isinstance(min_options, tuple):
-            print self.print_prefix + "The minimisation options " + `min_options` + " is not a tuple."
+            print self.print_prefix + "The minimisation options " + repr(min_options) + " is not a tuple."
             self.init_failure = 1; return
 
         # Test that no more thant 2 options are given.
@@ -102,11 +102,11 @@ class Newton(Hessian_mods, Line_search, Min):
                 self.hessian_mod = opt
             else:
                 if self.line_search_algor:
-                    print self.print_prefix + "The minimisation option " + `opt` + " from " + `min_options` + " is not a valid Hessian modification."
+                    print self.print_prefix + "The minimisation option " + repr(opt) + " from " + repr(min_options) + " is not a valid Hessian modification."
                 elif self.hessian_mod:
-                    print self.print_prefix + "The minimisation option " + `opt` + " from " + `min_options` + " is not a valid line search algorithm."
+                    print self.print_prefix + "The minimisation option " + repr(opt) + " from " + repr(min_options) + " is not a valid line search algorithm."
                 else:
-                    print self.print_prefix + "The minimisation option " + `opt` + " from " + `min_options` + " is neither a valid line search algorithm or Hessian modification."
+                    print self.print_prefix + "The minimisation option " + repr(opt) + " from " + repr(min_options) + " is neither a valid line search algorithm or Hessian modification."
                 self.init_failure = 1; return
         if none_option and not self.hessian_mod:
             if self.valid_hessian_mod(none_option):
@@ -115,7 +115,7 @@ class Newton(Hessian_mods, Line_search, Min):
             if self.valid_line_search(none_option):
                 self.line_search_algor = none_option
         elif none_option:
-            print self.print_prefix + "Invalid combination of options " + `min_options` + "."
+            print self.print_prefix + "Invalid combination of options " + repr(min_options) + "."
             self.init_failure = 1; return
 
         # Default line search algorithm.
@@ -172,26 +172,26 @@ class Newton(Hessian_mods, Line_search, Min):
         # Debugging.
         if self.print_flag >= 2:
             print "\n" + self.print_prefix + "New param function."
-            print self.print_prefix + "pk:    " + `self.pk`
-            print self.print_prefix + "alpha: " + `self.alpha`
-            print self.print_prefix + "xk:    " + `self.xk`
-            print self.print_prefix + "xk+1:  " + `self.xk_new`
-            print self.print_prefix + "fk:    " + `self.fk`
-            print self.print_prefix + "fk+1:  " + `self.fk_new`
-            print self.print_prefix + "dfk:    " + `self.dfk`
-            print self.print_prefix + "dfk+1:  " + `self.dfk_new`
-            print self.print_prefix + "d2fk:\n" + `self.d2fk`
+            print self.print_prefix + "pk:    " + repr(self.pk)
+            print self.print_prefix + "alpha: " + repr(self.alpha)
+            print self.print_prefix + "xk:    " + repr(self.xk)
+            print self.print_prefix + "xk+1:  " + repr(self.xk_new)
+            print self.print_prefix + "fk:    " + repr(self.fk)
+            print self.print_prefix + "fk+1:  " + repr(self.fk_new)
+            print self.print_prefix + "dfk:    " + repr(self.dfk)
+            print self.print_prefix + "dfk+1:  " + repr(self.dfk_new)
+            print self.print_prefix + "d2fk:\n" + repr(self.d2fk)
 
             #eigen = eigenvectors(self.d2fk)
-            #print self.print_prefix + "Eigenvalues: " + `eigen[0]`
+            #print self.print_prefix + "Eigenvalues: " + repr(eigen[0])
 
             print self.print_prefix + "Angle to the unit vector pointing along the first dimension."
             unit_vect = zeros(self.n, float64)
             unit_vect[0] = 1.0
             dfk_angle = acos(dot(self.dfk, unit_vect) / sqrt(dot(self.dfk, self.dfk)))
             pk_angle = acos(dot(self.pk, unit_vect) / sqrt(dot(self.pk, self.pk)))
-            print self.print_prefix + "steepest descent: " + `dfk_angle`
-            print self.print_prefix + "Newton step:      " + `pk_angle`
+            print self.print_prefix + "steepest descent: " + repr(dfk_angle)
+            print self.print_prefix + "Newton step:      " + repr(pk_angle)
 
 
     def setup_newton(self):

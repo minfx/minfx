@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -113,12 +113,12 @@ class Bfgs(Line_search, Min):
 
         # Debugging.
         if self.print_flag >= 2:
-            print self.print_prefix + "pk:    " + `self.pk`
-            print self.print_prefix + "alpha: " + `self.alpha`
-            print self.print_prefix + "xk:    " + `self.xk`
-            print self.print_prefix + "xk+1:  " + `self.xk_new`
-            print self.print_prefix + "fk:    " + `self.fk`
-            print self.print_prefix + "fk+1:  " + `self.fk_new`
+            print self.print_prefix + "pk:    " + repr(self.pk)
+            print self.print_prefix + "alpha: " + repr(self.alpha)
+            print self.print_prefix + "xk:    " + repr(self.xk)
+            print self.print_prefix + "xk+1:  " + repr(self.xk_new)
+            print self.print_prefix + "fk:    " + repr(self.fk)
+            print self.print_prefix + "fk+1:  " + repr(self.fk_new)
 
 
     def setup_bfgs(self):

@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -147,8 +147,8 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
         c = constraint_linear.func
         if verbosity >= 3:
             print print_prefix + "Linear constraint matrices."
-            print print_prefix + "A: " + `A`
-            print print_prefix + "b: " + `b`
+            print print_prefix + "A: " + repr(A)
+            print print_prefix + "b: " + repr(b)
 
     # Bound constraints.
     elif l != None and u != None:
@@ -185,7 +185,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
                 if verbosity >= 3:
                     print print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g]") % ((k,) + tuple(min_params))
                     print print_prefix + "Constraint violated, skipping grid point."
-                    print print_prefix + "ci: " + `ci`
+                    print print_prefix + "ci: " + repr(ci)
                     print ""
                 skip = 1
 
@@ -211,9 +211,9 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
                 if f != f_min:
                     print print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f,))
                 if verbosity >= 3:
-                    print print_prefix + "%-20s%-20s" % ("Increment:", `step_num`)
-                    print print_prefix + "%-20s%-20s" % ("Params:", `params`)
-                    print print_prefix + "%-20s%-20s" % ("Min params:", `min_params`)
+                    print print_prefix + "%-20s%-20s" % ("Increment:", repr(step_num))
+                    print print_prefix + "%-20s%-20s" % ("Params:", repr(params))
+                    print print_prefix + "%-20s%-20s" % ("Min params:", repr(min_params))
                     print print_prefix + "%-20s%-20g\n" % ("f:", f)
                     print print_prefix + "%-20s%-20g\n" % ("Min f:", f_min)
 
@@ -286,8 +286,8 @@ def grid_point_array(func, args=(), points=None, verbosity=0, print_prefix=""):
             if f != f_min:
                 print(print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f,)))
             if verbosity >= 3:
-                print(print_prefix + "%-20s%-20s" % ("Params:", `points[k]`))
-                print(print_prefix + "%-20s%-20s" % ("Min params:", `min_params`))
+                print(print_prefix + "%-20s%-20s" % ("Params:", repr(points[k])))
+                print(print_prefix + "%-20s%-20s" % ("Min params:", repr(min_params)))
                 print(print_prefix + "%-20s%-20g\n" % ("f:", f))
                 print(print_prefix + "%-20s%-20g\n" % ("Min f:", f_min))
 
@@ -333,8 +333,8 @@ def grid_split(divisions=None, lower=None, upper=None, inc=None, A=None, b=None,
         c = constraint_linear.func
         if verbosity >= 3:
             print print_prefix + "Linear constraint matrices."
-            print print_prefix + "A: " + `A`
-            print print_prefix + "b: " + `b`
+            print print_prefix + "A: " + repr(A)
+            print print_prefix + "b: " + repr(b)
 
     # Bound constraints.
     elif l != None and u != None:

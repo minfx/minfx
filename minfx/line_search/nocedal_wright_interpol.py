@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2011 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -99,7 +99,7 @@ def nocedal_wright_interpol(func, args, x, f, g, p, a_init=1.0, mu=0.001, print_
 
     while True:
         if print_flag:
-            print "<Line search iteration i = " + `i` + " >"
+            print "<Line search iteration i = " + repr(i) + " >"
             print_data("Initial (a)", i, a)
             print_data("Initial (a_last)", i, a_last)
 
@@ -134,7 +134,7 @@ def print_data(text, k, a):
     """Temp func for debugging."""
 
     print text + " data printout:"
-    print "   Iteration:      " + `k`
-    print "   a:              " + `a['a']`
-    print "   phi:            " + `a['phi']`
-    print "   phi_prime:      " + `a['phi_prime']`
+    print "   Iteration:      " + repr(k)
+    print "   a:              " + repr(a['a'])
+    print "   phi:            " + repr(a['phi'])
+    print "   phi_prime:      " + repr(a['phi_prime'])
