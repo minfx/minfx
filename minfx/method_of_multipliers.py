@@ -119,9 +119,9 @@ def method_of_multipliers(func=None, dfunc=None, d2func=None, args=(), x0=None, 
     """
 
     if print_flag:
-        print "\n"
-        print "Method of Multipliers"
-        print "~~~~~~~~~~~~~~~~~~~~~"
+        print("\n")
+        print("Method of Multipliers")
+        print("~~~~~~~~~~~~~~~~~~~~~")
     min = Method_of_multipliers(func, dfunc, d2func, args, x0, min_options, A, b, l, u, c, dc, d2c, lambda0, init_lambda, mu0, epsilon0, gamma0, scale_mu, scale_epsilon, scale_gamma, func_tol, grad_tol, maxiter, inner_maxiter, full_output, print_flag)
     if min.init_failure:
         return None
@@ -155,19 +155,19 @@ class Method_of_multipliers(Min):
             self.func_d2LA = self.func_d2LA_simple
             self.m = len(self.b)
             if print_flag >= 2:
-                print "Linear constraint matrices."
-                print "A:\n" + repr(self.A)
-                print "b:\n" + repr(self.b)
+                print("Linear constraint matrices.")
+                print("A:\n" + repr(self.A))
+                print("b:\n" + repr(self.b))
 
             # Check for the essential gradient function.
             if dfunc == None:
-                print "The essential gradient function has not been supplied."
+                print("The essential gradient function has not been supplied.")
                 self.init_failure = 1
                 return
 
         # Bound constraints.
         elif l != None and u != None:
-            print "Bound constraints are not implemented yet."
+            print("Bound constraints are not implemented yet.")
             self.init_failure = 1
             return
             self.l = l
@@ -186,13 +186,13 @@ class Method_of_multipliers(Min):
 
         # Incorrectly supplied constraints.
         else:
-            print "The constraints have been incorrectly supplied."
+            print("The constraints have been incorrectly supplied.")
             self.init_failure = 1
             return
 
         # min_options.
         if len(min_options) == 0:
-            print "The unconstrained minimisation algorithm has not been specified."
+            print("The unconstrained minimisation algorithm has not been specified.")
             self.init_failure = 1
             return
         self.min_algor = min_options[0]
@@ -217,7 +217,7 @@ class Method_of_multipliers(Min):
         self.full_output = full_output
         self.print_flag = print_flag
 
-        # Set the print prefix to nothing.
+        # Set the print_prefix to nothing.
         self.print_prefix = ""
 
         # Initialisation failure flag.
@@ -278,17 +278,17 @@ class Method_of_multipliers(Min):
                 self.test_str[i] = 0
 
         if self.print_flag >= 4:
-            print ""
-            print "\taug Lagr value:       " + repr(L)
-            print "\tfunction value:       " + repr(self.fk)
-            print "\tck:                   " + repr(self.ck)
-            print "\tMu:                   " + repr(self.mu)
-            print "\tck - mu.lambda_k:     " + repr(self.ck - self.mu * self.lambda_k)
-            print "\tlambda_k - ck/mu:     " + repr(self.lambda_k - self.ck / self.mu)
-            print "\tepsilon:              " + repr(self.epsilon)
-            print "\tgamma:                " + repr(self.gamma)
-            print "\tLagrange multipliers: " + repr(self.lambda_k)
-            print "\tTest structure:       " + repr(self.test_str)
+            print("")
+            print("\taug Lagr value:       " + repr(L))
+            print("\tfunction value:       " + repr(self.fk))
+            print("\tck:                   " + repr(self.ck))
+            print("\tMu:                   " + repr(self.mu))
+            print("\tck - mu.lambda_k:     " + repr(self.ck - self.mu * self.lambda_k))
+            print("\tlambda_k - ck/mu:     " + repr(self.lambda_k - self.ck / self.mu))
+            print("\tepsilon:              " + repr(self.epsilon))
+            print("\tgamma:                " + repr(self.gamma))
+            print("\tLagrange multipliers: " + repr(self.lambda_k))
+            print("\tTest structure:       " + repr(self.test_str))
 
         return L
 
@@ -306,11 +306,11 @@ class Method_of_multipliers(Min):
                 dL = dL  -  (self.lambda_k[i] - self.ck[i] / self.mu) * self.dck[i]
 
         if self.print_flag >= 4:
-            print ""
-            print "\taug Lagr grad:       " + repr(dL)
-            print "\tfunction grad:       " + repr(dfk)
-            print "\tdck:                   " + repr(self.dck)
-            print "\tTest structure:       " + repr(self.test_str)
+            print("")
+            print("\taug Lagr grad:       " + repr(dL))
+            print("\tfunction grad:       " + repr(dfk))
+            print("\tdck:                   " + repr(self.dck))
+            print("\tTest structure:       " + repr(self.test_str))
 
         return dL
 
@@ -345,10 +345,10 @@ class Method_of_multipliers(Min):
                 d2L = d2L  +  outer(self.dck[i], self.dck[i]) / self.mu
 
         if self.print_flag >= 4:
-            print ""
-            print "\taug Lagr Hess:       " + repr(d2L)
-            print "\tfunction Hess:       " + repr(d2fk)
-            print "\tTest structure:       " + repr(self.test_str)
+            print("")
+            print("\taug Lagr Hess:       " + repr(d2L))
+            print("\tfunction Hess:       " + repr(d2fk))
+            print("\tTest structure:       " + repr(self.test_str))
 
         return d2L
 
@@ -360,7 +360,7 @@ class Method_of_multipliers(Min):
         self.k = 0
         self.j = 0
 
-        # Sub-algorithm print out.
+        # Sub-algorithm printout.
         sub_print_flag = self.print_flag
         if sub_print_flag >= 2:
             sub_print_flag = sub_print_flag - 1
@@ -369,10 +369,10 @@ class Method_of_multipliers(Min):
         while True:
             # Print out.
             if self.print_flag:
-                print "\n%-3s%-8i%-4s%-65s%-4s%-20s" % ("k:", self.k, "xk:", repr(self.xk), "fk:", repr(self.fk))
+                print("\n%-3s%-8i%-4s%-65s%-4s%-20s" % ("k:", self.k, "xk:", repr(self.xk), "fk:", repr(self.fk)))
                 if self.print_flag >= 2:
                     self.printout()
-                print "Entering sub-algorithm."
+                print("Entering sub-algorithm.")
 
             # Calculate the augmented Lagrangian gradient tolerance.
             self.tk = min(self.epsilon, self.gamma*sqrt(dot(self.ck, self.ck)))
@@ -446,12 +446,12 @@ class Method_of_multipliers(Min):
     def printout(self):
         """Function to print out various data structures."""
 
-        print "aug Lagr value:       " + repr(self.L)
-        print "function value:       " + repr(self.fk)
-        print "ck:                   " + repr(self.ck)
-        print "Mu:                   " + repr(self.mu)
-        print "ck - mu.lambda_k:     " + repr(self.ck - self.mu * self.lambda_k)
-        print "epsilon:              " + repr(self.epsilon)
-        print "gamma:                " + repr(self.gamma)
-        print "Lagrange multipliers: " + repr(self.lambda_k)
-        print "Test structure:       " + repr(self.test_str)
+        print("aug Lagr value:       " + repr(self.L))
+        print("function value:       " + repr(self.fk))
+        print("ck:                   " + repr(self.ck))
+        print("Mu:                   " + repr(self.mu))
+        print("ck - mu.lambda_k:     " + repr(self.ck - self.mu * self.lambda_k))
+        print("epsilon:              " + repr(self.epsilon))
+        print("gamma:                " + repr(self.gamma))
+        print("Lagrange multipliers: " + repr(self.lambda_k))
+        print("Test structure:       " + repr(self.test_str))
