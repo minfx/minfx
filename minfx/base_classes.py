@@ -205,7 +205,7 @@ class Min:
         self.k = 0
         if self.print_flag:
             self.k2 = 0
-            print(""   # Print a new line.)
+            print("")   # Print a new line.
 
         # Print out format string.
         print_format = "k: %-8i xk: [ " + "%11.5g, "*(len(self.xk)-1) + "%11.5g] fk: %-20s"
