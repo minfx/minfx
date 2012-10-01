@@ -26,7 +26,7 @@ from numpy import dot
 import sys
 
 # Minfx module imports.
-from interpolate import cubic_int, cubic_ext, quadratic_fafbga, quadratic_gagb
+from minfx.line_search.interpolate import cubic_int, cubic_ext, quadratic_fafbga, quadratic_gagb
 
 # Rename the interpolation functions.
 cubic = cubic_int

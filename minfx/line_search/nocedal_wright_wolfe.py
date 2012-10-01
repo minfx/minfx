@@ -24,7 +24,7 @@ from copy import deepcopy
 from numpy import dot, sqrt
 
 # Minfx module imports.
-from interpolate import cubic_ext, quadratic_fafbga
+from minfx.line_search.interpolate import cubic_ext, quadratic_fafbga
 
 # Rename the interpolation functions.
 quadratic = quadratic_fafbga

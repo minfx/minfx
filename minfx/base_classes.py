@@ -39,20 +39,20 @@ from re import match
 # Line search functions.
 ########################
 
-from line_search.backtrack import backtrack
-from line_search.nocedal_wright_interpol import nocedal_wright_interpol
-from line_search.nocedal_wright_wolfe import nocedal_wright_wolfe
-from line_search.more_thuente import more_thuente
+from minfx.line_search.backtrack import backtrack
+from minfx.line_search.nocedal_wright_interpol import nocedal_wright_interpol
+from minfx.line_search.nocedal_wright_wolfe import nocedal_wright_wolfe
+from minfx.line_search.more_thuente import more_thuente
 
 
 # Hessian modifications.
 ########################
 
-from hessian_mods.cholesky_mod import cholesky_mod
-from hessian_mods.eigenvalue import eigenvalue
-from hessian_mods.gmw81 import gmw
-from hessian_mods.gmw81_old import gmw_old
-from hessian_mods.se99 import se99
+from minfx.hessian_mods.cholesky_mod import cholesky_mod
+from minfx.hessian_mods.eigenvalue import eigenvalue
+from minfx.hessian_mods.gmw81 import gmw
+from minfx.hessian_mods.gmw81_old import gmw_old
+from minfx.hessian_mods.se99 import se99
 
 
 # The generic minimisation base class (containing the main iterative loop).
