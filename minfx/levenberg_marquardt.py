@@ -24,7 +24,7 @@ from numpy import float64, zeros
 from numpy.linalg import solve
 
 # Minfx module imports.
-from base_classes import Min
+from minfx.base_classes import Min
 
 
 def levenberg_marquardt(chi2_func=None, dchi2_func=None, dfunc=None, errors=None, args=(), x0=None, func_tol=1e-25, grad_tol=None, maxiter=1e6, print_flag=0, print_prefix="", full_output=False):

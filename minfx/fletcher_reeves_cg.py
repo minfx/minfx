@@ -23,7 +23,7 @@
 from numpy import dot
 
 # Minfx module imports.
-from base_classes import Conjugate_gradient, Line_search, Min
+from minfx.base_classes import Conjugate_gradient, Line_search, Min
 
 
 def fletcher_reeves(func=None, dfunc=None, args=(), x0=None, min_options=None, func_tol=1e-25, grad_tol=None, maxiter=1e6, a0=1.0, mu=0.0001, eta=0.1, full_output=0, print_flag=0, print_prefix=""):

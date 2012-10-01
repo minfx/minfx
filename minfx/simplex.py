@@ -23,7 +23,7 @@
 from numpy import argsort, average, float64, sum, take, zeros
 
 # Minfx module imports.
-from base_classes import Min
+from minfx.base_classes import Min
 
 
 def simplex(func=None, args=(), x0=None, func_tol=1e-25, maxiter=1e6, full_output=0, print_flag=0, print_prefix=""):

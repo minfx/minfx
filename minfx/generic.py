@@ -23,27 +23,27 @@
 from re import match, search
 
 # Minfx module imports.
-from bfgs import bfgs
-from cauchy_point import cauchy_point
-from coordinate_descent import coordinate_descent
-from dogleg import dogleg
-from errors import MinfxError
-from exact_trust_region import exact_trust_region
-from fletcher_reeves_cg import fletcher_reeves
-from hestenes_stiefel_cg import hestenes_stiefel
-from levenberg_marquardt import levenberg_marquardt
-from method_of_multipliers import method_of_multipliers
-from ncg import ncg
-from newton import newton
-from polak_ribiere_cg import polak_ribiere
-from polak_ribiere_plus_cg import polak_ribiere_plus
-from simplex import simplex
-from steepest_descent import steepest_descent
-from steihaug_cg import steihaug
+from minfx.bfgs import bfgs
+from minfx.cauchy_point import cauchy_point
+from minfx.coordinate_descent import coordinate_descent
+from minfx.dogleg import dogleg
+from minfx.errors import MinfxError
+from minfx.exact_trust_region import exact_trust_region
+from minfx.fletcher_reeves_cg import fletcher_reeves
+from minfx.hestenes_stiefel_cg import hestenes_stiefel
+from minfx.levenberg_marquardt import levenberg_marquardt
+from minfx.method_of_multipliers import method_of_multipliers
+from minfx.ncg import ncg
+from minfx.newton import newton
+from minfx.polak_ribiere_cg import polak_ribiere
+from minfx.polak_ribiere_plus_cg import polak_ribiere_plus
+from minfx.simplex import simplex
+from minfx.steepest_descent import steepest_descent
+from minfx.steihaug_cg import steihaug
 
 # Scipy module imports.
 try:
-    from scipy_subset.anneal import anneal
+    from minfx.scipy_subset.anneal import anneal
 except ImportError:
     SA_flag = False
 else:

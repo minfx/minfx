@@ -23,7 +23,7 @@
 from numpy import dot, float64, identity, outer
 
 # Minfx module imports.
-from base_classes import Line_search, Min
+from minfx.base_classes import Line_search, Min
 
 
 def bfgs(func=None, dfunc=None, args=(), x0=None, min_options=None, func_tol=1e-25, grad_tol=None, maxiter=1e6, a0=1.0, mu=0.0001, eta=0.9, full_output=0, print_flag=0, print_prefix=""):
