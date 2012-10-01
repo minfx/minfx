@@ -73,12 +73,12 @@ def nocedal_wright_interpol(func, args, x, f, g, p, a_init=1.0, mu=0.001, print_
     f_count = f_count + 1
 
     if print_flag:
-        print "\n<Line search initial values>"
+        print("\n<Line search initial values>")
         print_data("Pre (a0)", i-1, a0)
 
     # Test for errors.
     if a0['phi_prime'] >= 0.0:
-        raise NameError, "The gradient at point 0 of this line search is positive, ie p is not a descent direction and the line search will not work."
+        raise NameError("The gradient at point 0 of this line search is positive, ie p is not a descent direction and the line search will not work.")
 
     # Check for sufficient decrease.  If so, return a_init.  Otherwise the interval [0, a_init] contains acceptable step lengths.
     if a['phi'] <= a0['phi'] + mu * a['a'] * a0['phi_prime']:
@@ -99,7 +99,7 @@ def nocedal_wright_interpol(func, args, x, f, g, p, a_init=1.0, mu=0.001, print_
 
     while True:
         if print_flag:
-            print "<Line search iteration i = " + repr(i) + " >"
+            print("<Line search iteration i = " + repr(i) + " >")
             print_data("Initial (a)", i, a)
             print_data("Initial (a_last)", i, a_last)
 
@@ -133,8 +133,8 @@ def nocedal_wright_interpol(func, args, x, f, g, p, a_init=1.0, mu=0.001, print_
 def print_data(text, k, a):
     """Temp func for debugging."""
 
-    print text + " data printout:"
-    print "   Iteration:      " + repr(k)
-    print "   a:              " + repr(a['a'])
-    print "   phi:            " + repr(a['phi'])
-    print "   phi_prime:      " + repr(a['phi_prime'])
+    print(text + " data printout:")
+    print("   Iteration:      " + repr(k))
+    print("   a:              " + repr(a['a']))
+    print("   phi:            " + repr(a['phi']))
+    print("   phi_prime:      " + repr(a['phi_prime']))

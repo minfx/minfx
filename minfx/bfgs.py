@@ -31,13 +31,13 @@ def bfgs(func=None, dfunc=None, args=(), x0=None, min_options=None, func_tol=1e-
 
     if print_flag:
         if print_flag >= 2:
-            print print_prefix
-        print print_prefix
-        print print_prefix + "Quasi-Newton BFGS minimisation"
-        print print_prefix + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            print(print_prefix)
+        print(print_prefix)
+        print(print_prefix + "Quasi-Newton BFGS minimisation")
+        print(print_prefix + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     min = Bfgs(func, dfunc, args, x0, min_options, func_tol, grad_tol, maxiter, a0, mu, eta, full_output, print_flag, print_prefix)
     if min.init_failure:
-        print print_prefix + "Initialisation of minimisation has failed."
+        print(print_prefix + "Initialisation of minimisation has failed.")
         return None
     results = min.minimise()
     return results
@@ -113,12 +113,12 @@ class Bfgs(Line_search, Min):
 
         # Debugging.
         if self.print_flag >= 2:
-            print self.print_prefix + "pk:    " + repr(self.pk)
-            print self.print_prefix + "alpha: " + repr(self.alpha)
-            print self.print_prefix + "xk:    " + repr(self.xk)
-            print self.print_prefix + "xk+1:  " + repr(self.xk_new)
-            print self.print_prefix + "fk:    " + repr(self.fk)
-            print self.print_prefix + "fk+1:  " + repr(self.fk_new)
+            print(self.print_prefix + "pk:    " + repr(self.pk))
+            print(self.print_prefix + "alpha: " + repr(self.alpha))
+            print(self.print_prefix + "xk:    " + repr(self.xk))
+            print(self.print_prefix + "xk+1:  " + repr(self.xk_new))
+            print(self.print_prefix + "fk:    " + repr(self.fk))
+            print(self.print_prefix + "fk+1:  " + repr(self.fk_new))
 
 
     def setup_bfgs(self):

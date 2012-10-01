@@ -31,13 +31,13 @@ def coordinate_descent(func=None, dfunc=None, args=(), x0=None, min_options=None
 
     if print_flag:
         if print_flag >= 2:
-            print print_prefix
-        print print_prefix
-        print print_prefix + "Back-and-forth coordinate descent minimisation"
-        print print_prefix + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            print(print_prefix)
+        print(print_prefix)
+        print(print_prefix + "Back-and-forth coordinate descent minimisation")
+        print(print_prefix + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     min = Coordinate_descent(func, dfunc, args, x0, min_options, func_tol, grad_tol, maxiter, a0, mu, eta, full_output, print_flag, print_prefix)
     if min.init_failure:
-        print print_prefix + "Initialisation of minimisation has failed."
+        print(print_prefix + "Initialisation of minimisation has failed.")
         return None
     results = min.minimise()
     return results
@@ -138,8 +138,8 @@ class Coordinate_descent(Line_search, Min):
                 self.back = 0
                 self.n = self.n + 1
         if self.print_flag >= 2:
-            print self.print_prefix + "back_flag: " + repr(self.back)
-            print self.print_prefix + "n: " + repr(self.n)
+            print(self.print_prefix + "back_flag: " + repr(self.back))
+            print(self.print_prefix + "n: " + repr(self.n))
 
         # Store old data.
         self.fk_last = self.fk

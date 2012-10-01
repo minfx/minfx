@@ -31,10 +31,10 @@ def simplex(func=None, args=(), x0=None, func_tol=1e-25, maxiter=1e6, full_outpu
 
     if print_flag:
         if print_flag >= 2:
-            print print_prefix
-        print print_prefix
-        print print_prefix + "Simplex minimisation"
-        print print_prefix + "~~~~~~~~~~~~~~~~~~~~"
+            print(print_prefix)
+        print(print_prefix)
+        print(print_prefix + "Simplex minimisation")
+        print(print_prefix + "~~~~~~~~~~~~~~~~~~~~")
     min = Simplex(func, args, x0, func_tol, maxiter, full_output, print_flag, print_prefix)
     results = min.minimise()
     return results
@@ -196,23 +196,23 @@ class Simplex(Min):
         """
 
         if self.print_flag >= 2:
-            print self.print_prefix + "diff = " + repr(self.simplex_vals[-1] - self.simplex_vals[0])
-            print self.print_prefix + "|diff| = " + repr(abs(self.simplex_vals[-1] - self.simplex_vals[0]))
-            print self.print_prefix + "f_tol = " + repr(self.func_tol)
-            print self.print_prefix + "center = " + repr(self.pivot_point)
+            print(self.print_prefix + "diff = " + repr(self.simplex_vals[-1] - self.simplex_vals[0]))
+            print(self.print_prefix + "|diff| = " + repr(abs(self.simplex_vals[-1] - self.simplex_vals[0])))
+            print(self.print_prefix + "f_tol = " + repr(self.func_tol))
+            print(self.print_prefix + "center = " + repr(self.pivot_point))
             try:
-                print self.print_prefix + "old center = " + repr(self.old_pivot)
-                print self.print_prefix + "center diff = " + repr(self.pivot_point - self.old_pivot)
+                print(self.print_prefix + "old center = " + repr(self.old_pivot))
+                print(self.print_prefix + "center diff = " + repr(self.pivot_point - self.old_pivot))
             except AttributeError:
                 pass
             self.old_pivot = 1.0 * self.pivot_point
         if abs(self.simplex_vals[-1] - self.simplex_vals[0]) <= self.func_tol:
             if self.print_flag >= 2:
-                print "\n" + self.print_prefix + "???Function tolerance reached."
-                print self.print_prefix + "simplex_vals[-1]: " + repr(self.simplex_vals[-1])
-                print self.print_prefix + "simplex_vals[0]:  " + repr(self.simplex_vals[0])
-                print self.print_prefix + "|diff|:           " + repr(abs(self.simplex_vals[-1] - self.simplex_vals[0]))
-                print self.print_prefix + "tol:              " + repr(self.func_tol)
+                print("\n" + self.print_prefix + "???Function tolerance reached.")
+                print(self.print_prefix + "simplex_vals[-1]: " + repr(self.simplex_vals[-1]))
+                print(self.print_prefix + "simplex_vals[0]:  " + repr(self.simplex_vals[0]))
+                print(self.print_prefix + "|diff|:           " + repr(abs(self.simplex_vals[-1] - self.simplex_vals[0])))
+                print(self.print_prefix + "tol:              " + repr(self.func_tol))
             self.xk_new = self.simplex[0]
             self.fk_new = self.simplex_vals[0]
             return 1

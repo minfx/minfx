@@ -54,13 +54,13 @@ def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_mat
     # Debugging.
     E = 0.0 * d2fk
     if print_flag >= 3:
-        print print_prefix + "tau:     " + repr(tau)
-        print print_prefix + "tau_bar: " + repr(tau_bar)
-        print print_prefix + "mu:      " + repr(mu)
-        print print_prefix + "d2fk:\n" + repr(d2fk)
-        print print_prefix + "Orig A:\n" + repr(A)
-        print print_prefix + "Orig L:\n" + repr(L)
-        print print_prefix + "gamma: " + repr(gamma)
+        print(print_prefix + "tau:     " + repr(tau))
+        print(print_prefix + "tau_bar: " + repr(tau_bar))
+        print(print_prefix + "mu:      " + repr(mu))
+        print(print_prefix + "d2fk:\n" + repr(d2fk))
+        print(print_prefix + "Orig A:\n" + repr(A))
+        print(print_prefix + "Orig L:\n" + repr(L))
+        print(print_prefix + "gamma: " + repr(gamma))
 
 
     # Phase one, A potentially positive definite.
@@ -68,10 +68,10 @@ def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_mat
 
     for j in xrange(n):
         if print_flag >= 3:
-            print "\n" + print_prefix + "Iteration j = " + repr(j)
-            print print_prefix + "Init A:\n" + repr(A)
-            print print_prefix + "Init L:\n" + repr(L)
-            print print_prefix + "Phase 1."
+            print("\n" + print_prefix + "Iteration j = " + repr(j))
+            print(print_prefix + "Init A:\n" + repr(A))
+            print(print_prefix + "Init L:\n" + repr(L))
+            print(print_prefix + "Phase 1.")
 
         # Calculate max_Aii and min_Aii
         max_Aii = A[j, j]
@@ -96,7 +96,7 @@ def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_mat
             p = 1.0 * I
             if i != j:
                 if print_flag >= 3:
-                    print print_prefix + "Switching rows and columns of " + repr(i) + " and " + repr(j) + " of A and L."
+                    print(print_prefix + "Switching rows and columns of " + repr(i) + " and " + repr(j) + " of A and L.")
 
                 # Modify the permutation matrices by swaping rows.
                 row_p, row_P = 1.0*p[i], 1.0*P[i]
@@ -108,8 +108,8 @@ def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_mat
                 L = dot(p, dot(L, transpose(p)))
 
                 if print_flag >= 3:
-                    print print_prefix + "Permuted A:\n" + repr(A)
-                    print print_prefix + "Permuted L:\n" + repr(L)
+                    print(print_prefix + "Permuted A:\n" + repr(A))
+                    print(print_prefix + "Permuted L:\n" + repr(L))
 
             # Test for phase 2 again.
             min_num = 1e99
@@ -125,8 +125,8 @@ def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_mat
 
             # Debugging.
             if print_flag >= 3:
-                print print_prefix + "Factorised A:\n" + repr(A)
-                print print_prefix + "Factorised L:\n" + repr(L)
+                print(print_prefix + "Factorised A:\n" + repr(A))
+                print(print_prefix + "Factorised L:\n" + repr(L))
                 #import sys
                 #sys.exit()
 
@@ -135,18 +135,18 @@ def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_mat
 
     # Debugging.
     if print_flag >= 3:
-        print "\n" + print_prefix + "Fin"
-        print print_prefix + "d2fk:\n" + repr(d2fk)
-        print print_prefix + "A:\n" + repr(A)
-        print print_prefix + "L:\n" + repr(L)
+        print("\n" + print_prefix + "Fin")
+        print(print_prefix + "d2fk:\n" + repr(d2fk))
+        print(print_prefix + "A:\n" + repr(A))
+        print(print_prefix + "L:\n" + repr(L))
         try:
-            print print_prefix + "chol:\n" + repr(cholesky(d2fk))
+            print(print_prefix + "chol:\n" + repr(cholesky(d2fk)))
         except LinAlgError:
-            print print_prefix + "Matrix is not positive definite - Cholesky decomposition cannot be computed."
-        print print_prefix + "E:\n" + repr(E)
-        print print_prefix + "P:\n" + repr(P)
-        print print_prefix + "Reconstructed d2fk:\n" + repr(dot(L, transpose(L)))
-        print print_prefix + "d2fk + E:\n" + repr(d2fk + dot(P, dot(E, P)))
+            print(print_prefix + "Matrix is not positive definite - Cholesky decomposition cannot be computed.")
+        print(print_prefix + "E:\n" + repr(E))
+        print(print_prefix + "P:\n" + repr(P))
+        print(print_prefix + "Reconstructed d2fk:\n" + repr(dot(L, transpose(L))))
+        print(print_prefix + "d2fk + E:\n" + repr(d2fk + dot(P, dot(E, P))))
 
     import sys
     sys.exit()
@@ -164,13 +164,13 @@ def exec_phasetwo(A, L, P, I, E, j, n, tau, tau_bar, gamma, print_prefix, print_
 
     # Debugging.
     if print_flag >= 3:
-        print print_prefix + "Phase 2."
+        print(print_prefix + "Phase 2.")
 
     if j == n:
         # delta = Enn.
         delta = -A[n-1, n-1] + max(-tau*A[n-1, n-1] / (1.0 - tau), tau_bar*gamma)
         if print_flag >= 3:
-            print print_prefix + "delta: " + repr(delta)
+            print(print_prefix + "delta: " + repr(delta))
             E[n-1, n-1] = delta
         A[n-1, n-1] = A[n-1, n-1] + delta
         L[n-1, n-1] = sqrt(A[n-1, n-1])
@@ -190,7 +190,7 @@ def exec_phasetwo(A, L, P, I, E, j, n, tau, tau_bar, gamma, print_prefix, print_
                 sum_Aji = sum_Aji + abs(A[j, i])
             g[i] = A[i, i] - sum_Aij - sum_Aji
         if print_flag >= 3:
-            print print_prefix + "g: " + repr(g)
+            print(print_prefix + "g: " + repr(g))
 
         # Modified Cholesky decomposition.
         delta_prev = 0.0
@@ -205,7 +205,7 @@ def exec_phasetwo(A, L, P, I, E, j, n, tau, tau_bar, gamma, print_prefix, print_
             p = 1.0 * I
             if i != j:
                 if print_flag >= 3:
-                    print print_prefix + "Switching rows and columns of " + repr(i) + " and " + repr(j) + " of A and L."
+                    print(print_prefix + "Switching rows and columns of " + repr(i) + " and " + repr(j) + " of A and L.")
 
                 # Modify the permutation matrices by swaping rows.
                 row_p, row_P = 1.0*p[i], 1.0*P[i]
@@ -217,8 +217,8 @@ def exec_phasetwo(A, L, P, I, E, j, n, tau, tau_bar, gamma, print_prefix, print_
                 L = dot(p, dot(L, transpose(p)))
 
                 if print_flag >= 3:
-                    print print_prefix + "Permuted A:\n" + repr(A)
-                    print print_prefix + "Permuted L:\n" + repr(L)
+                    print(print_prefix + "Permuted A:\n" + repr(A))
+                    print(print_prefix + "Permuted L:\n" + repr(L))
 
             # Calculate Ejj and add to diagonal.
             normj = 0
@@ -229,7 +229,7 @@ def exec_phasetwo(A, L, P, I, E, j, n, tau, tau_bar, gamma, print_prefix, print_
                 A[j, j] = A[j, j] + delta
                 delta_prev = delta
             if print_flag >= 3:
-                print print_prefix + "delta: " + repr(delta)
+                print(print_prefix + "delta: " + repr(delta))
                 E[j, j] = delta
 
             # Update Gerschgorin bound estimates.
@@ -251,7 +251,7 @@ def exec_phasetwo(A, L, P, I, E, j, n, tau, tau_bar, gamma, print_prefix, print_
             A[n-1, n-1] = A[n-1, n-1] + delta
             delta_prev = delta
         if print_flag >= 3:
-            print print_prefix + "delta: " + repr(delta)
+            print(print_prefix + "delta: " + repr(delta))
             E[n-2, n-2] = E[n-1, n-1] = delta
 
         L[n-2, n-2] = sqrt(A[n-2, n-2])
@@ -259,10 +259,10 @@ def exec_phasetwo(A, L, P, I, E, j, n, tau, tau_bar, gamma, print_prefix, print_
         L[n-1, n-1] = sqrt(A[n-1, n-1] - L[n-1, n-2]**2)
 
         if print_flag >= 3:
-            print print_prefix + "mini:\n" + repr(mini)
-            print print_prefix + "eigenvals: " + repr(eigenvals)
-            print print_prefix + "Factorised A:\n" + repr(A)
-            print print_prefix + "Factorised L:\n" + repr(L)
+            print(print_prefix + "mini:\n" + repr(mini))
+            print(print_prefix + "eigenvals: " + repr(eigenvals))
+            print(print_prefix + "Factorised A:\n" + repr(A))
+            print(print_prefix + "Factorised L:\n" + repr(L))
 
 
 def jiter_factor(A, L, j, n):

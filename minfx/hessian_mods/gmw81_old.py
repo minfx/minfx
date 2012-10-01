@@ -36,10 +36,10 @@ def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0
     #d2fk = array([[4, 2, 1], [2, 6, 3], [1, 3, -0.004]], float64)
 
     if print_flag >= 3:
-        print "d2fk: " + repr(d2fk)
+        print("d2fk: " + repr(d2fk))
         eigen = eig(d2fk)
         eigenvals = sort(eigen[0])
-        print "Eigenvalues: " + repr(eigenvals)
+        print("Eigenvalues: " + repr(eigenvals))
 
     # Calculate gamma(A) and xi(A).
     gamma = 0.0
@@ -68,7 +68,7 @@ def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0
     # Main loop.
     for j in xrange(n):
         if print_flag >= 3:
-            print "\n<j: " + repr(j) + ">"
+            print("\n<j: " + repr(j) + ">")
 
         # Row and column swapping.
         p = 1.0 * I
@@ -77,13 +77,13 @@ def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0
             if abs(c[q, q]) <= abs(c[i, i]):
                 q = i
         if print_flag >= 3:
-            print "Row and column swapping."
-            print "i range: " + repr(range(j, n))
-            print "q: " + repr(q)
-            print "a: " + repr(d2fk)
-            print "c: " + repr(c)
-            print "d: " + repr(d)
-            print "l: " + repr(l)
+            print("Row and column swapping.")
+            print("i range: " + repr(range(j, n)))
+            print("q: " + repr(q))
+            print("a: " + repr(d2fk))
+            print("c: " + repr(c))
+            print("d: " + repr(d))
+            print("l: " + repr(l))
         if q != j:
             # Modify the permutation matrices.
             temp_p, temp_P = 1.0*p[:, q], 1.0*P[:, q]
@@ -95,69 +95,69 @@ def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0
             d2fk = dot(p, dot(d2fk, p))
 
             if print_flag >= 3:
-                print "p: " + repr(p)
-                print "a(mod): " + repr(d2fk)
-                print "c(mod): " + repr(c)
-                print "d(mod): " + repr(d)
-                print "l(mod): " + repr(l)
+                print("p: " + repr(p))
+                print("a(mod): " + repr(d2fk))
+                print("c(mod): " + repr(c))
+                print("d(mod): " + repr(d))
+                print("l(mod): " + repr(l))
 
         # Calculate the elements of l.
         if print_flag >= 3:
-            print "\nCalculate the elements of l."
-            print "s range: " + repr(range(j))
+            print("\nCalculate the elements of l.")
+            print("s range: " + repr(range(j)))
         for s in xrange(j):
             if print_flag >= 3:
-                print "s: " + repr(s)
+                print("s: " + repr(s))
             l[j, s] = c[j, s] / d[s]
         if print_flag >= 3:
-            print "l: " + repr(l)
+            print("l: " + repr(l))
 
         # Calculate c[i, j].
         if print_flag >= 3:
-            print "\nCalculate c[i, j]."
-            print "i range: " + repr(range(j+1, n))
+            print("\nCalculate c[i, j].")
+            print("i range: " + repr(range(j+1, n)))
         for i in xrange(j+1, n):
             sum = 0.0
             for s in xrange(j):
                 if print_flag >= 3:
-                    print "s range: " + repr(range(j))
+                    print("s range: " + repr(range(j)))
                 sum = sum + l[j, s] * c[i, s]
             c[i, j] = d2fk[i, j] - sum
         if print_flag >= 3:
-            print "c: " + repr(c)
+            print("c: " + repr(c))
 
         # Calculate d.
         if print_flag >= 3:
-            print "\nCalculate d."
+            print("\nCalculate d.")
         theta_j = 0.0
         if j < n-1:
             if print_flag >= 3:
-                print "j < n, " + repr(j) + " < " + repr(n-1)
-                print "i range: " + repr(range(j+1, n))
+                print("j < n, " + repr(j) + " < " + repr(n-1))
+                print("i range: " + repr(range(j+1, n)))
             for i in xrange(j+1, n):
                 theta_j = max(theta_j, abs(c[i, j]))
         else:
             if print_flag >= 3:
-                print "j >= n, " + repr(j) + " >= " + repr(n-1)
+                print("j >= n, " + repr(j) + " >= " + repr(n-1))
         d[j] = max(abs(c[j, j]), (theta_j/beta)**2, delta)
         if print_flag >= 3:
-            print "theta_j: " + repr(theta_j)
-            print "d: " + repr(d)
+            print("theta_j: " + repr(theta_j))
+            print("d: " + repr(d))
 
         # Calculate c[i, i].
         if print_flag >= 3:
-            print "\nCalculate c[i, i]."
+            print("\nCalculate c[i, i].")
         if j < n-1:
             if print_flag >= 3:
-                print "j < n, " + repr(j) + " < " + repr(n-1)
-                print "i range: " + repr(range(j+1, n))
+                print("j < n, " + repr(j) + " < " + repr(n-1))
+                print("i range: " + repr(range(j+1, n)))
             for i in xrange(j+1, n):
                 c[i, i] = c[i, i] - c[i, j]**2 / d[j]
         else:
             if print_flag >= 3:
-                print "j >= n, " + repr(j) + " >= " + repr(n-1)
+                print("j >= n, " + repr(j) + " >= " + repr(n-1))
         if print_flag >= 3:
-            print "c: " + repr(c)
+            print("c: " + repr(c))
 
         # Calculate e.
         e[j] = d[j] - c[j, j]
@@ -168,25 +168,25 @@ def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0
 
     # Debugging.
     if print_flag >= 3:
-        print "\nFin:"
-        print "gamma(A): " + repr(gamma)
-        print "xi(A): " + repr(xi)
-        print "delta: " + repr(delta)
-        print "beta: " + repr(beta)
-        print "c: " + repr(c)
-        print "d: " + repr(d)
-        print "l: " + repr(l)
+        print("\nFin:")
+        print("gamma(A): " + repr(gamma))
+        print("xi(A): " + repr(xi))
+        print("delta: " + repr(delta))
+        print("beta: " + repr(beta))
+        print("c: " + repr(c))
+        print("d: " + repr(d))
+        print("l: " + repr(l))
         temp = 0.0 * I
         for i in xrange(len(d)):
             temp[i, i] = d[i]
-        print "m: " + repr(dot(l, sqrt(temp)))
-        print "mmT: " + repr(dot(dot(l, sqrt(temp)), transpose(dot(l, sqrt(temp)))))
-        print "P: " + repr(P)
-        print "e: " + repr(e)
-        print "d2fk: " + repr(d2fk)
+        print("m: " + repr(dot(l, sqrt(temp))))
+        print("mmT: " + repr(dot(dot(l, sqrt(temp)), transpose(dot(l, sqrt(temp))))))
+        print("P: " + repr(P))
+        print("e: " + repr(e))
+        print("d2fk: " + repr(d2fk))
         eigen = eig(d2fk)
         eigenvals = sort(eigen[0])
-        print "Eigenvalues: " + repr(eigenvals)
+        print("Eigenvalues: " + repr(eigenvals))
         import sys
         sys.exit()
 

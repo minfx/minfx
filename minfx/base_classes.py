@@ -75,20 +75,20 @@ class Min:
         # Test the function tolerance.
         if abs(fk_new - fk) <= self.func_tol:
             if self.print_flag >= 2:
-                print "\n" + self.print_prefix + "Function tolerance reached."
-                print self.print_prefix + "fk:          " + repr(fk)
-                print self.print_prefix + "fk+1:        " + repr(fk_new)
-                print self.print_prefix + "|fk+1 - fk|: " + repr(abs(fk_new - fk))
-                print self.print_prefix + "tol:         " + repr(self.func_tol)
+                print("\n" + self.print_prefix + "Function tolerance reached.")
+                print(self.print_prefix + "fk:          " + repr(fk))
+                print(self.print_prefix + "fk+1:        " + repr(fk_new))
+                print(self.print_prefix + "|fk+1 - fk|: " + repr(abs(fk_new - fk)))
+                print(self.print_prefix + "tol:         " + repr(self.func_tol))
             return 1
 
         # Test the gradient tolerance.
         elif sqrt(dot(gk, gk)) <= self.grad_tol:
             if self.print_flag >= 2:
-                print "\n" + self.print_prefix + "Gradient tolerance reached."
-                print self.print_prefix + "gk+1:     " + repr(gk)
-                print self.print_prefix + "||gk+1||: " + repr(sqrt(dot(gk, gk)))
-                print self.print_prefix + "tol:      " + repr(self.grad_tol)
+                print("\n" + self.print_prefix + "Gradient tolerance reached.")
+                print(self.print_prefix + "gk+1:     " + repr(gk))
+                print(self.print_prefix + "||gk+1||: " + repr(sqrt(dot(gk, gk))))
+                print(self.print_prefix + "tol:      " + repr(self.grad_tol))
             return 1
 
 
@@ -101,11 +101,11 @@ class Min:
         # Test the function tolerance.
         if abs(fk_new - fk) <= self.func_tol:
             if self.print_flag >= 2:
-                print "\n" + self.print_prefix + "Function tolerance reached."
-                print self.print_prefix + "fk:          " + repr(fk)
-                print self.print_prefix + "fk+1:        " + repr(fk_new)
-                print self.print_prefix + "|fk+1 - fk|: " + repr(abs(fk_new - fk))
-                print self.print_prefix + "tol:         " + repr(self.func_tol)
+                print("\n" + self.print_prefix + "Function tolerance reached.")
+                print(self.print_prefix + "fk:          " + repr(fk))
+                print(self.print_prefix + "fk+1:        " + repr(fk_new))
+                print(self.print_prefix + "|fk+1 - fk|: " + repr(abs(fk_new - fk)))
+                print(self.print_prefix + "tol:         " + repr(self.func_tol))
             return 1
 
 
@@ -118,17 +118,17 @@ class Min:
         # Test the gradient tolerance.
         if sqrt(dot(gk, gk)) <= self.grad_tol:
             if self.print_flag >= 2:
-                print "\n" + self.print_prefix + "Gradient tolerance reached."
-                print self.print_prefix + "gk+1:     " + repr(gk)
-                print self.print_prefix + "||gk+1||: " + repr(sqrt(dot(gk, gk)))
-                print self.print_prefix + "tol:      " + repr(self.grad_tol)
+                print("\n" + self.print_prefix + "Gradient tolerance reached.")
+                print(self.print_prefix + "gk+1:     " + repr(gk))
+                print(self.print_prefix + "||gk+1||: " + repr(sqrt(dot(gk, gk))))
+                print(self.print_prefix + "tol:      " + repr(self.grad_tol))
             return 1
 
         # No change in function value (prevents the minimiser from iterating without moving).
         elif fk_new - fk == 0.0:
             if self.print_flag >= 2:
-                print "\n" + self.print_prefix + "Function difference of zero."
-                print self.print_prefix + "fk_new - fk = 0.0"
+                print("\n" + self.print_prefix + "Function difference of zero.")
+                print(self.print_prefix + "fk_new - fk = 0.0")
             return 1
 
 
@@ -144,13 +144,13 @@ class Min:
 
         # Test if the options are a tuple.
         if not isinstance(min_options, tuple):
-            print self.print_prefix + "The minimisation options " + repr(min_options) + " is not a tuple."
+            print(self.print_prefix + "The minimisation options " + repr(min_options) + " is not a tuple.")
             self.init_failure = 1
             return
 
         # Test that no more thant 2 options are given.
         if len(min_options) > 2:
-            print self.print_prefix + "A maximum of two minimisation options is allowed (the Hessian type and Hessian modification)."
+            print(self.print_prefix + "A maximum of two minimisation options is allowed (the Hessian type and Hessian modification).")
             self.init_failure = 1
             return
 
@@ -161,7 +161,7 @@ class Min:
             elif self.hessian_mod == None and self.valid_hessian_mod(opt):
                 self.hessian_mod = opt
             else:
-                print self.print_prefix + "The minimisation option " + repr(opt) + " from " + repr(min_options) + " is neither a valid Hessian type nor modification."
+                print(self.print_prefix + "The minimisation option " + repr(opt) + " from " + repr(min_options) + " is neither a valid Hessian type nor modification.")
                 self.init_failure = 1
                 return
 
@@ -171,7 +171,7 @@ class Min:
 
         # Make sure that no Hessian modification is used with the BFGS matrix.
         if match('[Bb][Ff][Gg][Ss]', self.hessian_type) and self.hessian_mod != None:
-            print self.print_prefix + "When using the BFGS matrix, Hessian modifications should not be used."
+            print(self.print_prefix + "When using the BFGS matrix, Hessian modifications should not be used.")
             self.init_failure = 1
             return
 
@@ -183,9 +183,9 @@ class Min:
         # Print the Hessian type info.
         if self.print_flag:
             if match('[Bb][Ff][Gg][Ss]', self.hessian_type):
-                print self.print_prefix + "Hessian type:  BFGS"
+                print(self.print_prefix + "Hessian type:  BFGS")
             else:
-                print self.print_prefix + "Hessian type:  Newton"
+                print(self.print_prefix + "Hessian type:  Newton")
 
 
     def minimise(self):
@@ -205,7 +205,7 @@ class Min:
         self.k = 0
         if self.print_flag:
             self.k2 = 0
-            print ""   # Print a new line.
+            print(""   # Print a new line.)
 
         # Print out format string.
         print_format = "k: %-8i xk: [ " + "%11.5g, "*(len(self.xk)-1) + "%11.5g] fk: %-20s"
@@ -217,7 +217,7 @@ class Min:
             if self.print_flag:
                 out = 0
                 if self.print_flag >= 2:
-                    print "\n" + self.print_prefix + "Main iteration k=" + repr(self.k)
+                    print("\n" + self.print_prefix + "Main iteration k=" + repr(self.k))
                     out = 1
                 else:
                     if self.k2 == 100:
@@ -225,7 +225,7 @@ class Min:
                     if self.k2 == 0:
                         out = 1
                 if out == 1:
-                    print self.print_prefix + print_format % ((self.k,) + tuple(self.xk) + (self.fk,))
+                    print(self.print_prefix + print_format % ((self.k,) + tuple(self.xk) + (self.fk,)))
 
             # Get xk+1 (new parameter function).
             try:
@@ -305,7 +305,7 @@ class Min:
         elif self.grad_tol != None:
             self.conv_test = self.grad_test
         else:
-            print self.print_prefix + "Convergence tests cannot be setup because both func_tol and grad_tol are set to None."
+            print(self.print_prefix + "Convergence tests cannot be setup because both func_tol and grad_tol are set to None.")
             self.init_failure = 1
             return
 
@@ -350,13 +350,13 @@ class Line_search:
 
         # Test if the options are a tuple.
         if not isinstance(min_options, tuple):
-            print self.print_prefix + "The minimisation options " + repr(min_options) + " is not a tuple."
+            print(self.print_prefix + "The minimisation options " + repr(min_options) + " is not a tuple.")
             self.init_failure = 1
             return
 
         # No more than one option is allowed.
         if len(min_options) > 1:
-            print self.print_prefix + "A maximum of one minimisation options is allowed (the line search algorithm)."
+            print(self.print_prefix + "A maximum of one minimisation options is allowed (the line search algorithm).")
             self.init_failure = 1
             return
 
@@ -365,7 +365,7 @@ class Line_search:
             if self.valid_line_search(opt):
                 self.line_search_algor = opt
             else:
-                print self.print_prefix + "The minimisation option " + repr(opt) + " from " + repr(min_options) + " is not a valid line search algorithm."
+                print(self.print_prefix + "The minimisation option " + repr(opt) + " from " + repr(min_options) + " is not a valid line search algorithm.")
                 self.init_failure = 1
                 return
 
@@ -411,23 +411,23 @@ class Line_search:
             return
         elif match('^[Bb]ack', self.line_search_algor):
             if self.print_flag:
-                print self.print_prefix + "Line search:  Backtracking line search."
+                print(self.print_prefix + "Line search:  Backtracking line search.")
             self.line_search = self.backline
         elif match('^[Nn]ocedal[ _][Ww]right[ _][Ii]nt', self.line_search_algor) or match('^[Nn][Ww][Ii]', self.line_search_algor):
             if self.print_flag:
-                print self.print_prefix + "Line search:  Nocedal and Wright interpolation based line search."
+                print(self.print_prefix + "Line search:  Nocedal and Wright interpolation based line search.")
             self.line_search = self.nwi
         elif match('^[Nn]ocedal[ _][Ww]right[ _][Ww]olfe', self.line_search_algor) or match('^[Nn][Ww][Ww]', self.line_search_algor):
             if self.print_flag:
-                print self.print_prefix + "Line search:  Nocedal and Wright line search for the Wolfe conditions."
+                print(self.print_prefix + "Line search:  Nocedal and Wright line search for the Wolfe conditions.")
             self.line_search = self.nww
         elif match('^[Mm]ore[ _][Tt]huente$', self.line_search_algor) or match('^[Mm][Tt]', self.line_search_algor):
             if self.print_flag:
-                print self.print_prefix + "Line search:  More and Thuente line search."
+                print(self.print_prefix + "Line search:  More and Thuente line search.")
             self.line_search = self.mt
         elif match('^[Nn]o [Ll]ine [Ss]earch$', self.line_search_algor):
             if self.print_flag:
-                print self.print_prefix + "Line search:  No line search."
+                print(self.print_prefix + "Line search:  No line search.")
             self.line_search = self.no_search
 
 
@@ -483,42 +483,42 @@ class Trust_region:
         self.norm_pk = sqrt(dot(self.pk, self.pk))
 
         if self.print_flag >= 2:
-            print self.print_prefix + "Actual reduction: " + repr(act_red)
-            print self.print_prefix + "Predicted reduction: " + repr(pred_red)
-            print self.print_prefix + "rho: " + repr(self.rho)
-            print self.print_prefix + "||pk||: " + repr(self.norm_pk)
+            print(self.print_prefix + "Actual reduction: " + repr(act_red))
+            print(self.print_prefix + "Predicted reduction: " + repr(pred_red))
+            print(self.print_prefix + "rho: " + repr(self.rho))
+            print(self.print_prefix + "||pk||: " + repr(self.norm_pk))
 
         # Rho is close to zero or negative, therefore the trust region is shrunk.
         if self.rho < 0.25 or pred_red < 0.0:
             self.delta = 0.25 * self.delta
             if self.print_flag >= 2:
-                print self.print_prefix + "Shrinking the trust region."
+                print(self.print_prefix + "Shrinking the trust region.")
 
         # Rho is close to one and pk has reached the boundary of the trust region, therefore the trust region is expanded.
         elif self.rho > 0.75 and abs(self.norm_pk - self.delta) < 1e-5:
             self.delta = min(2.0*self.delta, self.delta_max)
             if self.print_flag >= 2:
-                print self.print_prefix + "Expanding the trust region."
+                print(self.print_prefix + "Expanding the trust region.")
 
         # Rho is positive but not close to one, therefore the trust region is unaltered.
         else:
             if self.print_flag >= 2:
-                print self.print_prefix + "Trust region is unaltered."
+                print(self.print_prefix + "Trust region is unaltered.")
 
         if self.print_flag >= 2:
-            print self.print_prefix + "New trust region: " + repr(self.delta)
+            print(self.print_prefix + "New trust region: " + repr(self.delta))
 
         # Choose the position for the next iteration.
         if self.rho > self.eta and pred_red > 0.0:
             self.shift_flag = 1
             if self.print_flag >= 2:
-                print self.print_prefix + "rho > eta, " + repr(self.rho) + " > " + repr(self.eta)
-                print self.print_prefix + "Moving to, self.xk_new: " + repr(self.xk_new)
+                print(self.print_prefix + "rho > eta, " + repr(self.rho) + " > " + repr(self.eta))
+                print(self.print_prefix + "Moving to, self.xk_new: " + repr(self.xk_new))
         else:
             self.shift_flag = 0
             if self.print_flag >= 2:
-                print self.print_prefix + "rho < eta, " + repr(self.rho) + " < " + repr(self.eta)
-                print self.print_prefix + "Not moving, self.xk: " + repr(self.xk)
+                print(self.print_prefix + "rho < eta, " + repr(self.rho) + " < " + repr(self.eta))
+                print(self.print_prefix + "Not moving, self.xk: " + repr(self.xk))
 
 
 
@@ -547,15 +547,15 @@ class Conjugate_gradient:
         self.dfk_new, self.g_count = self.dfunc(*(self.xk_new,)+self.args), self.g_count + 1
 
         if self.print_flag >= 2:
-            print self.print_prefix + "New param func:"
-            print self.print_prefix + "\ta:    " + repr(self.alpha)
-            print self.print_prefix + "\tpk:   " + repr(self.pk)
-            print self.print_prefix + "\txk:   " + repr(self.xk)
-            print self.print_prefix + "\txk+1: " + repr(self.xk_new)
-            print self.print_prefix + "\tfk:   " + repr(self.fk)
-            print self.print_prefix + "\tfk+1: " + repr(self.fk_new)
-            print self.print_prefix + "\tgk:   " + repr(self.dfk)
-            print self.print_prefix + "\tgk+1: " + repr(self.dfk_new)
+            print(self.print_prefix + "New param func:")
+            print(self.print_prefix + "\ta:    " + repr(self.alpha))
+            print(self.print_prefix + "\tpk:   " + repr(self.pk))
+            print(self.print_prefix + "\txk:   " + repr(self.xk))
+            print(self.print_prefix + "\txk+1: " + repr(self.xk_new))
+            print(self.print_prefix + "\tfk:   " + repr(self.fk))
+            print(self.print_prefix + "\tfk+1: " + repr(self.fk_new))
+            print(self.print_prefix + "\tgk:   " + repr(self.dfk))
+            print(self.print_prefix + "\tgk+1: " + repr(self.dfk_new))
 
 
     def old_cg_conv_test(self):
@@ -586,16 +586,16 @@ class Conjugate_gradient:
         # Restarts.
         if abs(dot(self.dfk_new, self.dfk)) / self.dot_dfk_new >= 0.1:
             if self.print_flag >= 2:
-                print self.print_prefix + "Restarting."
+                print(self.print_prefix + "Restarting.")
             bk_new = 0
 
         # Calculate pk+1.
         self.pk_new = -self.dfk_new + bk_new * self.pk
 
         if self.print_flag >= 2:
-            print self.print_prefix + "Update func:"
-            print self.print_prefix + "\tpk:     " + repr(self.pk)
-            print self.print_prefix + "\tpk+1:   " + repr(self.pk_new)
+            print(self.print_prefix + "Update func:")
+            print(self.print_prefix + "\tpk:     " + repr(self.pk))
+            print(self.print_prefix + "\tpk+1:   " + repr(self.pk_new))
 
         # Update.
         self.xk = self.xk_new * 1.0
@@ -651,37 +651,37 @@ class Hessian_mods:
         # Unmodified Hessian.
         if self.hessian_mod == None or match('^[Nn]o [Hh]essian [Mm]od', self.hessian_mod):
             if self.print_flag:
-                print self.print_prefix + "Hessian modification:  Unmodified Hessian."
+                print(self.print_prefix + "Hessian modification:  Unmodified Hessian.")
             self.get_pk = self.unmodified_hessian
 
         # Eigenvalue modification.
         elif match('^[Ee]igen', self.hessian_mod):
             if self.print_flag:
-                print self.print_prefix + "Hessian modification:  Eigenvalue modification."
+                print(self.print_prefix + "Hessian modification:  Eigenvalue modification.")
             self.get_pk = self.eigenvalue
 
         # Cholesky with added multiple of the identity.
         elif match('^[Cc]hol', self.hessian_mod):
             if self.print_flag:
-                print self.print_prefix + "Hessian modification:  Cholesky with added multiple of the identity."
+                print(self.print_prefix + "Hessian modification:  Cholesky with added multiple of the identity.")
             self.get_pk = self.cholesky_mod
 
         # The Gill, Murray, and Wright modified Cholesky algorithm.
         elif match('^[Gg][Mm][Ww]$', self.hessian_mod):
             if self.print_flag:
-                print self.print_prefix + "Hessian modification:  The Gill, Murray, and Wright modified Cholesky algorithm."
+                print(self.print_prefix + "Hessian modification:  The Gill, Murray, and Wright modified Cholesky algorithm.")
             self.get_pk = self.gmw
 
         # The Gill, Murray, and Wright modified Cholesky algorithm.
         elif match('^[Gg][Mm][Ww][ -_]old', self.hessian_mod):
             if self.print_flag:
-                print self.print_prefix + "Hessian modification:  The Gill, Murray, and Wright modified Cholesky algorithm."
+                print(self.print_prefix + "Hessian modification:  The Gill, Murray, and Wright modified Cholesky algorithm.")
             self.get_pk = self.gmw_old
 
         # The revised modified cholesky factorisation algorithm of Schnabel and Eskow, 99.
         elif match('^[Ss][Ee]99', self.hessian_mod):
             if self.print_flag:
-                print self.print_prefix + "Hessian modification:  The Schnabel and Eskow 1999 algorithm."
+                print(self.print_prefix + "Hessian modification:  The Schnabel and Eskow 1999 algorithm.")
             self.tau = self.mach_acc ** (1.0/3.0)
             self.tau_bar = self.mach_acc ** (2.0/3.0)
             self.mu = 0.1

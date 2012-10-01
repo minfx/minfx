@@ -49,10 +49,10 @@ def cauchy_point(func=None, dfunc=None, d2func=None, args=(), x0=None, func_tol=
 
     if print_flag:
         if print_flag >= 2:
-            print print_prefix
-        print print_prefix
-        print print_prefix + "Cauchy point minimisation"
-        print print_prefix + "~~~~~~~~~~~~~~~~~~~~~~~~~"
+            print(print_prefix)
+        print(print_prefix)
+        print(print_prefix + "Cauchy point minimisation")
+        print(print_prefix + "~~~~~~~~~~~~~~~~~~~~~~~~~")
     min = Cauchy_point(func, dfunc, d2func, args, x0, func_tol, grad_tol, maxiter, delta_max, delta0, eta, full_output, print_flag, print_prefix)
     results = min.minimise()
     return results
@@ -112,8 +112,8 @@ class Cauchy_point(Trust_region, Min):
             self.tau_k = min(norm_dfk ** 3 / (self.delta * curv), 1.0)
 
         if self.print_flag >= 2:
-            print self.print_prefix + "dfk . Bk . dfk: " + repr(curv)
-            print self.print_prefix + "tau_k:          " + repr(self.tau_k)
+            print(self.print_prefix + "dfk . Bk . dfk: " + repr(curv))
+            print(self.print_prefix + "tau_k:          " + repr(self.tau_k))
 
         # Cauchy point.
         self.pk = - self.tau_k * self.delta * self.dfk / norm_dfk

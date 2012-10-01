@@ -30,8 +30,8 @@ from more_thuente import more_thuente
 
 
 def run():
-    print "\n\n\n\n\n\n\n\n\n\n\n\n\t\t<<< Test Functions >>>\n\n\n"
-    print "\nSelect the function to test:"
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\t\t<<< Test Functions >>>\n\n\n")
+    print("\nSelect the function to test:")
     while True:
         input = raw_input('> ')
         valid_functions = ['1', '2', '3', '4', '5', '6']
@@ -39,9 +39,9 @@ def run():
             func = int(input)
             break
         else:
-            print "Choose a function number between 1 and 6."
+            print("Choose a function number between 1 and 6.")
 
-    print "\nSelect a0:"
+    print("\nSelect a0:")
     while True:
         input = raw_input('> ')
         valid_vals = ['1e-3', '1e-1', '1e1', '1e3']
@@ -49,9 +49,9 @@ def run():
             a0 = float(input)
             break
         else:
-            print "Choose a0 as one of ['1e-3', '1e-1', '1e1', '1e3']."
+            print("Choose a0 as one of ['1e-3', '1e-1', '1e1', '1e3'].")
 
-    print "Testing line minimiser using test function " + repr(func)
+    print("Testing line minimiser using test function " + repr(func))
     if func == 1:
         f, df = func1, dfunc1
         mu, eta = 0.001, 0.1
@@ -83,7 +83,7 @@ def run():
     f0 = f(*(xk,)+args)
     g0 = df(*(xk,)+args)
     a = more_thuente(f, df, args, xk, pk, f0, g0, a_init=a0, mu=mu, eta=eta, print_flag=1)
-    print "The minimum is at " + repr(a)
+    print("The minimum is at " + repr(a))
 
 
 def func1(alpha, beta=2.0):

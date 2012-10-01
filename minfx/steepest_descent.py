@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2008 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library.                        #
 #                                                                             #
@@ -31,13 +31,13 @@ def steepest_descent(func=None, dfunc=None, args=(), x0=None, min_options=None, 
 
     if print_flag:
         if print_flag >= 2:
-            print print_prefix
-        print print_prefix
-        print print_prefix + "Steepest descent minimisation"
-        print print_prefix + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            print(print_prefix)
+        print(print_prefix)
+        print(print_prefix + "Steepest descent minimisation")
+        print(print_prefix + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     min = Steepest_descent(func, dfunc, args, x0, min_options, func_tol, grad_tol, maxiter, a0, mu, eta, full_output, print_flag, print_prefix)
     if min.init_failure:
-        print print_prefix + "Initialisation of minimisation has failed."
+        print(print_prefix + "Initialisation of minimisation has failed.")
         return None
     results = min.minimise()
     return results

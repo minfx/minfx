@@ -50,7 +50,7 @@ def levenberg_marquardt(chi2_func=None, dchi2_func=None, dfunc=None, errors=None
     @keyword maxiter:       int
     @keyword print_flag:    A flag specifying how much information should be printed to standard output during minimisation.  0 means no output, 1 means minimal output, and values above 1 increase the amount of output printed. 
     @type print_flag:       int
-    @keyword print_prefix:  The text to add out to the front of all print outs.
+    @keyword print_prefix:  The text to add out to the front of all printouts.
     @type print_prefix:     str
     @keyword full_output:   A flag specifying what should be returned.  If full_output is False, the parameter values and chi-squared value are returned as a tuple.  If full_output is True, the parameter values, chi-squared value, number of iterations, and the warning flag are returned as a tuple.
     @keyword full_output:   bool
@@ -58,10 +58,10 @@ def levenberg_marquardt(chi2_func=None, dchi2_func=None, dfunc=None, errors=None
 
     if print_flag:
         if print_flag >= 2:
-            print print_prefix
-        print print_prefix
-        print print_prefix + "Levenberg-Marquardt minimisation"
-        print print_prefix + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            print(print_prefix)
+        print(print_prefix)
+        print(print_prefix + "Levenberg-Marquardt minimisation")
+        print(print_prefix + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     min = Levenberg_marquardt(chi2_func, dchi2_func, dfunc, errors, args, x0, func_tol, grad_tol, maxiter, full_output, print_flag, print_prefix)
     results = min.minimise()
     return results
@@ -164,8 +164,8 @@ class Levenberg_marquardt(Min):
         self.create_lm_matrix()
 
         # Solve the Levenberg-Marquardt equation to get the vector of function parameter changes.
-        #print "\nself.lm_matrix:\n" + repr(self.lm_matrix)
-        #print "\nself.dfk:\n" + repr(self.dfk)
+        #print("\nself.lm_matrix:\n" + repr(self.lm_matrix))
+        #print("\nself.dfk:\n" + repr(self.dfk))
         self.pk = solve(self.lm_matrix, self.dfk)
 
         # Find the new parameter vector and function value at that point.
@@ -186,13 +186,13 @@ class Levenberg_marquardt(Min):
 
         # Print out.
         if self.print_flag >= 2:
-            print self.print_prefix + "xk_new:    " + repr(self.xk_new)
-            print self.print_prefix + "lm_matrix: " + repr(self.lm_matrix)
-            print self.print_prefix + "df:   " + repr(self.df)
-            print self.print_prefix + "l:    " + repr(self.l)
-            print self.print_prefix + "fk+1: " + repr(self.fk_new)
-            print self.print_prefix + "fk:   " + repr(self.fk)
-            print self.print_prefix + "move_flag: " + repr(self.move_flag)
+            print(self.print_prefix + "xk_new:    " + repr(self.xk_new))
+            print(self.print_prefix + "lm_matrix: " + repr(self.lm_matrix))
+            print(self.print_prefix + "df:   " + repr(self.df))
+            print(self.print_prefix + "l:    " + repr(self.l))
+            print(self.print_prefix + "fk+1: " + repr(self.fk_new))
+            print(self.print_prefix + "fk:   " + repr(self.fk))
+            print(self.print_prefix + "move_flag: " + repr(self.move_flag))
 
 
     def test_mod(self, fk_new, fk, dfk_new):

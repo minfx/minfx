@@ -62,13 +62,13 @@ def dogleg(func=None, dfunc=None, d2func=None, args=(), x0=None, min_options=(),
 
     if print_flag:
         if print_flag >= 2:
-            print print_prefix
-        print print_prefix
-        print print_prefix + "Dogleg minimisation"
-        print print_prefix + "~~~~~~~~~~~~~~~~~~~"
+            print(print_prefix)
+        print(print_prefix)
+        print(print_prefix + "Dogleg minimisation")
+        print(print_prefix + "~~~~~~~~~~~~~~~~~~~")
     min = Dogleg(func, dfunc, d2func, args, x0, min_options, func_tol, grad_tol, maxiter, delta_max, delta0, eta, mach_acc, full_output, print_flag, print_prefix)
     if min.init_failure:
-        print print_prefix + "Initialisation of minimisation has failed."
+        print(print_prefix + "Initialisation of minimisation has failed.")
         return None
     results = min.minimise()
     return results
@@ -214,12 +214,12 @@ class Dogleg(Hessian_mods, Trust_region, Min, Bfgs, Newton):
         self.dfk_new, self.g_count = self.dfunc(*(self.xk_new,)+self.args), self.g_count + 1
 
         if self.print_flag >= 2:
-            print self.print_prefix + "Fin."
-            print self.print_prefix + "   pk:     " + repr(self.pk)
-            print self.print_prefix + "   xk:     " + repr(self.xk)
-            print self.print_prefix + "   xk_new: " + repr(self.xk_new)
-            print self.print_prefix + "   fk:     " + repr(self.fk)
-            print self.print_prefix + "   fk_new: " + repr(self.fk_new)
+            print(self.print_prefix + "Fin.")
+            print(self.print_prefix + "   pk:     " + repr(self.pk))
+            print(self.print_prefix + "   xk:     " + repr(self.xk))
+            print(self.print_prefix + "   xk_new: " + repr(self.xk_new))
+            print(self.print_prefix + "   fk:     " + repr(self.fk))
+            print(self.print_prefix + "   fk_new: " + repr(self.fk_new))
 
 
     def update(self):

@@ -49,14 +49,14 @@ def cholesky_mod(dfk, d2fk, I, n, print_prefix, print_flag, return_matrix=0):
 
     # Debugging.
     if print_flag >= 3:
-        print print_prefix + "Frobenius norm: " + repr(norm)
-        print print_prefix + "min aii: " + repr(min_aii)
-        print print_prefix + "tk: " + repr(tk)
+        print(print_prefix + "Frobenius norm: " + repr(norm))
+        print(print_prefix + "min aii: " + repr(min_aii))
+        print(print_prefix + "tk: " + repr(tk))
 
     # Loop until the matrix is positive definite.
     while True:
         if print_flag >= 3:
-            print print_prefix + "Iteration"
+            print(print_prefix + "Iteration")
 
         # Calculate the matrix A + tk.I
         matrix = d2fk + tk * I
@@ -65,12 +65,12 @@ def cholesky_mod(dfk, d2fk, I, n, print_prefix, print_flag, return_matrix=0):
         try:
             L = cholesky(matrix)
             if print_flag >= 3:
-                print print_prefix + "\tCholesky matrix L:"
+                print(print_prefix + "\tCholesky matrix L:")
                 for i in xrange(n):
-                    print print_prefix + "\t\t" + repr(L[i])
+                    print(print_prefix + "\t\t" + repr(L[i]))
         except LinAlgError:
             if print_flag >= 3:
-                print print_prefix + "\tLinearAlgebraError, matrix is not positive definite."
+                print(print_prefix + "\tLinearAlgebraError, matrix is not positive definite.")
 
             # Update of tk.
             tk = max(2.0*tk, half_norm)

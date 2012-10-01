@@ -62,8 +62,8 @@ def gmw(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0):
     # Debugging.
     if print_flag >= 3:
         old_eigen = eig(d2fk)
-        print print_prefix + "dfk: " + repr(dfk)
-        print print_prefix + "d2fk:\n" + repr(d2fk)
+        print(print_prefix + "dfk: " + repr(dfk))
+        print(print_prefix + "d2fk:\n" + repr(d2fk))
 
     # Main loop.
     for j in xrange(n):
@@ -115,35 +115,35 @@ def gmw(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0):
 
     # Debugging.
     if print_flag >= 3:
-        print print_prefix + "r:\n" + repr(r)
-        print print_prefix + "e: " + repr(e)
-        print print_prefix + "e rot: " + repr(dot(P, e))
-        print print_prefix + "P:\n" + repr(P)
-        print print_prefix + "L:\n" + repr(L)
-        print print_prefix + "L.LT:\n" + repr(dot(L, transpose(L)))
-        print print_prefix + "L.LT - d2fk:\n" + repr(dot(L, transpose(L)) - d2fk)
-        print print_prefix + "dot(P, chol(L.LT)):\n" + repr(dot(P, cholesky(dot(L, transpose(L)))))
-        print print_prefix + "dot(P, chol(P.L.LT.PT)):\n" + repr(dot(P, cholesky(dot(P, dot(dot(L, transpose(L)), transpose(P))))))
+        print(print_prefix + "r:\n" + repr(r))
+        print(print_prefix + "e: " + repr(e))
+        print(print_prefix + "e rot: " + repr(dot(P, e)))
+        print(print_prefix + "P:\n" + repr(P))
+        print(print_prefix + "L:\n" + repr(L))
+        print(print_prefix + "L.LT:\n" + repr(dot(L, transpose(L))))
+        print(print_prefix + "L.LT - d2fk:\n" + repr(dot(L, transpose(L)) - d2fk))
+        print(print_prefix + "dot(P, chol(L.LT)):\n" + repr(dot(P, cholesky(dot(L, transpose(L))))))
+        print(print_prefix + "dot(P, chol(P.L.LT.PT)):\n" + repr(dot(P, cholesky(dot(P, dot(dot(L, transpose(L)), transpose(P)))))))
         E = 0.0 * d2fk
         for i in xrange(n):
             E[i, i] = e[i]
         E = dot(P, dot(E, transpose(P)))
-        print print_prefix + "E:\n" + repr(E)
-        print print_prefix + "PT.d2fk+E.P:\n" + repr(dot(transpose(P), dot(d2fk+E, P)))
+        print(print_prefix + "E:\n" + repr(E))
+        print(print_prefix + "PT.d2fk+E.P:\n" + repr(dot(transpose(P), dot(d2fk+E, P))))
         try:
             chol = cholesky(dot(transpose(P), dot(d2fk+E, P)))
-            print print_prefix + "chol(PT.d2fk+E.P):\n" + repr(chol)
-            print print_prefix + "rT - chol(PT.d2fk+E.P):\n" + repr(transpose(r) - chol)
+            print(print_prefix + "chol(PT.d2fk+E.P):\n" + repr(chol))
+            print(print_prefix + "rT - chol(PT.d2fk+E.P):\n" + repr(transpose(r) - chol))
             chol = dot(P, chol)
-            print print_prefix + "chol:\n" + repr(chol)
-            print print_prefix + "chol reconstructed:\n" + repr(dot(chol, transpose(chol)))
+            print(print_prefix + "chol:\n" + repr(chol))
+            print(print_prefix + "chol reconstructed:\n" + repr(dot(chol, transpose(chol))))
         except LinAlgError:
-            print print_prefix + "Matrix is not positive definite - Cholesky decomposition cannot be computed."
+            print(print_prefix + "Matrix is not positive definite - Cholesky decomposition cannot be computed.")
         eigen = eig(dot(L, transpose(L)))
-        print print_prefix + "Old eigenvalues: " + repr(old_eigen)
-        print print_prefix + "New eigenvalues: " + repr(eigen)
-        print print_prefix + "Newton dir: " + repr(-solve(transpose(L), solve(L, dfk)))
-        print print_prefix + "Newton dir using inverse: " + repr(-dot(inv(d2fk+E), dfk))
+        print(print_prefix + "Old eigenvalues: " + repr(old_eigen))
+        print(print_prefix + "New eigenvalues: " + repr(eigen))
+        print(print_prefix + "Newton dir: " + repr(-solve(transpose(L), solve(L, dfk))))
+        print(print_prefix + "Newton dir using inverse: " + repr(-dot(inv(d2fk+E), dfk)))
 
     # Calculate the Newton direction.
     y = solve(L, dfk)

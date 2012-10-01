@@ -135,10 +135,10 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
     # Print out.
     if verbosity:
         if verbosity >= 2:
-            print print_prefix
-        print print_prefix
-        print print_prefix + "Grid search"
-        print print_prefix + "~~~~~~~~~~~"
+            print(print_prefix)
+        print(print_prefix)
+        print(print_prefix + "Grid search")
+        print(print_prefix + "~~~~~~~~~~~")
 
     # Linear constraints.
     if A != None and b != None:
@@ -146,9 +146,9 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
         constraint_linear = Constraint_linear(A, b)
         c = constraint_linear.func
         if verbosity >= 3:
-            print print_prefix + "Linear constraint matrices."
-            print print_prefix + "A: " + repr(A)
-            print print_prefix + "b: " + repr(b)
+            print(print_prefix + "Linear constraint matrices.")
+            print(print_prefix + "A: " + repr(A))
+            print(print_prefix + "b: " + repr(b))
 
     # Bound constraints.
     elif l != None and u != None:
@@ -166,9 +166,9 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
     # Set a ridiculously large initial grid value.
     f_min = 1e300
 
-    # Initial print out.
+    # Initial printout.
     if verbosity:
-        print "\n" + print_prefix + "Searching through %s grid nodes." % total_steps
+        print("\n" + print_prefix + "Searching through %s grid nodes." % total_steps)
 
     # Test if the grid is too large.
     if total_steps >= 1e8:
@@ -183,10 +183,10 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
             ci = c(params)
             if min(ci) < 0.0:
                 if verbosity >= 3:
-                    print print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g]") % ((k,) + tuple(min_params))
-                    print print_prefix + "Constraint violated, skipping grid point."
-                    print print_prefix + "ci: " + repr(ci)
-                    print ""
+                    print(print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g]") % ((k,) + tuple(min_params)))
+                    print(print_prefix + "Constraint violated, skipping grid point.")
+                    print(print_prefix + "ci: " + repr(ci))
+                    print("")
                 skip = 1
 
         # Function call, test, and increment grid_size.
@@ -201,7 +201,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
 
                 # Print out code.
                 if verbosity:
-                    print print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f_min,))
+                    print(print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f_min,)))
 
             # Grid count.
             grid_size = grid_size + 1
@@ -209,13 +209,13 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
             # Print out code.
             if verbosity >= 2:
                 if f != f_min:
-                    print print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f,))
+                    print(print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f,)))
                 if verbosity >= 3:
-                    print print_prefix + "%-20s%-20s" % ("Increment:", repr(step_num))
-                    print print_prefix + "%-20s%-20s" % ("Params:", repr(params))
-                    print print_prefix + "%-20s%-20s" % ("Min params:", repr(min_params))
-                    print print_prefix + "%-20s%-20g\n" % ("f:", f)
-                    print print_prefix + "%-20s%-20g\n" % ("Min f:", f_min)
+                    print(print_prefix + "%-20s%-20s" % ("Increment:", repr(step_num)))
+                    print(print_prefix + "%-20s%-20s" % ("Params:", repr(params)))
+                    print(print_prefix + "%-20s%-20s" % ("Min params:", repr(min_params)))
+                    print(print_prefix + "%-20s%-20g\n" % ("f:", f))
+                    print(print_prefix + "%-20s%-20g\n" % ("Min f:", f_min))
 
             # Increment k.
             k = k + 1
@@ -258,7 +258,7 @@ def grid_point_array(func, args=(), points=None, verbosity=0, print_prefix=""):
     # Set a ridiculously large initial function value.
     f_min = 1e300
 
-    # Initial print out.
+    # Initial printout.
     if verbosity:
         print("\n" + print_prefix + "Searching through %s grid nodes." % total_steps)
 
@@ -332,9 +332,9 @@ def grid_split(divisions=None, lower=None, upper=None, inc=None, A=None, b=None,
         constraint_linear = Constraint_linear(A, b)
         c = constraint_linear.func
         if verbosity >= 3:
-            print print_prefix + "Linear constraint matrices."
-            print print_prefix + "A: " + repr(A)
-            print print_prefix + "b: " + repr(b)
+            print(print_prefix + "Linear constraint matrices.")
+            print(print_prefix + "A: " + repr(A))
+            print(print_prefix + "b: " + repr(b))
 
     # Bound constraints.
     elif l != None and u != None:

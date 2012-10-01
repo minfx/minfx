@@ -39,13 +39,13 @@ def ncg(func=None, dfunc=None, d2func=None, args=(), x0=None, min_options=None, 
 
     if print_flag:
         if print_flag >= 2:
-            print print_prefix
-        print print_prefix
-        print print_prefix + "Newton Conjugate Gradient minimisation"
-        print print_prefix + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            print(print_prefix)
+        print(print_prefix)
+        print(print_prefix + "Newton Conjugate Gradient minimisation")
+        print(print_prefix + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     min = Ncg(func, dfunc, d2func, args, x0, min_options, func_tol, grad_tol, maxiter, a0, mu, eta, full_output, print_flag, print_prefix)
     if min.init_failure:
-        print print_prefix + "Initialisation of minimisation has failed."
+        print(print_prefix + "Initialisation of minimisation has failed.")
         return None
     results = min.minimise()
     return results
@@ -116,10 +116,10 @@ class Ncg(Line_search, Min):
 
         # Debugging.
         if self.print_flag >= 2:
-            print self.print_prefix + "Initial data:"
-            print self.print_prefix + "\tx0: " + repr(xi)
-            print self.print_prefix + "\tr0: " + repr(ri)
-            print self.print_prefix + "\tp0: " + repr(pi)
+            print(self.print_prefix + "Initial data:")
+            print(self.print_prefix + "\tx0: " + repr(xi))
+            print(self.print_prefix + "\tr0: " + repr(ri))
+            print(self.print_prefix + "\tp0: " + repr(pi))
 
         i = 0
         while True:
@@ -150,15 +150,15 @@ class Ncg(Line_search, Min):
 
             # Debugging.
             if self.print_flag >= 2:
-                print ""
-                print self.print_prefix + "Iteration i = " + repr(i)
-                print self.print_prefix + "Api: " + repr(Api)
-                print self.print_prefix + "Curv: " + repr(curv)
-                print self.print_prefix + "ai: " + repr(ai)
-                print self.print_prefix + "xi+1: " + repr(xi_new)
-                print self.print_prefix + "ri+1: " + repr(ri_new)
-                print self.print_prefix + "bi+1: " + repr(bi_new)
-                print self.print_prefix + "pi+1: " + repr(pi_new)
+                print("")
+                print(self.print_prefix + "Iteration i = " + repr(i))
+                print(self.print_prefix + "Api: " + repr(Api))
+                print(self.print_prefix + "Curv: " + repr(curv))
+                print(self.print_prefix + "ai: " + repr(ai))
+                print(self.print_prefix + "xi+1: " + repr(xi_new))
+                print(self.print_prefix + "ri+1: " + repr(ri_new))
+                print(self.print_prefix + "bi+1: " + repr(bi_new))
+                print(self.print_prefix + "pi+1: " + repr(pi_new))
 
             # Update i+1 to i.
             xi = xi_new * 1.0

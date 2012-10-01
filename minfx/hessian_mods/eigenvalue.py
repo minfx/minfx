@@ -48,12 +48,12 @@ def eigenvalue(dfk, d2fk, I, print_prefix, print_flag, return_matrix=0):
     if print_flag >= 3:
         eigen_new = eig(matrix)
         eigenvals_new = sort(eigen_new[0])
-        print print_prefix + "d2fk:\n" + repr(d2fk)
-        print print_prefix + "eigenvals(d2fk): " + repr(eigenvals)
-        print print_prefix + "tau: " + repr(tau)
-        print print_prefix + "matrix:\n" + repr(matrix)
-        print print_prefix + "eigenvals(matrix): " + repr(eigenvals_new)
-        print print_prefix + "Newton dir: " + repr(-dot(inv(matrix), dfk))
+        print(print_prefix + "d2fk:\n" + repr(d2fk))
+        print(print_prefix + "eigenvals(d2fk): " + repr(eigenvals))
+        print(print_prefix + "tau: " + repr(tau))
+        print(print_prefix + "matrix:\n" + repr(matrix))
+        print(print_prefix + "eigenvals(matrix): " + repr(eigenvals_new))
+        print(print_prefix + "Newton dir: " + repr(-dot(inv(matrix), dfk)))
 
     # Calculate the Newton direction.
     if return_matrix:

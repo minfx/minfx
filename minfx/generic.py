@@ -287,7 +287,7 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
     if not len(x0):
         # Print out.
         if print_flag:
-            print "Cannot run optimisation on a model with zero parameters, directly calculating the function value."
+            print("Cannot run optimisation on a model with zero parameters, directly calculating the function value.")
 
         # The function value.
         fk = func(x0)
@@ -370,7 +370,7 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
         elif grad_tol != None:
             results = simplex(func=func, args=args, x0=x0, func_tol=grad_tol, maxiter=maxiter, full_output=full_output, print_flag=print_flag, print_prefix=print_prefix)
         else:
-            raise NameError, "Simplex minimisation cannot be setup."
+            raise NameError("Simplex minimisation cannot be setup.")
 
     # Levenberg-Marquardt minimisation.
     elif match('^[Ll][Mm]$', min_algor) or match('^[Ll]evenburg-[Mm]arquardt$', min_algor):
@@ -392,7 +392,7 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
     elif match('^[Ss][Aa]$', min_algor) or match('^[Ss]imulated [Aa]nnealing$', min_algor):
         # No Scipy installed.
         if not SA_flag:
-            raise NameError, "Simulated annealing is not available as the scipy Python package has not been installed."
+            raise NameError("Simulated annealing is not available as the scipy Python package has not been installed.")
 
         output = anneal(func=func, x0=x0, args=args, schedule='boltzmann', full_output=full_output, maxiter=maxiter, lower=l, upper=u)
 
@@ -428,21 +428,21 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
     #########
 
     if print_flag and results != None:
-        print ""
+        print("")
         if full_output:
             xk, fk, k, f_count, g_count, h_count, warning = results
-            print print_prefix + "Parameter values: " + repr(list(xk))
-            print print_prefix + "Function value:   " + repr(fk)
-            print print_prefix + "Iterations:       " + repr(k)
-            print print_prefix + "Function calls:   " + repr(f_count)
-            print print_prefix + "Gradient calls:   " + repr(g_count)
-            print print_prefix + "Hessian calls:    " + repr(h_count)
+            print(print_prefix + "Parameter values: " + repr(list(xk)))
+            print(print_prefix + "Function value:   " + repr(fk))
+            print(print_prefix + "Iterations:       " + repr(k))
+            print(print_prefix + "Function calls:   " + repr(f_count))
+            print(print_prefix + "Gradient calls:   " + repr(g_count))
+            print(print_prefix + "Hessian calls:    " + repr(h_count))
             if warning:
-                print print_prefix + "Warning:          " + warning
+                print(print_prefix + "Warning:          " + warning)
             else:
-                print print_prefix + "Warning:          None"
+                print(print_prefix + "Warning:          None")
         else:
-            print print_prefix + "Parameter values: " + repr(results)
-        print ""
+            print(print_prefix + "Parameter values: " + repr(results))
+        print("")
 
     return results
