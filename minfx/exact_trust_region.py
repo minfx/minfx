@@ -47,7 +47,7 @@ def exact_trust_region(func=None, dfunc=None, d2func=None, args=(), x0=None, min
     return results
 
 
-class Exact_trust_region(Hessian_mods, Trust_region, Min, Bfgs, Newton):
+class Exact_trust_region(Trust_region, Bfgs, Newton):
     def __init__(self, func, dfunc, d2func, args, x0, min_options, func_tol, grad_tol, maxiter, lambda0, delta_max, delta0, eta, mach_acc, full_output, print_flag, print_prefix):
         """Class for Exact trust region minimisation specific functions.
 

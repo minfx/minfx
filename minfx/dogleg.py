@@ -74,7 +74,7 @@ def dogleg(func=None, dfunc=None, d2func=None, args=(), x0=None, min_options=(),
     return results
 
 
-class Dogleg(Hessian_mods, Trust_region, Min, Bfgs, Newton):
+class Dogleg(Trust_region, Bfgs, Newton):
     def __init__(self, func, dfunc, d2func, args, x0, min_options, func_tol, grad_tol, maxiter, delta_max, delta0, eta, mach_acc, full_output, print_flag, print_prefix):
         """Class for Dogleg trust region minimisation specific functions.
 

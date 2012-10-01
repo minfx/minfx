@@ -63,7 +63,7 @@ def steihaug(func=None, dfunc=None, d2func=None, args=(), x0=None, func_tol=1e-2
     return results
 
 
-class Steihaug(Min, Trust_region, Newton):
+class Steihaug(Trust_region, Newton):
     def __init__(self, func, dfunc, d2func, args, x0, func_tol, grad_tol, maxiter, epsilon, delta_max, delta0, eta, full_output, print_flag, print_prefix):
         """Class for Steihaug conjugate-gradient trust region minimisation specific functions.
 
