@@ -230,21 +230,24 @@ class Min:
             # Get xk+1 (new parameter function).
             try:
                 self.new_param_func()
-            except LinAlgError, message:
+            except LinAlgError:
+                message = sys.exc_info()[1]
                 if isinstance(message.args[0], int):
                     text = message.args[1]
                 else:
                     text = message.args[0]
                 self.warning = "LinAlgError: " + text + " (fatal minimisation error)."
                 break
-            except OverflowError, message:
+            except OverflowError:
+                message = sys.exc_info()[1]
                 if isinstance(message.args[0], int):
                     text = message.args[1]
                 else:
                     text = message.args[0]
                 self.warning = "OverflowError: " + text + " (fatal minimisation error)."
                 break
-            except NameError, message:
+            except NameError:
+                message = sys.exc_info()[1]
                 self.warning = message.args[0] + " (fatal minimisation error)."
                 break
 
@@ -264,14 +267,16 @@ class Min:
             # Update function.
             try:
                 self.update()
-            except OverflowError, message:
+            except OverflowError:
+                message = sys.exc_info()[1]
                 if isinstance(message.args[0], int):
                     text = message.args[1]
                 else:
                     text = message.args[0]
                 self.warning = "OverflowError: " + text + " (fatal minimisation error)."
                 break
-            except NameError, message:
+            except NameError:
+                message = sys.exc_info()[1]
                 if isinstance(message.args[0], int):
                     self.warning = message.args[1]
                 else:
