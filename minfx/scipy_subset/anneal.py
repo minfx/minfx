@@ -280,9 +280,9 @@ def anneal(func, x0, args=(), schedule='fast', full_output=0,
             retval = 0
             if abs(af[-1]-best_state.cost) > feps*10:
                 retval = 5
-                print("Warning: Cooled to %f at %s but this is not" \)
+                print("Warning: Cooled to %f at %s but this is not" \
                       % (squeeze(last_state.cost), str(squeeze(last_state.x))) \
-                      + " the smallest point found."
+                      + " the smallest point found.")
             break
         if (Tf is not None) and (schedule.T < Tf):
             retval = 1
