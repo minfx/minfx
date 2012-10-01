@@ -23,8 +23,8 @@
 from numpy import array, float64, ones, zeros
 
 # Minfx module imports.
-from constraint_linear import Constraint_linear
-from errors import MinfxError
+from minfx.constraint_linear import Constraint_linear
+from minfx.errors import MinfxError
 
 
 def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None, b=None, l=None, u=None, c=None, verbosity=0, print_prefix=""):
