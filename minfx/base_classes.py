@@ -34,6 +34,7 @@
 from numpy import dot, sqrt
 from numpy.linalg import inv, LinAlgError
 from re import match
+import sys
 
 
 # Line search functions.
