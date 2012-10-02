@@ -76,7 +76,7 @@ class Simplex(Min):
         self.simplex[0] = self.xk * 1.0
         self.simplex_vals[0], self.f_count = self.func(*(self.xk,)+self.args), self.f_count + 1
 
-        for i in xrange(self.n):
+        for i in range(self.n):
             j = i + 1
             self.simplex[j] = self.xk
             if self.xk[i] == 0.0:
@@ -183,7 +183,7 @@ class Simplex(Min):
     def shrink(self):
         """Shrinking step."""
 
-        for i in xrange(self.n):
+        for i in range(self.n):
             j = i + 1
             self.simplex[j] = 0.5 * (self.simplex[0] + self.simplex[j])
             self.simplex_vals[j], self.f_count = self.func(*(self.simplex[j],)+self.args), self.f_count + 1

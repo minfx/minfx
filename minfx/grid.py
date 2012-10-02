@@ -111,14 +111,14 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
         incs = []
 
         # Loop over the dimensions.
-        for k in xrange(n):
+        for k in range(n):
             params[k] = lower[k]
             min_params[k] = lower[k]
             total_steps = total_steps * num_incs[k]
             incs.append([])
 
             # Loop over the increments of dimension k.
-            for i in xrange(num_incs[k]):
+            for i in range(num_incs[k]):
                 # Single grid search increment in dimension k, so use the average of the lower and upper.
                 if num_incs[k] == 1:
                     incs[k].append((lower[k] + upper[k]) / 2.0)
@@ -129,7 +129,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
 
     # User supplied grid search.
     else:
-        for k in xrange(n):
+        for k in range(n):
             total_steps = total_steps * len(incs[k])
 
     # Print out.
@@ -176,7 +176,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
 
     # Search the grid.
     k = 0
-    for i in xrange(total_steps):
+    for i in range(total_steps):
         # Check that the grid point does not violate a constraint, and if it does, skip the function call.
         skip = 0
         if constraint_flag:
@@ -221,7 +221,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
             k = k + 1
 
         # Increment the grid search.
-        for j in xrange(n):
+        for j in range(n):
             if step_num[j] < len(incs[j]):
                 step_num[j] = step_num[j] + 1
                 params[j] = incs[j][step_num[j]-1]

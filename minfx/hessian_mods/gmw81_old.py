@@ -44,9 +44,9 @@ def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0
     # Calculate gamma(A) and xi(A).
     gamma = 0.0
     xi = 0.0
-    for i in xrange(n):
+    for i in range(n):
         gamma = max(abs(d2fk[i, i]), gamma)
-        for j in xrange(i+1, n):
+        for j in range(i+1, n):
             xi = max(abs(d2fk[i, j]), xi)
 
     # Calculate delta and beta.
@@ -62,18 +62,18 @@ def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0
     P = 1.0 * I
 
     # Initial diagonal elements of c.
-    for k in xrange(n):
+    for k in range(n):
         c[k, k] = d2fk[k, k]
 
     # Main loop.
-    for j in xrange(n):
+    for j in range(n):
         if print_flag >= 3:
             print("\n<j: " + repr(j) + ">")
 
         # Row and column swapping.
         p = 1.0 * I
         q = j
-        for i in xrange(j, n):
+        for i in range(j, n):
             if abs(c[q, q]) <= abs(c[i, i]):
                 q = i
         if print_flag >= 3:
@@ -105,7 +105,7 @@ def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0
         if print_flag >= 3:
             print("\nCalculate the elements of l.")
             print("s range: " + repr(range(j)))
-        for s in xrange(j):
+        for s in range(j):
             if print_flag >= 3:
                 print("s: " + repr(s))
             l[j, s] = c[j, s] / d[s]
@@ -116,9 +116,9 @@ def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0
         if print_flag >= 3:
             print("\nCalculate c[i, j].")
             print("i range: " + repr(range(j+1, n)))
-        for i in xrange(j+1, n):
+        for i in range(j+1, n):
             sum = 0.0
-            for s in xrange(j):
+            for s in range(j):
                 if print_flag >= 3:
                     print("s range: " + repr(range(j)))
                 sum = sum + l[j, s] * c[i, s]
@@ -134,7 +134,7 @@ def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0
             if print_flag >= 3:
                 print("j < n, " + repr(j) + " < " + repr(n-1))
                 print("i range: " + repr(range(j+1, n)))
-            for i in xrange(j+1, n):
+            for i in range(j+1, n):
                 theta_j = max(theta_j, abs(c[i, j]))
         else:
             if print_flag >= 3:
@@ -151,7 +151,7 @@ def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0
             if print_flag >= 3:
                 print("j < n, " + repr(j) + " < " + repr(n-1))
                 print("i range: " + repr(range(j+1, n)))
-            for i in xrange(j+1, n):
+            for i in range(j+1, n):
                 c[i, i] = c[i, i] - c[i, j]**2 / d[j]
         else:
             if print_flag >= 3:
@@ -162,7 +162,7 @@ def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0
         # Calculate e.
         e[j] = d[j] - c[j, j]
 
-    for i in xrange(n):
+    for i in range(n):
         d2fk[i, i] = d2fk[i, i] + e[i]
     d2fk = dot(P, dot(d2fk, transpose(P)))
 
@@ -177,7 +177,7 @@ def gmw_old(dfk, d2fk, I, n, mach_acc, print_prefix, print_flag, return_matrix=0
         print("d: " + repr(d))
         print("l: " + repr(l))
         temp = 0.0 * I
-        for i in xrange(len(d)):
+        for i in range(len(d)):
             temp[i, i] = d[i]
         print("m: " + repr(dot(l, sqrt(temp))))
         print("mmT: " + repr(dot(dot(l, sqrt(temp)), transpose(dot(l, sqrt(temp))))))

@@ -176,10 +176,10 @@ class Exact_trust_region(Trust_region, Bfgs, Newton):
         # Initialise lL, lU, lS.
         self.lS = -1e99
         b = 0.0
-        for j in xrange(len(self.d2fk)):
+        for j in range(len(self.d2fk)):
             self.lS = max(self.lS, -self.d2fk[j, j])
             sum = 0.0
-            for i in xrange(len(self.d2fk[j])):
+            for i in range(len(self.d2fk[j])):
                 sum = sum + abs(self.d2fk[i, j])
             b = max(b, sum)
         a = sqrt(dot(self.dfk, self.dfk)) / self.delta
@@ -191,7 +191,7 @@ class Exact_trust_region(Trust_region, Bfgs, Newton):
             print(self.print_prefix + "Initialisation.")
             eigen = eig(self.d2fk)
             eigenvals = sort(eigen[0])
-            for i in xrange(len(self.d2fk)):
+            for i in range(len(self.d2fk)):
                 print(self.print_prefix + "\tB[" + repr(i) + ", " + repr(i) + "] = " + repr(self.d2fk[i, i]))
             print(self.print_prefix + "\tEigenvalues: " + repr(eigenvals))
             print(self.print_prefix + "\t||g||/delta: " + repr(a))

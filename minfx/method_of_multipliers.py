@@ -235,7 +235,7 @@ class Method_of_multipliers(Min):
         if lambda0 == None:
             self.lambda_k = zeros(self.m, float64)
             self.ck = self.c(*(self.xk,)+args)
-            for i in xrange(self.m):
+            for i in range(self.m):
                 #self.lambda_k[i] = init_lambda
                 if self.ck[i] <= 0.0:
                     self.lambda_k[i] = init_lambda
@@ -269,7 +269,7 @@ class Method_of_multipliers(Min):
         self.ck = self.c(*(args[0],))
 
         # Calculate the quadratic augmented Lagrangian value.
-        for i in xrange(self.m):
+        for i in range(self.m):
             if self.ck[i] <= self.mu * self.lambda_k[i]:
                 L = L  -  self.lambda_k[i] * self.ck[i]  +  0.5 * self.ck[i]**2 / self.mu
                 self.test_str[i] = 1
@@ -301,7 +301,7 @@ class Method_of_multipliers(Min):
         self.dck = self.dc(*(args[0],))
 
         # Calculate the quadratic augmented Lagrangian gradient.
-        for i in xrange(self.m):
+        for i in range(self.m):
             if self.test_str[i]:
                 dL = dL  -  (self.lambda_k[i] - self.ck[i] / self.mu) * self.dck[i]
 
@@ -323,7 +323,7 @@ class Method_of_multipliers(Min):
         self.d2ck = self.d2c(*(args[0],))
 
         # Calculate the quadratic augmented Lagrangian Hessian.
-        for i in xrange(self.m):
+        for i in range(self.m):
             if self.test_str[i]:
                 d2L = d2L  +  outer(self.dck[i], self.dck[i]) / self.mu  -  (self.lambda_k[i] - self.ck[i] / self.mu) * self.d2ck[i]
 
@@ -340,7 +340,7 @@ class Method_of_multipliers(Min):
         d2L = d2fk = self.d2func(*(args[0],)+args[1:])
 
         # Calculate the quadratic augmented Lagrangian Hessian.
-        for i in xrange(self.m):
+        for i in range(self.m):
             if self.test_str[i]:
                 d2L = d2L  +  outer(self.dck[i], self.dck[i]) / self.mu
 
@@ -409,7 +409,7 @@ class Method_of_multipliers(Min):
             # The update is given by the following formula:
             #    lambdai_k+1 = max(lambdai_k - ci(xk)/mu, 0)
             self.ck = self.c(*(self.xk_new,)+self.args)
-            for i in xrange(self.m):
+            for i in range(self.m):
                 self.lambda_k[i] = max(self.lambda_k[i] - self.ck[i] / self.mu, 0.0)
 
             # Update mu, epsilon, and gamma.

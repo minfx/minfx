@@ -570,7 +570,7 @@ class Conjugate_gradient:
         """
 
         inf_norm = 0.0
-        for i in xrange(len(self.dfk)):
+        for i in range(len(self.dfk)):
             inf_norm = max(inf_norm, abs(self.dfk[i]))
         if inf_norm < self.grad_tol * (1.0 + abs(self.fk)):
             return 1

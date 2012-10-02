@@ -48,7 +48,7 @@ def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_mat
 
     # Calculate gamma.
     gamma = abs(d2fk[0, 0])
-    for i in xrange(n):
+    for i in range(n):
         gamma = max(abs(d2fk[i, i]), gamma)
 
     # Debugging.
@@ -66,7 +66,7 @@ def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_mat
     # Phase one, A potentially positive definite.
     #############################################
 
-    for j in xrange(n):
+    for j in range(n):
         if print_flag >= 3:
             print("\n" + print_prefix + "Iteration j = " + repr(j))
             print(print_prefix + "Init A:\n" + repr(A))
@@ -76,7 +76,7 @@ def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_mat
         # Calculate max_Aii and min_Aii
         max_Aii = A[j, j]
         min_Aii = A[j, j]
-        for i in xrange(j, n):
+        for i in range(j, n):
             max_Aii = max(A[i, i], max_Aii)
             min_Aii = min(A[i, i], min_Aii)
 
@@ -88,7 +88,7 @@ def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_mat
         else:
             # Pivot on maximum diagonal of remaining submatrix.
             i = j
-            for k in xrange(j, n):
+            for k in range(j, n):
                 if A[k, k] >= A[i, i]:
                     i = k
 
@@ -113,7 +113,7 @@ def se99(dfk, d2fk, I, n, tau, tau_bar, mu, print_prefix, print_flag, return_mat
 
             # Test for phase 2 again.
             min_num = 1e99
-            for i in xrange(j+1, n):
+            for i in range(j+1, n):
                 min_num = min(min_num, A[i, i] - A[i, j]**2 / A[j, j])
             if j+1 <= n and min_num < - mu * gamma:
                 exec_phasetwo(A, L, P, I, E, j, n, tau, tau_bar, gamma, print_prefix, print_flag)
@@ -181,12 +181,12 @@ def exec_phasetwo(A, L, P, I, E, j, n, tau, tau_bar, gamma, print_prefix, print_
 
         # Calculate the lower Gerschgorin bounds of Ak+1.
         g = zeros(n, float64)
-        for i in xrange(k+1, n):
+        for i in range(k+1, n):
             sum_Aij = 0.0
-            for s in xrange(k+1, i-1):
+            for s in range(k+1, i-1):
                 sum_Aij = sum_Aij + abs(A[i, j])
             sum_Aji = 0.0
-            for s in xrange(i+1, n):
+            for s in range(i+1, n):
                 sum_Aji = sum_Aji + abs(A[j, i])
             g[i] = A[i, i] - sum_Aij - sum_Aji
         if print_flag >= 3:
@@ -194,10 +194,10 @@ def exec_phasetwo(A, L, P, I, E, j, n, tau, tau_bar, gamma, print_prefix, print_
 
         # Modified Cholesky decomposition.
         delta_prev = 0.0
-        for j in xrange(k+1, n-2):
+        for j in range(k+1, n-2):
             # Pivot on the maximum lower Gerschgorin bound estimate.
             i = j
-            for k in xrange(j, n):
+            for k in range(j, n):
                 if g[k] >= g[i]:
                     i = k
 
@@ -222,7 +222,7 @@ def exec_phasetwo(A, L, P, I, E, j, n, tau, tau_bar, gamma, print_prefix, print_
 
             # Calculate Ejj and add to diagonal.
             normj = 0
-            for i in xrange(j+1, n):
+            for i in range(j+1, n):
                 normj = normj + abs(A[i, j])
             delta = max(0.0, -A[j, j] + max(normj, tau_bar*gamma), delta_prev)  # delta = Enn.
             if delta > 0.0:
@@ -235,7 +235,7 @@ def exec_phasetwo(A, L, P, I, E, j, n, tau, tau_bar, gamma, print_prefix, print_
             # Update Gerschgorin bound estimates.
             if A[j, j] != normj:
                 temp = 1.0 - normj / A[j, j]
-                for i in xrange(j+1, n):
+                for i in range(j+1, n):
                     g[i] = g[i] + abs(A[i, j]) * temp
 
             # Perform jth iteration of factorisation.
@@ -269,7 +269,7 @@ def jiter_factor(A, L, j, n):
     """Perform jth iteration of factorisation."""
 
     L[j, j] = sqrt(A[j, j])
-    for i in xrange(j+1, n):
+    for i in range(j+1, n):
         L[i, j] = A[i, j] / L[j, j]
-        for k in xrange(j+1, i+1):
+        for k in range(j+1, i+1):
             A[i, k] = A[i, k] - L[i, j]*L[k, j]
