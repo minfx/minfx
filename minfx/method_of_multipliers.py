@@ -141,7 +141,7 @@ class Method_of_multipliers(Min):
         # this import statment occurs here otherwise a recursive import between the module
         # 'generic' and this module occurs.  This means that the function 'generic_minimise'
         # has not been initialised and is therefore not in the namespace.
-        from generic import generic_minimise
+        from minfx.generic import generic_minimise
         self.generic_minimise = generic_minimise
 
         # Linear constraints.
