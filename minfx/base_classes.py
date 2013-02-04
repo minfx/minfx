@@ -1,8 +1,9 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2013 Edward d'Auvergne                                   #
 #                                                                             #
-# This file is part of the minfx optimisation library.                        #
+# This file is part of the minfx optimisation library,                        #
+# https://gna.org/projects/minfx                                              #
 #                                                                             #
 # This program is free software: you can redistribute it and/or modify        #
 # it under the terms of the GNU General Public License as published by        #
@@ -19,14 +20,15 @@
 #                                                                             #
 ###############################################################################
 
+# Module docstring.
+"""Bases classes for the minfx optimisation library (U{https://gna.org/projects/minfx}).
 
-# This module contains the following base classes:
-#    Min:                The base class containing the main iterative minimisation loop and
-#        a few other base class functions.
-#    Line_search:        The base class containing the generic line search functions.
-#    Trust_region:       The base class containing the generic trust-region functions.
-#    Conjugate_gradient: The base class containing the generic conjugate gradient functions.
-
+This module contains the following base classes:
+    - Min:                The base class containing the main iterative minimisation loop and a few other base class functions.
+    - Line_search:        The base class containing the generic line search functions.
+    - Trust_region:       The base class containing the generic trust-region functions.
+    - Conjugate_gradient: The base class containing the generic conjugate gradient functions.
+"""
 
 # Inbuilt python modules.
 #########################

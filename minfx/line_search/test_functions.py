@@ -2,9 +2,10 @@
 
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2012 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2013 Edward d'Auvergne                                   #
 #                                                                             #
-# This file is part of the minfx optimisation library.                        #
+# This file is part of the minfx optimisation library,                        #
+# https://gna.org/projects/minfx                                              #
 #                                                                             #
 # This program is free software: you can redistribute it and/or modify        #
 # it under the terms of the GNU General Public License as published by        #
@@ -20,6 +21,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
 #                                                                             #
 ###############################################################################
+
+# Module docstring.
+"""Testing functions.
+
+This file is part of the minfx optimisation library at U{https://gna.org/projects/minfx}.
+"""
 
 # Python module imports.
 from math import cos, pi, sin, sqrt

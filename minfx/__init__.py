@@ -1,8 +1,9 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003 Edward d'Auvergne                                        #
+# Copyright (C) 2003-2013 Edward d'Auvergne                                   #
 #                                                                             #
-# This file is part of the minfx optimisation library.                        #
+# This file is part of the minfx optimisation library,                        #
+# https://gna.org/projects/minfx                                              #
 #                                                                             #
 # This program is free software: you can redistribute it and/or modify        #
 # it under the terms of the GNU General Public License as published by        #
@@ -19,7 +20,10 @@
 #                                                                             #
 ###############################################################################
 
+# Package docstring.
+"""This is the minfx optimisation library U{https://gna.org/projects/minfx}."""
 
+# List of all modules.
 __all__ = [ 'base_classes',
             'bfgs',
             'cauchy_point',
