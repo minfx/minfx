@@ -39,6 +39,7 @@ from minfx.exact_trust_region import exact_trust_region
 from minfx.fletcher_reeves_cg import fletcher_reeves
 from minfx.hestenes_stiefel_cg import hestenes_stiefel
 from minfx.levenberg_marquardt import levenberg_marquardt
+from minfx.log_barrier_function import log_barrier_function
 from minfx.method_of_multipliers import method_of_multipliers
 from minfx.ncg import ncg
 from minfx.newton import newton
@@ -168,6 +169,8 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
         |___________________________________|_____________________________________________________|
         |                                   |                                                     |
         | Method of Multipliers             | '^[Mm][Oo][Mm]$' or '[Mm]ethod of [Mm]ultipliers$'  |
+        |                                   |                                                     |
+        | Logarithmic barrier function      | 'Log barrier'                                       |
         |___________________________________|_____________________________________________________|
 
 
@@ -390,6 +393,10 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
     # Method of Multipliers.
     elif match('^[Mm][Oo][Mm]$', min_algor) or match('[Mm]ethod of [Mm]ultipliers$', min_algor):
         results = method_of_multipliers(func=func, dfunc=dfunc, d2func=d2func, args=args, x0=x0, min_options=min_options, A=A, b=b, l=l, u=u, c=c, dc=dc, d2c=d2c, func_tol=func_tol, grad_tol=grad_tol, maxiter=maxiter, full_output=full_output, print_flag=print_flag)
+
+    # Logarithmic barrier function.
+    elif min_algor == 'Log barrier':
+        results = log_barrier_function(func=func, dfunc=dfunc, d2func=d2func, args=args, x0=x0, min_options=min_options, A=A, b=b, func_tol=func_tol, grad_tol=grad_tol, maxiter=maxiter, full_output=full_output, print_flag=print_flag)
 
 
     # Global optimisation algorithms.
