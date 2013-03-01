@@ -95,7 +95,7 @@ class Min:
             return 1
 
 
-    def func_test(self, fk_new, fk, gk):
+    def func_test(self, fk_new, fk, gk=None):
         """Default base class function for the function convergence test.
 
         Test if the minimum function tolerance between fk and fk+1 has been reached.
