@@ -30,6 +30,7 @@ This file is part of the minfx optimisation library at U{https://gna.org/project
 from numpy import array, float64, ones, zeros
 
 # Minfx module imports.
+from minfx.base_classes import print_iter
 from minfx.constraint_linear import Constraint_linear
 from minfx.errors import MinfxError
 
@@ -190,7 +191,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
             ci = c(params)
             if min(ci) < 0.0:
                 if verbosity >= 3:
-                    print(print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g]") % ((k,) + tuple(min_params)))
+                    print_iter(k, min_params, print_prefix=print_prefix)
                     print(print_prefix + "Constraint violated, skipping grid point.")
                     print(print_prefix + "ci: " + repr(ci))
                     print("")
@@ -208,7 +209,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
 
                 # Print out code.
                 if verbosity:
-                    print(print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f_min,)))
+                    print_iter(k=k, xk=min_params, fk=f_min, print_prefix=print_prefix)
 
             # Grid count.
             grid_size = grid_size + 1
@@ -216,7 +217,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
             # Print out code.
             if verbosity >= 2:
                 if f != f_min:
-                    print(print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f,)))
+                    print_iter(k=k, xk=min_params, fk=f, print_prefix=print_prefix)
                 if verbosity >= 3:
                     print(print_prefix + "%-20s%-20s" % ("Increment:", repr(step_num)))
                     print(print_prefix + "%-20s%-20s" % ("Params:", repr(params)))
@@ -286,12 +287,12 @@ def grid_point_array(func, args=(), points=None, verbosity=0, print_prefix=""):
 
             # Print out code.
             if verbosity:
-                print(print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f_min,)))
+                print_iter(k=k, xk=min_params, fk=f_min, print_prefix=print_prefix)
 
         # Print out code.
         if verbosity >= 2:
             if f != f_min:
-                print(print_prefix + ("k: %-8i xk: [ " + "%11.5g, "*(n-1) + "%11.5g] fk: %-20s") % ((k,) + tuple(min_params) + (f,)))
+                print_iter(k=k, xk=min_params, fk=f, print_prefix=print_prefix)
             if verbosity >= 3:
                 print(print_prefix + "%-20s%-20s" % ("Params:", repr(points[k])))
                 print(print_prefix + "%-20s%-20s" % ("Min params:", repr(min_params)))

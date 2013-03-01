@@ -32,7 +32,7 @@ from numpy import dot, float64, inf, outer, sqrt, zeros
 from re import match
 
 # Minfx module imports.
-from minfx.base_classes import Min
+from minfx.base_classes import print_iter, Min
 from minfx.constraint_linear import Constraint_linear
 
 
@@ -251,7 +251,7 @@ class Log_barrier_function(Min):
         while True:
             # Print out.
             if self.print_flag:
-                print("\n%-3s%-8i%-4s%-65s%-4s%-20s" % ("k:", self.k, "xk:", repr(self.xk), "fk:", repr(self.fk)))
+                print_iter(self.k, self.xk, self.fk)
                 print("Entering sub-algorithm.")
 
             # Maximum number of iterations for the sub-loop.

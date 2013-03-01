@@ -31,7 +31,7 @@ from numpy import dot, float64, outer, sqrt, zeros
 from re import match
 
 # Minfx module imports.
-from minfx.base_classes import Min
+from minfx.base_classes import print_iter, Min
 #from minfx.bound_constraint import Bound_constraint
 from minfx.constraint_linear import Constraint_linear
 
@@ -376,7 +376,7 @@ class Method_of_multipliers(Min):
         while True:
             # Print out.
             if self.print_flag:
-                print("\n%-3s%-8i%-4s%-65s%-4s%-20s" % ("k:", self.k, "xk:", repr(self.xk), "fk:", repr(self.fk)))
+                print_iter(self.k, self.xk, self.fk)
                 if self.print_flag >= 2:
                     self.printout()
                 print("Entering sub-algorithm.")

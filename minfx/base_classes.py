@@ -58,6 +58,37 @@ from minfx.hessian_mods.gmw81_old import gmw_old
 from minfx.hessian_mods.se99 import se99
 
 
+def print_iter(k=None, xk=None, fk=None, print_prefix=''):
+    """Format and print out the iteration information.
+    
+    @keyword k:             The iteration number.
+    @type k:                int
+    @keyword xk:            The parameter array.
+    @type xk:               numpy rank-1 array
+    @keyword fk:            The function value.
+    @type fk:               float
+    @keyword print_prefix:  The string to add to the start of the print out.
+    @type print_prefix:     str
+    """
+
+    # Format the parameters nicely.
+    params = "["
+    for i in range(len(xk)):
+        # Separator.
+        if i > 0:
+            params += ', '
+
+        # Add each element.
+        params += "%15.10g" % xk[i]
+    params += ']'
+
+    # The printout.
+    if fk != None:
+        print("%sk: %-8i xk: %s    fk: %-20s" % (print_prefix, k, params, fk))
+    else:
+        print("%sk: %-8i xk: %s" % (print_prefix, k, params))
+
+
 # The generic minimisation base class (containing the main iterative loop).
 ###########################################################################
 
@@ -210,10 +241,6 @@ class Min:
             self.k2 = 0
             print("")   # Print a new line.
 
-        # Print out format string.
-        print_format = "k: %-8i xk: [ " + "%11.5g, "*(len(self.xk)-1) + "%11.5g] fk: %-20s"
-        
-
         # Iterate until the local minima is found.
         while True:
             # Print out.
@@ -228,7 +255,7 @@ class Min:
                     if self.k2 == 0:
                         out = 1
                 if out == 1:
-                    print(self.print_prefix + print_format % ((self.k,) + tuple(self.xk) + (self.fk,)))
+                    print_iter(self.k, self.xk, self.fk, print_prefix=self.print_prefix)
 
             # Get xk+1 (new parameter function).
             try:
