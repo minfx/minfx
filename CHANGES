@@ -1,3 +1,40 @@
+Version 1.0.4
+(9 March 2013, from /trunk)
+http://svn.gna.org/svn/minfx/tags/1.0.4
+
+    Features:
+        * An implementation of the logarithmic barrier augmented function constraint algorithm.
+        * Regularised the printout of iteration information across the whole of minfx.
+
+
+    Changes:
+        * Prepared minfx for Python 3 using the 2to3 command.
+        * Updated all of the docstrings to the epydoc format (http://epydoc.sourceforge.net).
+        * A few more epydoc fixes, mainly for lists in the docstrings.
+        * Modified the test module so that it only executes when run directly from Python.
+        * Python 3.0 preparatory fixes, replacing all `x` instances with repr(x).
+        * Python 3 preparations - converted all raise and print statements to functions.
+        * Python 3 preparations - all minfx modules are now using the relative module path import.
+        * Python 3 preparations - the except statements have been modified to handle all Python 2.4+ versions.
+        * Python 3 - more relative import changes.
+        * Python 3 - converted all print statements to function calls in the method_of_multipliers module.
+        * Python 3 - fix for a broken print() function call in the scipy anneal module.
+        * Python 3 - Used absolute module paths for the imports in the grid module.
+        * Python 3 - class inheritance problems.  These changes fix the error "TypeError: Cannot create a consistent method resolution order (MRO) for bases..."
+        * Python 3 preparations - mass replacement of all xrange() calls with range().
+        * Python 3 import fix - the relative module path is needed.
+        * Added module and package docstrings throughout the minfx sources.  The URL https://gna.org/projects/minfx/ has also been added to all copyright notices and module/package docstrings using Epydoc formatting.
+        * Added a script for creating API documentation using Epydoc.
+
+
+    Bugfixes:
+        * A grid search of 1 increment in one of the dimensions is now properly supported, this problem was reported by Tiago Pais as a relax (http://nmr-relax.com) bug at https://gna.org/bugs/index.php?18019.
+
+        * Missing import of the sys module in the base class.
+        * The function convergence test now no longer requires a gradient value.
+
+
+
 Version 1.0.3
 (27 August 2011, from /trunk)
 http://svn.gna.org/svn/minfx/tags/1.0.3
