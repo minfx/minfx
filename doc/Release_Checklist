@@ -16,7 +16,7 @@ $ svn co svn+ssh://bugman@svn.gna.org/svn/minfx/tags/1.0.1
 
 
 
-* Change the version number in file 'setup.py', and commit the changes.
+* Change the version number in both 'setup.py' and 'minfx.__init__.__version__', and commit the changes.
 
 
 

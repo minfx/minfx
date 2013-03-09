@@ -23,6 +23,9 @@
 # Package docstring.
 """This is the minfx optimisation library U{https://gna.org/projects/minfx}."""
 
+# The minfx version.
+__version__ = 'trunk'
+
 # List of all modules.
 __all__ = [ 'base_classes',
             'bfgs',
