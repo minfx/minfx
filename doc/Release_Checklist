@@ -54,3 +54,7 @@ On the minfx-announce mailing list, write a detailed and full description of the
 For the news item, firstly cut and paste the mailing list message.  Create three sections using the Savane markup (recipe #236).  Call these = Description =, = Download =, and = Full list of changes =.  For the last section, use the subtitles == Features == ,  == Changes == , and  == Bugfixes ==.  The items in this section start with '* ' to create an unnumbered list.  Strip all leading whitespace from the full list of changes and remove all the links to the trackers (as these will be automatically created).
 
 For Freecode (http://freecode.com, formally Freshmeat), go to the minfx project page at http://freecode.com/projects/minfx.  Click on 'All releases' in the 'Recent releases' section, then on 'Submit new release'.  If this is the first release of a new minor number 'x.x.0', a branch will need to be created first by clicking on 'add branch'.  Add the version number, a brief and concise summary of the release, select the release focus category, and update the Tar/BZ2 and Zip URLs.
+
+
+
+* Update the version number in the FSF directory (http://directory.fsf.org/wiki/Minfx).
