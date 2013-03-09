@@ -29,7 +29,6 @@ http://svn.gna.org/svn/minfx/tags/1.0.4
 
     Bugfixes:
         * A grid search of 1 increment in one of the dimensions is now properly supported, this problem was reported by Tiago Pais as a relax (http://nmr-relax.com) bug at https://gna.org/bugs/index.php?18019.
-
         * Missing import of the sys module in the base class.
         * The function convergence test now no longer requires a gradient value.
 
