@@ -21,7 +21,7 @@
 ###############################################################################
 
 # Module docstring.
-"""Bases classes for the minfx optimisation library (U{https://gna.org/projects/minfx}).
+"""Bases classes for the U{minfx optimisation library<https://gna.org/projects/minfx>}.
 
 This module contains the following base classes:
     - Min:                The base class containing the main iterative minimisation loop and a few other base class functions.

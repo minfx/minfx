@@ -23,7 +23,7 @@
 # Module docstring.
 """Quasi-Newton Broyden-Fletcher-Goldfarb-Shanno (BFGS) nonlinear optimization.
 
-This file is part of the minfx optimisation library at U{https://gna.org/projects/minfx}.
+This file is part of the U{minfx optimisation library<https://gna.org/projects/minfx>}.
 """
 
 # Python module imports.

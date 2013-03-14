@@ -21,7 +21,7 @@
 ###############################################################################
 
 # Package docstring.
-"""This is the minfx optimisation library U{https://gna.org/projects/minfx}."""
+"""This is the U{minfx optimisation library<https://gna.org/projects/minfx>}."""
 
 # The minfx version.
 __version__ = 'trunk'

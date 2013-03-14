@@ -25,7 +25,7 @@
 # Module docstring.
 """Testing functions.
 
-This file is part of the minfx optimisation library at U{https://gna.org/projects/minfx}.
+This file is part of the U{minfx optimisation library<https://gna.org/projects/minfx>}.
 """
 
 # Python module imports.
