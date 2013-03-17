@@ -43,6 +43,14 @@ $ rsync --delete -av --no-perms --rsh="ssh" . bugman@download.gna.org:/upload/mi
 
 
 
+* Create the API documentation for the current version with the command:
+
+$ ./docs/api.sh
+
+Replace the old API documentation in the http://home.gna.org/minfx SVN repository (http://svn.gna.org/viewcvs/minfx/website) and commit the new files.
+
+
+
 * Add the version number to the bug tracker field 'Release' at https://gna.org/bugs/admin/field_values.php?group=minfx.
 
 
