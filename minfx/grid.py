@@ -198,6 +198,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
                 skip = 1
 
         # Function call, test, and increment grid_size.
+        min_found = False
         if not skip:
             # Back calculate the current function value.
             f = func(*(params,)+args)
@@ -206,6 +207,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
             if f < f_min:
                 f_min = f
                 min_params = 1.0 * params
+                min_found = True
 
                 # Print out code.
                 if verbosity:
@@ -216,14 +218,15 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
 
             # Print out code.
             if verbosity >= 2:
-                if f != f_min:
+                if not min_found:
                     print_iter(k=k, xk=min_params, fk=f, print_prefix=print_prefix)
-                if verbosity >= 3:
-                    print(print_prefix + "%-20s%-20s" % ("Increment:", repr(step_num)))
-                    print(print_prefix + "%-20s%-20s" % ("Params:", repr(params)))
-                    print(print_prefix + "%-20s%-20s" % ("Min params:", repr(min_params)))
-                    print(print_prefix + "%-20s%-20g\n" % ("f:", f))
-                    print(print_prefix + "%-20s%-20g\n" % ("Min f:", f_min))
+                    if min_found:
+                        print(print_prefix + "Minimum found.")
+                    print(print_prefix + "%-20s%-20s" % ("Increment:", step_num))
+                    print(print_prefix + "%-20s%-20s" % ("Params:", params))
+                    print(print_prefix + "%-20s%-20s" % ("Min params:", min_params))
+                    print(print_prefix + "%-20s%-20.8g" % ("f:", f))
+                    print(print_prefix + "%-20s%-20.8g\n" % ("Min f:", f_min))
 
             # Increment k.
             k = k + 1
