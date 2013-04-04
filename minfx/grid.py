@@ -220,6 +220,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
             if verbosity >= 2:
                 if not min_found:
                     print_iter(k=k, xk=min_params, fk=f, print_prefix=print_prefix)
+                if verbosity >= 3:
                     if min_found:
                         print(print_prefix + "Minimum found.")
                     print(print_prefix + "%-20s%-20s" % ("Increment:", step_num))
