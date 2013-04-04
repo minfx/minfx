@@ -35,7 +35,7 @@ from minfx.constraint_linear import Constraint_linear
 from minfx.errors import MinfxError
 
 
-def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None, b=None, l=None, u=None, c=None, verbosity=0, print_prefix=""):
+def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None, b=None, l=None, u=None, c=None, sparseness=None, verbosity=0, print_prefix=""):
     """The grid search algorithm.
 
     @param func:            The target function.  This should take the parameter vector as the first argument and return a single float.
@@ -60,6 +60,8 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
     @type u:                list of float
     @keyword c:             A user supplied constraint function.
     @type c:                function
+    @keyword sparseness:    An optional argument for defining sparsity, or regions of the grid to not search over.  This is a list whereby each element is a list of two parameters indices.  These two parameters will then be assumed to be decoupled and the grid search space between them will be skipped.  Symmetry is not observed, so if [0, 1] is sent in, then maybe [1, 0] should be as well.
+    @type sparseness:       list of list of int
     @keyword verbosity:     The verbosity level.  0 corresponds to no output, 1 is standard, and higher values cause greater and greater amount of output.
     @type verbosity:        int
     @keyword print_prefix:  The text to place before the printed output.
@@ -110,8 +112,12 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
     grid_size = 0
     total_steps = 1
     step_num = ones(n, int)
+    min_step = ones(n, int)
     params = zeros((n), float64)
     min_params = zeros((n), float64)
+    sparseness_flag = False
+    if len(sparseness):
+        sparseness_flag = True
 
     # Linear grid search.
     # The incs data structure eliminates the round-off error of summing a step size value to the parameter value.
@@ -184,9 +190,12 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
 
     # Search the grid.
     k = 0
+    curr_dim = 0
     for i in range(total_steps):
+        # The flag for skipping the grid point if outside a constraint or in a sparse region.
+        skip = False
+
         # Check that the grid point does not violate a constraint, and if it does, skip the function call.
-        skip = 0
         if constraint_flag:
             ci = c(params)
             if min(ci) < 0.0:
@@ -195,7 +204,17 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
                     print(print_prefix + "Constraint violated, skipping grid point.")
                     print(print_prefix + "ci: " + repr(ci))
                     print("")
-                skip = 1
+                skip = True
+
+        # Check if in a sparse region to skip.
+        if sparseness_flag:
+            # Loop over the sparseness blocks.
+            for block in sparseness:
+                # The currently incremented parameter is in the block.
+                if curr_dim == block[0]:
+                    if step_num[block[1]] != min_step[block[1]]:
+                        skip = True
+                        break
 
         # Function call, test, and increment grid_size.
         min_found = False
@@ -207,6 +226,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
             if f < f_min:
                 f_min = f
                 min_params = 1.0 * params
+                min_step = 1.0 * step_num
                 min_found = True
 
                 # Print out code.
@@ -224,8 +244,10 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
                     if min_found:
                         print(print_prefix + "Minimum found.")
                     print(print_prefix + "%-20s%-20s" % ("Increment:", step_num))
+                    print(print_prefix + "%-20s%-20s" % ("Current dimension:", curr_dim))
                     print(print_prefix + "%-20s%-20s" % ("Params:", params))
                     print(print_prefix + "%-20s%-20s" % ("Min params:", min_params))
+                    print(print_prefix + "%-20s%-20s" % ("Min indices:", min_step))
                     print(print_prefix + "%-20s%-20.8g" % ("f:", f))
                     print(print_prefix + "%-20s%-20.8g\n" % ("Min f:", f_min))
 
@@ -237,6 +259,8 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
             if step_num[j] < len(incs[j]):
                 step_num[j] = step_num[j] + 1
                 params[j] = incs[j][step_num[j]-1]
+                if j > curr_dim:
+                    curr_dim = j
                 break    # Exit so that the other step numbers are not incremented.
             else:
                 step_num[j] = 1
