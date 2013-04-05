@@ -116,7 +116,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
     params = zeros((n), float64)
     min_params = zeros((n), float64)
     sparseness_flag = False
-    if len(sparseness):
+    if sparseness != None and len(sparseness):
         sparseness_flag = True
 
     # Linear grid search.
