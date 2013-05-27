@@ -1,3 +1,27 @@
+Version 1.0.5
+(27 May 2013, from /trunk)
+http://svn.gna.org/svn/minfx/tags/1.0.5
+
+    Features:
+        * Added the sparseness argument to the grid search.  This allows parameters to be decoupled in the grid search, skipping large parts of the grid.  This can be used if two parameters do not influence each other and hence that subset of the full grid can be skipped.
+
+
+    Changes:
+        * Improved the grid search printouts for verbosity levels greater than 2.
+        * Removed the name 'relax' from the minfx API documentation creation script, this is a remnant from the project relax (http://www.nmr-relax.com).
+        * Added the API documentation creation to the release checklist document.
+        * Eypdoc markup for some docstring links.
+        * Improvements to the Epydoc markup of the website in all module docstrings.  This changes the link text from the URL https://gna.org/projects/minfx to "minfx optimisation library".
+        * Updated the release checklist to include information about updating the FSF directory.
+        * Created the minfx.__Version__ constant for better identification of the minfx version.
+        * Updated the out of date Release_Checklist document.
+
+
+    Bugfixes:
+        * N/A
+
+
+
 Version 1.0.4
 (9 March 2013, from /trunk)
 http://svn.gna.org/svn/minfx/tags/1.0.4
