@@ -289,6 +289,12 @@ def grid_point_array(func, args=(), points=None, verbosity=0, print_prefix=""):
 
     # Initialise.
     total_steps = len(points)
+
+    # Skip empty grids.
+    if total_steps == 0:
+        return None, None, None, None
+
+    # The dimensionality.
     n = len(points[0])
 
     # Set a ridiculously large initial function value.
