@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2013 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2014 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library,                        #
 # https://gna.org/projects/minfx                                              #
@@ -270,7 +270,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
     return min_params, f_min, grid_size, None
 
 
-def grid_point_array(func, args=(), points=None, verbosity=0, print_prefix=""):
+def grid_point_array(func, args=(), points=None, A=None, b=None, l=None, u=None, c=None, verbosity=0, print_prefix=""):
     """The grid search algorithm.
 
     @param func:            The target function.  This should take the parameter vector as the first argument and return a single float.
@@ -279,6 +279,16 @@ def grid_point_array(func, args=(), points=None, verbosity=0, print_prefix=""):
     @type args:             tuple
     @keyword points:        The array of grid points to search over.
     @type points:           list or array of lists of float
+    @keyword A:             The linear constraint matrix A, such that A.x >= b.
+    @type A:                numpy rank-2 array
+    @keyword b:             The linear constraint scalar vectors, such that A.x >= b.
+    @type b:                numpy rank-1 array
+    @keyword l:             The lower bound constraint vector, such that l <= x <= u.
+    @type l:                list of float
+    @keyword u:             The upper bound constraint vector, such that l <= x <= u.
+    @type u:                list of float
+    @keyword c:             A user supplied constraint function.
+    @type c:                function
     @keyword verbosity:     The verbosity level.  0 corresponds to no output, 1 is standard, and higher values cause greater and greater amount of output.
     @type verbosity:        int
     @keyword print_prefix:  The text to place before the printed output.
@@ -308,8 +318,37 @@ def grid_point_array(func, args=(), points=None, verbosity=0, print_prefix=""):
     if total_steps >= 1e8:
         raise MinfxError("A grid search of size %s is too large." % total_steps)
 
+    # Linear constraints.
+    if A != None and b != None:
+        constraint_linear = Constraint_linear(A, b)
+        c = constraint_linear.func
+        if verbosity >= 3:
+            print(print_prefix + "Linear constraint matrices.")
+            print(print_prefix + "A: " + repr(A))
+            print(print_prefix + "b: " + repr(b))
+
+    # Bound constraints.
+    elif l != None and u != None:
+        raise MinfxError("Bound constraints are not implemented yet.")
+
+    # The constraint flag.
+    constraint_flag = False
+    if c != None:
+        constraint_flag = True
+
     # Search the grid.
     for k in range(total_steps):
+        # If a grid point violates a constraint, skip it.
+        if constraint_flag:
+            ci = c(params)
+            if min(ci) < 0.0:
+                if verbosity >= 3:
+                    print_iter(k, min_params, print_prefix=print_prefix)
+                    print(print_prefix + "Constraint violated, skipping grid point.")
+                    print(print_prefix + "ci: " + repr(ci))
+                    print("")
+                continue
+
         # Back calculate the current function value.
         f = func(*(points[k],)+args)
 
