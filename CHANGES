@@ -1,3 +1,21 @@
+Version 1.0.6
+(24 April 2014, from /trunk)
+http://svn.gna.org/svn/minfx/tags/1.0.6
+
+    Features:
+        * Constraints are now implemented for the point array grid search.  This is to simplify life for the user by removing the need to pre-filter out points in the array
+which violate the constraints.
+
+
+    Changes:
+        * N/A
+
+
+    Bugfixes:
+        * N/A
+
+
+
 Version 1.0.5
 (27 May 2013, from /trunk)
 http://svn.gna.org/svn/minfx/tags/1.0.5
