@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2013 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2014 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library,                        #
 # https://gna.org/projects/minfx                                              #
@@ -36,7 +36,7 @@ from minfx.base_classes import print_iter, Min
 from minfx.constraint_linear import Constraint_linear
 
 
-def log_barrier_function(func=None, dfunc=None, d2func=None, args=(), x0=None, min_options=(), A=None, b=None, epsilon0=1e-2, scale_epsilon=1e-2, func_tol=1e-25, grad_tol=None, maxiter=1e6, inner_maxiter=500, full_output=0, print_flag=0):
+def log_barrier_function(func=None, dfunc=None, d2func=None, args=(), x0=None, min_options=(), A=None, b=None, epsilon0=1e-5, scale_epsilon=1e-2, func_tol=1e-25, grad_tol=None, maxiter=1e6, inner_maxiter=500, full_output=0, print_flag=0):
     """The logarithmic barrier augmented function.
 
     From U{http://en.wikipedia.org/wiki/Barrier_function} and U{http://bayen.eecs.berkeley.edu/bayen/?q=webfm_send/247}.  This is an augmented function, the algorithm is:
@@ -82,7 +82,7 @@ def log_barrier_function(func=None, dfunc=None, d2func=None, args=(), x0=None, m
 
     These are the default initial values::
 
-        epsilon0 = 1e-2
+        epsilon0 = 1e-5
         scale_epsilon = 1e-2
     """
 
