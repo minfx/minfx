@@ -508,7 +508,7 @@ def grid_split(divisions=None, lower=None, upper=None, inc=None, A=None, b=None,
         yield pts_trimmed[start: end]
 
 
-def grid_split_array(divisions=None, points=None, A=None, b=None, l=None, u=None, c=None, verbosity=10, print_prefix=""):
+def grid_split_array(divisions=None, points=None, A=None, b=None, l=None, u=None, c=None, verbosity=0, print_prefix=""):
     """Generator method yielding arrays of grid points.
 
     This method will loop over the grid points one-by-one, generating a list of points and yielding these for each subdivision.
