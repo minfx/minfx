@@ -410,7 +410,7 @@ def grid_split(divisions=None, lower=None, upper=None, inc=None, A=None, b=None,
 
     # Printout.
     if verbosity and divisions > 1:
-        print("\n%sSplitting up the grid points." % print_prefix)
+        print("%sSplitting up the grid points." % print_prefix)
 
     # The dimensionality.
     n = len(inc)
@@ -499,9 +499,9 @@ def grid_split(divisions=None, lower=None, upper=None, inc=None, A=None, b=None,
 
     # Printout.
     if verbosity and divisions > 1:
-        print("%s    Total number of grid points: %i." % (print_prefix, total_pts))
-        print("%s    Number of divisions: %i." % (print_prefix, divisions))
-        print("%s    Subdivision size: %i.\n" % (print_prefix, size))
+        print("%s    Total number of grid points:  %20i" % (print_prefix, total_pts))
+        print("%s    Number of divisions:          %20i" % (print_prefix, divisions))
+        print("%s    Subdivision size:             %20i" % (print_prefix, size))
 
     # Subdivide.
     for i in range(min(divisions, total_pts)):
@@ -548,7 +548,7 @@ def grid_split_array(divisions=None, points=None, A=None, b=None, l=None, u=None
 
     # Printout.
     if verbosity and divisions > 1:
-        print("\n%sSplitting up the array of grid points." % print_prefix)
+        print("%sSplitting up the array of grid points." % print_prefix)
 
     # Linear constraints.
     if A != None and b != None:
@@ -603,9 +603,9 @@ def grid_split_array(divisions=None, points=None, A=None, b=None, l=None, u=None
 
     # Printout.
     if verbosity and divisions > 1:
-        print("%s    Total number of grid points: %i." % (print_prefix, total_pts))
-        print("%s    Number of divisions: %i." % (print_prefix, divisions))
-        print("%s    Subdivision size: %i.\n" % (print_prefix, size))
+        print("%s    Total number of grid points:  %20i" % (print_prefix, total_pts))
+        print("%s    Number of divisions:          %20i" % (print_prefix, divisions))
+        print("%s    Subdivision size:             %20i" % (print_prefix, size))
 
     # Subdivide.
     for i in range(min(divisions, total_pts)):
