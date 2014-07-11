@@ -501,7 +501,7 @@ def grid_split(divisions=None, lower=None, upper=None, inc=None, A=None, b=None,
     if verbosity:
         print("%s    Total number of grid points: %i." % (print_prefix, total_pts))
         print("%s    Number of divisions: %i." % (print_prefix, divisions))
-        print("%s    Subdivision size: %i." % (print_prefix, size))
+        print("%s    Subdivision size: %i.\n" % (print_prefix, size))
 
     # Subdivide.
     for i in range(min(divisions, total_pts)):
@@ -605,7 +605,7 @@ def grid_split_array(divisions=None, points=None, A=None, b=None, l=None, u=None
     if verbosity:
         print("%s    Total number of grid points: %i." % (print_prefix, total_pts))
         print("%s    Number of divisions: %i." % (print_prefix, divisions))
-        print("%s    Subdivision size: %i." % (print_prefix, size))
+        print("%s    Subdivision size: %i.\n" % (print_prefix, size))
 
     # Subdivide.
     for i in range(min(divisions, total_pts)):
