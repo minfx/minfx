@@ -408,6 +408,10 @@ def grid_split(divisions=None, lower=None, upper=None, inc=None, A=None, b=None,
     @rtype:                 list of list of float
     """
 
+    # Printout.
+    if verbosity:
+        print("\n%sSplitting up the grid points." % print_prefix)
+
     # The dimensionality.
     n = len(inc)
 
@@ -493,6 +497,12 @@ def grid_split(divisions=None, lower=None, upper=None, inc=None, A=None, b=None,
     if size_float % 1:
         size = size + 1
 
+    # Printout.
+    if verbosity:
+        print("%s    Total number of grid points: %i." % (print_prefix, total_pts))
+        print("%s    Number of divisions: %i." % (print_prefix, divisions))
+        print("%s    Subdivision size: %i." % (print_prefix, size))
+
     # Subdivide.
     for i in range(min(divisions, total_pts)):
         # The start index.
@@ -535,6 +545,10 @@ def grid_split_array(divisions=None, points=None, A=None, b=None, l=None, u=None
     @return:                A list of grid points for each subdivision is yielded.
     @rtype:                 list of list of float
     """
+
+    # Printout.
+    if verbosity:
+        print("\n%sSplitting up the array of grid points." % print_prefix)
 
     # Linear constraints.
     if A != None and b != None:
@@ -586,6 +600,12 @@ def grid_split_array(divisions=None, points=None, A=None, b=None, l=None, u=None
     size = int(size_float)
     if size_float % 1:
         size = size + 1
+
+    # Printout.
+    if verbosity:
+        print("%s    Total number of grid points: %i." % (print_prefix, total_pts))
+        print("%s    Number of divisions: %i." % (print_prefix, divisions))
+        print("%s    Subdivision size: %i." % (print_prefix, size))
 
     # Subdivide.
     for i in range(min(divisions, total_pts)):
