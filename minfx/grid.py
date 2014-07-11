@@ -376,32 +376,36 @@ def grid_point_array(func, args=(), points=None, A=None, b=None, l=None, u=None,
     return min_params, f_min, total_steps, None
 
 
-def grid_split(divisions=None, lower=None, upper=None, inc=None, A=None, b=None, l=None, u=None, c=None):
+def grid_split(divisions=None, lower=None, upper=None, inc=None, A=None, b=None, l=None, u=None, c=None, verbosity=0, print_prefix=""):
     """Generator method yielding arrays of grid points.
 
     This method will loop over the grid points one-by-one, generating a list of points and yielding these for each subdivision.
 
 
-    @keyword divisions: The number of grid subdivisions.
-    @type divisions:    int
-    @keyword lower:     The lower bounds of the grid search which must be equal to the number of parameters in the model.
-    @type lower:        array of numbers
-    @keyword upper:     The upper bounds of the grid search which must be equal to the number of parameters in the model.
-    @type upper:        array of numbers
-    @keyword inc:       The increments for each dimension of the space for the grid search.  The number of elements in the array must equal to the number of parameters in the model.
-    @type inc:          array of int
-    @keyword A:         The linear constraint matrix A, such that A.x >= b.
-    @type A:            numpy rank-2 array
-    @keyword b:         The linear constraint scalar vectors, such that A.x >= b.
-    @type b:            numpy rank-1 array
-    @keyword l:         The lower bound constraint vector, such that l <= x <= u.
-    @type l:            list of float
-    @keyword u:         The upper bound constraint vector, such that l <= x <= u.
-    @type u:            list of float
-    @keyword c:         A user supplied constraint function.
-    @type c:            function
-    @return:            A list of grid points for each subdivision is yielded.
-    @rtype:             list of list of float
+    @keyword divisions:     The number of grid subdivisions.
+    @type divisions:        int
+    @keyword lower:         The lower bounds of the grid search which must be equal to the number of parameters in the model.
+    @type lower:            array of numbers
+    @keyword upper:         The upper bounds of the grid search which must be equal to the number of parameters in the model.
+    @type upper:            array of numbers
+    @keyword inc:           The increments for each dimension of the space for the grid search.  The number of elements in the array must equal to the number of parameters in the model.
+    @type inc:              array of int
+    @keyword A:             The linear constraint matrix A, such that A.x >= b.
+    @type A:                numpy rank-2 array
+    @keyword b:             The linear constraint scalar vectors, such that A.x >= b.
+    @type b:                numpy rank-1 array
+    @keyword l:             The lower bound constraint vector, such that l <= x <= u.
+    @type l:                list of float
+    @keyword u:             The upper bound constraint vector, such that l <= x <= u.
+    @type u:                list of float
+    @keyword c:             A user supplied constraint function.
+    @type c:                function
+    @keyword verbosity:     The verbosity level.  0 corresponds to no output, 1 is standard, and higher values cause greater and greater amount of output.
+    @type verbosity:        int
+    @keyword print_prefix:  The text to place before the printed output.
+    @type print_prefix:     str
+    @return:                A list of grid points for each subdivision is yielded.
+    @rtype:                 list of list of float
     """
 
     # The dimensionality.
