@@ -501,4 +501,4 @@ def grid_split(divisions=None, lower=None, upper=None, inc=None, A=None, b=None,
             end = total_pts
 
         # Yield the subdivision.
-        yield pts[start: end]
+        yield pts_trimmed[start: end]
