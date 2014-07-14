@@ -1,3 +1,20 @@
+Version 1.0.7
+(17 June 2014, from /trunk)
+http://svn.gna.org/svn/minfx/tags/1.0.7
+
+    Features:
+        * N/A
+
+
+    Changes:
+        * Changed the default initial epsilon0 value for the log barrier constraint algorithm.  The original value of 0.01 was too large, causing the optimisation space to be too severely perturbed, so the value has been decreased to 1e-5.
+
+
+    Bugfixes:
+        * N/A
+
+
+
 Version 1.0.6
 (24 April 2014, from /trunk)
 http://svn.gna.org/svn/minfx/tags/1.0.6
