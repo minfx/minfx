@@ -55,13 +55,11 @@ Replace the old API documentation in the http://home.gna.org/minfx SVN repositor
 
 
 
-* Post the release message to the minfx-announce mailing list, as a news item on the minfx Gna! website, and on the Freecode website.
+* Post the release message to the minfx-announce mailing list and as a news item on the minfx Gna! website.
 
 On the minfx-announce mailing list, write a detailed and full description of the release.  Also add a paragraph with links for downloading the release.  At the end, add a section titled 'The full list of changes is:' and copy and paste the part of the CHANGES file for this release.  Include links to the trackers in the full list of changes.
 
 For the news item, firstly cut and paste the mailing list message.  Create three sections using the Savane markup (recipe #236).  Call these = Description =, = Download =, and = Full list of changes =.  For the last section, use the subtitles == Features == ,  == Changes == , and  == Bugfixes ==.  The items in this section start with '* ' to create an unnumbered list.  Strip all leading whitespace from the full list of changes and remove all the links to the trackers (as these will be automatically created).
-
-For Freecode (http://freecode.com, formally Freshmeat), go to the minfx project page at http://freecode.com/projects/minfx.  Click on 'All releases' in the 'Recent releases' section, then on 'Submit new release'.  Add the version number, a brief and concise summary of the release, set the release tags, and update the Tar/BZ2 and Zip URLs.
 
 
 
