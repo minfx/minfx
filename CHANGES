@@ -1,3 +1,25 @@
+Version 1.0.8
+(14 July 2014, from /trunk)
+http://svn.gna.org/svn/minfx/tags/1.0.8
+
+    Features:
+        * Created the minfx.grid.grid_split_array() function.  This is similar to the minfx.grid.grid_split() but it instead works with the output of the minfx.grid.grid_point_array() function, i.e. it accepts a list of grid points instead of generating the points itself.  The function is used to split up a grid search into equal parts for use in parallelisation.
+
+
+    Changes:
+        * Turned down the verbosity level to zero in the new minfx.grid.grid_split_array() function.  This was accidentally left on a debugging level of 10.
+        * The grid module grid_split() and grid_split_array() are now more verbose.  If the verbosity flag is set, these functions now report that the grid points are being split up and also the statistics of the total number of points, number of divisions, and the size of each subdivision.
+        * Better spacing for the printouts from the minfx.grid.grid_split*() functions.
+        * Modified the printouts from the minfx.grid.grid_search*() functions.  These are only activated when the number of divisions is greater than 1.  This allows the functions to be called by code which performs a grid search on either a single processor or multiple processor system.
+        * Formatting improvements for the printouts from the minfx.grid.grid_search*() functions.
+
+
+    Bugfixes:
+        * Big bug fix for the minfx.grid.grid_split() function.  This function is used to split a grid search up into equal sized blocks, taking constraints into account, specifically for the purpose of running each block on a slave in a cluster or thread on a multi-core system.  However the blocks returned were not from the grid points trimmed after checking constraints, but rather the original non-constrained points.  Hence if constraints eliminated points, those points might be used but points at the end of the grid would be dropped instead.
+        * More fixes for fatal problems with the minfx.grid.grid_split() function.  The verbosity and print_prefix variables were not included in the keyword arguments, hence if constraints were supplied this function would raise an error.  These have now been added.
+
+
+
 Version 1.0.7
 (17 June 2014, from /trunk)
 http://svn.gna.org/svn/minfx/tags/1.0.7
