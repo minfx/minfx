@@ -1,3 +1,20 @@
+Version 1.0.9
+(23 July 2014, from /trunk)
+http://svn.gna.org/svn/minfx/tags/1.0.9
+
+    Features:
+        * N/A
+
+
+    Changes:
+        * Removed all details about Freecode from the release checklist.  The old minfx links are still there (http://freecode.com/projects/minfx), but Freecode is dead (http://freecode.com/about).
+
+
+    Bugfixes:
+        * Bug fix for the minfx grid.grid_split() function for when only one grid point exists.  This was previously only yielding a single subdivision consisting of NaN values.  The situation is now caught and the single grid point is set to the half way point between the upper and lower bounds.
+
+
+
 Version 1.0.8
 (14 July 2014, from /trunk)
 http://svn.gna.org/svn/minfx/tags/1.0.8
