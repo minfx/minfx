@@ -451,8 +451,11 @@ def grid_split(divisions=None, lower=None, upper=None, inc=None, A=None, b=None,
     incs = []
     for k in range(n):
         incs.append([])
-        for i in range(inc[k]):
-            incs[k].append(lower[k] + i * (upper[k] - lower[k]) / (inc[k] - 1))
+        if inc[k] == 1:
+            incs[k].append((lower[k] + upper[k])/2.0)
+        else:
+            for i in range(inc[k]):
+                incs[k].append(lower[k] + i * (upper[k] - lower[k]) / (inc[k] - 1))
 
     # Construct the list of all grid points.
     for i in range(total_pts):
