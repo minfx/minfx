@@ -239,7 +239,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
             # Print out code.
             if verbosity >= 2:
                 if not min_found:
-                    print_iter(k=k, xk=min_params, fk=f, print_prefix=print_prefix)
+                    print_iter(k=k, xk=params, fk=f, print_prefix=print_prefix)
                 if verbosity >= 3:
                     if min_found:
                         print(print_prefix + "Minimum found.")
@@ -365,7 +365,7 @@ def grid_point_array(func, args=(), points=None, A=None, b=None, l=None, u=None,
         # Print out code.
         if verbosity >= 2:
             if f != f_min:
-                print_iter(k=k, xk=min_params, fk=f, print_prefix=print_prefix)
+                print_iter(k=k, xk=params, fk=f, print_prefix=print_prefix)
             if verbosity >= 3:
                 print(print_prefix + "%-20s%-20s" % ("Params:", repr(points[k])))
                 print(print_prefix + "%-20s%-20s" % ("Min params:", repr(min_params)))
