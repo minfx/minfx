@@ -170,6 +170,7 @@ class Log_barrier_function(Min):
         self.warning = None
 
         # Initialise data structures.
+        self.test_str = zeros(self.m)
         self.f_log = self.func_log(*(self.xk,)+self.args)
 
         # Set the convergence test function.
@@ -194,8 +195,10 @@ class Log_barrier_function(Min):
         for i in range(self.m):
             if self.ck[i] > 0:
                 f_log += - self.epsilon * log(self.ck[i])
+                self.test_str[i] = 1
             else:
                 f_log = inf
+                self.test_str[i] = 0
 
         if self.print_flag >= 4:
             print("")
@@ -207,30 +210,38 @@ class Log_barrier_function(Min):
     def func_dlog(self, *args):
         """The logarithmic barrier gradient."""
 
-        # Not implemented yet.
-        raise NameError("The logarithmic barrier gradient is not implemented yet.")
-
         # Calculate the function and constraint gradients.
         dfk = dpsi = self.dfunc(*(args[0],)+args[1:])
         self.dck = self.dc(*(args[0],))
 
+        # Calculate the log-barrier gradient.
+        for i in range(self.m):
+            if self.test_str[i]:
+                dpsi -= self.epsilon / self.ck[i] * self.dck[i]
+
+        # Printout.
         if self.print_flag >= 4:
             print("")
+            print("\tlog-barrier grad:    " + repr(dpsi))
             print("\tfunction grad:       " + repr(dfk))
-            print("\tdck:                   " + repr(self.dck))
+            print("\tdck:                 " + repr(self.dck))
+            print("\tTest structure:      " + repr(self.test_str))
 
+        # Return the modified gradient.
         return dpsi
 
 
     def func_d2log(self, *args):
         """The logarithmic barrier Hessian."""
 
-        # Not implemented yet.
-        raise NameError("The logarithmic barrier gradient is not implemented yet.")
-
         # Calculate the function and constraint Hessians.
         d2psi = self.d2func(*(args[0],)+args[1:])
         self.d2ck = self.d2c(*(args[0],))
+
+        # Calculate the log-barrier Hessian.
+        for i in range(self.m):
+            if self.test_str[i]:
+                d2psi -= self.epsilon / self.ck[i] * self.d2ck[i]  +  self.epsilon / self.ck[i]**2 * outer(self.dck[i], self.dck[i])
 
         return d2psi
 
