@@ -24,7 +24,7 @@
 """This is the U{minfx optimisation library<https://gna.org/projects/minfx>}."""
 
 # The minfx version.
-__version__ = 'trunk'
+__version__ = '1.0.10'
 
 # List of all modules.
 __all__ = [ 'base_classes',
