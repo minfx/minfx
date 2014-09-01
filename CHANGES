@@ -1,3 +1,20 @@
+Version 1.0.10
+(01 September 2014, from /trunk)
+http://svn.gna.org/svn/minfx/tags/1.0.10
+
+    Features:
+        * Implemented the log-barrier constraint algorithm gradient and Hessian.  This implements equations 17.25 and 17.26 of Nocedal J. and Wright S. J. (1999), Numerical Optimisation, Springer Series in Operations Research.  Springer-Verlag, New York.
+
+
+    Changes:
+        * N/A
+
+
+    Bugfixes:
+        * Fixes for grid search printouts when the verbosity level is >= 2.  The parameter values for each grid point was being printed out as the minimum parameter values rather than the current parameter values.
+
+
+
 Version 1.0.9
 (23 July 2014, from /trunk)
 http://svn.gna.org/svn/minfx/tags/1.0.9
