@@ -412,6 +412,11 @@ class Method_of_multipliers(Min):
             if self.conv_test(self.L_new, self.L, self.dL):
                 break
 
+            # Infinite function value.
+            if self.L_new == inf:
+                self.warning = "Infinite function value encountered, can no longer perform optimisation."
+                break
+
             # Lagrange multiplier update function.
             # The update is given by the following formula:
             #    lambdai_k+1 = max(lambdai_k - ci(xk)/mu, 0)
