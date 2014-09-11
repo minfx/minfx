@@ -289,6 +289,11 @@ class Log_barrier_function(Min):
             if self.conv_test(self.f_log_new, self.f_log):
                 break
 
+            # Infinite function value.
+            if self.f_log_new == inf:
+                self.warning = "Infinite function value encountered, can no longer perform optimisation."
+                break
+
             # Update epsilon.
             self.epsilon = self.scale_epsilon * self.epsilon
 
