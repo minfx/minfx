@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2013 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2014 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library,                        #
 # https://gna.org/projects/minfx                                              #
@@ -33,7 +33,7 @@ This module contains the following base classes:
 # Inbuilt python modules.
 #########################
 
-from numpy import dot, sqrt
+from numpy import dot, inf, sqrt
 from numpy.linalg import inv, LinAlgError
 from re import match
 import sys
@@ -292,6 +292,11 @@ class Min:
 
             # Convergence test.
             if self.conv_test(self.fk_new, self.fk, self.dfk_new):
+                break
+
+            # Infinite function value.
+            if self.fk_new == inf:
+                self.warning = "Infinite function value encountered, can no longer perform optimisation."
                 break
 
             # Update function.
