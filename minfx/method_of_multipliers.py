@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2013 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2014 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library,                        #
 # https://gna.org/projects/minfx                                              #
@@ -27,7 +27,7 @@ This file is part of the U{minfx optimisation library<https://gna.org/projects/m
 """
 
 # Python module imports.
-from numpy import dot, float64, outer, sqrt, zeros
+from numpy import dot, float64, inf, outer, sqrt, zeros
 from re import match
 
 # Minfx module imports.
