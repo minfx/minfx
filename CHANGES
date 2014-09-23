@@ -1,3 +1,22 @@
+Version 1.0.11
+(23 September 2014, from /trunk)
+http://svn.gna.org/svn/minfx/tags/1.0.11
+
+    Features:
+        * Added a check for an infinite target function value to the main optimisation loop.  This is to prevent the problem that certain optimisation algorithms will continue indefinitely when infinite target function values are encountered.
+        * Added a check for an infinite target function value to the Method of Multiplers main loop.  The check in the optimisation main loop for infinite values is not sufficient for stopping the constraint algorithms.  The Augmented Lagrangian or Method of Multiplers algorithm will continue forever even if the optimisation sub loop terminates.
+        * Added a check for an infinite target function value to the logarithmic barrier main loop.  The check in the optimisation main loop for infinite values is not sufficient for stopping the constraint algorithms.  The log-barrier constraint algorithm will continue forever even if the optimisation sub loop terminates.
+
+
+    Changes:
+        * N/A
+
+
+    Bugfixes:
+        * N/A
+
+
+
 Version 1.0.10
 (01 September 2014, from /trunk)
 http://svn.gna.org/svn/minfx/tags/1.0.10
