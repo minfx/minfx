@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2014 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2015 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library,                        #
 # https://gna.org/projects/minfx                                              #
@@ -155,7 +155,7 @@ def grid(func, args=(), num_incs=None, lower=None, upper=None, incs=None, A=None
         print(print_prefix + "~~~~~~~~~~~")
 
     # Linear constraints.
-    if A != None and b != None:
+    if A is not None and b is not None:
         constraint_flag = 1
         constraint_linear = Constraint_linear(A, b)
         c = constraint_linear.func
@@ -319,7 +319,7 @@ def grid_point_array(func, args=(), points=None, A=None, b=None, l=None, u=None,
         raise MinfxError("A grid search of size %s is too large." % total_steps)
 
     # Linear constraints.
-    if A != None and b != None:
+    if A is not None and b is not None:
         constraint_linear = Constraint_linear(A, b)
         c = constraint_linear.func
         if verbosity >= 3:
@@ -416,7 +416,7 @@ def grid_split(divisions=None, lower=None, upper=None, inc=None, A=None, b=None,
     n = len(inc)
 
     # Linear constraints.
-    if A != None and b != None:
+    if A is not None and b is not None:
         constraint_flag = True
         constraint_linear = Constraint_linear(A, b)
         c = constraint_linear.func
@@ -554,7 +554,7 @@ def grid_split_array(divisions=None, points=None, A=None, b=None, l=None, u=None
         print("%sSplitting up the array of grid points." % print_prefix)
 
     # Linear constraints.
-    if A != None and b != None:
+    if A is not None and b is not None:
         constraint_flag = True
         constraint_linear = Constraint_linear(A, b)
         c = constraint_linear.func

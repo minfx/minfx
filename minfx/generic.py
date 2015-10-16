@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2013 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2015 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library,                        #
 # https://gna.org/projects/minfx                                              #
@@ -441,7 +441,7 @@ def generic_minimise(func=None, dfunc=None, d2func=None, args=(), x0=None, min_a
     # Finish.
     #########
 
-    if print_flag and results != None:
+    if print_flag and results is not None:
         print("")
         if full_output:
             xk, fk, k, f_count, g_count, h_count, warning = results

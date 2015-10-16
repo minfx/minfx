@@ -1,6 +1,6 @@
 ###############################################################################
 #                                                                             #
-# Copyright (C) 2003-2014 Edward d'Auvergne                                   #
+# Copyright (C) 2003-2015 Edward d'Auvergne                                   #
 #                                                                             #
 # This file is part of the minfx optimisation library,                        #
 # https://gna.org/projects/minfx                                              #
@@ -113,7 +113,7 @@ class Log_barrier_function(Min):
         self.generic_minimise = generic_minimise
 
         # Linear constraints.
-        if A != None and b != None:
+        if A is not None and b is not None:
             self.A = A
             self.b = b
             constraint_linear = Constraint_linear(self.A, self.b)
