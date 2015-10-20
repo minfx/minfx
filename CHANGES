@@ -1,3 +1,19 @@
+Version 1.0.12
+(20 October 2015, from /trunk)
+http://svn.gna.org/svn/minfx/tags/1.0.12
+
+    Features:
+        * N/A
+
+
+    Changes:
+        * Updated minfx to protect against future changes occurring in the numpy Python package.  From numpy version 1.9, the FutureWarning "__main__:1: FutureWarning: comparison to `None` will result in an elementwise object comparison in the future." is seen in a number of minfx's optimisation algorithms, and in all of the constraint algorithms.  The issue is that the behaviour of the comparison operators '==' and '!=' will change with future numpy versions.  These have been replaced with 'is' and 'is not' throughout.
+
+
+    Bugfixes:
+        * N/A
+
+
 Version 1.0.11
 (23 September 2014, from /trunk)
 http://svn.gna.org/svn/minfx/tags/1.0.11
