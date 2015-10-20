@@ -59,7 +59,7 @@ Replace the old API documentation in the http://home.gna.org/minfx SVN repositor
 
 On the minfx-announce mailing list, write a detailed and full description of the release.  Also add a paragraph with links for downloading the release.  At the end, add a section titled 'The full list of changes is:' and copy and paste the part of the CHANGES file for this release.  Include links to the trackers in the full list of changes.
 
-For the news item, firstly cut and paste the mailing list message.  Create three sections using the Savane markup (recipe #236).  Call these = Description =, = Download =, and = Full list of changes =.  For the last section, use the subtitles == Features == ,  == Changes == , and  == Bugfixes ==.  The items in this section start with '* ' to create an unnumbered list.  Strip all leading whitespace from the full list of changes and remove all the links to the trackers (as these will be automatically created).
+For the news item, firstly cut and paste the mailing list message.  Create three sections using the Savane markup (recipe #236).  Call these == Description ==, == Download ==, and == Full list of changes ==.  For the last section, use the subtitles === Features === ,  === Changes === , and  === Bugfixes ===.  The items in this section start with '* ' to create an unnumbered list.  Strip all leading whitespace from the full list of changes and remove all the links to the trackers (as these will be automatically created).
 
 
 
