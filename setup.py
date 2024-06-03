@@ -1,9 +1,9 @@
-from distutils.core import setup
+from setuptools import setup
 
 
 # Setup for distutils.
 setup(name='minfx',
-      version='trunk',
+      version='master',
       description='The minfx optimisation library',
       author="Edward d'Auvergne",
       author_email='edward@nmr-relax.com',

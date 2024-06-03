@@ -1,3 +1,5 @@
 To install minfx, simply type:
 
-$ python setup.py install
+$ pip install .
+
+This will not work if the version in setup.py is still set to 'master'.
