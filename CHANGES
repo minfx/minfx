@@ -1,3 +1,21 @@
+Version 1.0.13
+(04 June 2024, from master)
+https://sourceforge.net/p/minfx/code/ci/1.0.13/tree/
+
+    Features:
+        * Switch from the depreciated distutils to setuptools.
+
+
+    Changes:
+        * Distribution: Switch from setup.py to minfx.toml.  This will allow minfx to be distributed in the future.
+        * Release Checklist: Conversion from the Gna! SVN instructions to SourceForge git instructions.  This should have been changed back in 2017 when Gna! shut down.
+        * Release Checklist: Reformatting and more changes to support git and SourceForge releases.
+
+
+    Bugfixes:
+        * N/A
+
+
 Version 1.0.12
 (20 October 2015, from /trunk)
 http://svn.gna.org/svn/minfx/tags/1.0.12
