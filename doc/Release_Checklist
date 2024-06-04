@@ -1,66 +1,51 @@
-* Make a copy of the current head to the tags directory using a command such as:
+* Tag the master branch with:
 
-$ svn cp -F svn_msg svn+ssh://bugman@svn.gna.org/svn/minfx/trunk svn+ssh://bugman@svn.gna.org/svn/minfx/tags/1.0.5
+$ git tag 1.0.13
 
-In the commit message file 'svn_msg', have a header line which says 'Minfx version 1.0.5.', followed by a short description of the release.
-
-
-
-* Checkout the tagged version with:
-
-$ svn co svn+ssh://bugman@svn.gna.org/svn/minfx/tags/1.0.5
+In the commit message, the header line should say 'Minfx version 1.0.13.', followed by a short description of the release.
 
 
 
-* Review the SVN logs and add an entry into the CHANGES file for the current release.  Create three sections titled 'Features', 'Changes', and 'Bugfixes'.  Commit the changes and then port the revision back into the main line.
+* Review the git logs and add an entry into the CHANGES file for the current release.  Create three sections titled 'Features', 'Changes', and 'Bugfixes'.  Commit the changes and then port the revision back into the main line.
 
 
 
-* Change the version number in both 'setup.py' and 'minfx.__init__.__version__', and commit the changes.
+* Change the version number in both 'minfx.toml' and 'minfx.__init__.__version__', and commit and push the changes.
 
 
 
 * Generate the distribution files by typing:
 
-$ python setup.py sdist --formats=bztar,gztar,zip
+$ python -m build
 
 and generate their GPG signatures by going into the dist/ directory and typing:
 
-$ gpg --detach-sign --default-key xxx minfx-1.0.1.tar.bz2
-$ gpg --detach-sign --default-key xxx minfx-1.0.1.tar.gz
-$ gpg --detach-sign --default-key xxx minfx-1.0.1.zip
+$ gpg --detach-sign --default-key xxx minfx-1.0.13-py3-none-any.whl
+$ gpg --detach-sign --default-key xxx minfx-1.0.13.tar.gz
 
 where xxx is the name of your private GPG key.
 
 
-* Move the distribution files and their signatures to the mirror directory for the minfx download site.  This directory should contain all the files and directories accessible from 'http://download.gna.org/minfx/'.  First make sure the mirror directory contains all of the files so that the next command does not accidentally delete files:
+* Move the distribution files and their signatures to the mirror directory for the minfx download site.  This directory should contain all the files and directories accessible from 'https://sourceforge.net/projects/minfx/files/'.  First make sure the mirror directory contains all of the files so that the next command does not accidentally delete files:
 
-$ rsync -av --progress --no-perms --rsh="ssh" bugman@download.gna.org:/upload/minfx/ .
+$ rsync -av --progress --no-perms -e ssh edauvergne@frs.sourceforge.net:/home/frs/project/minfx/ .
 
-Then rsync the entire directory contents to http://download.gna.org/upload/minfx/ using the command:
+Then rsync the entire directory contents using the command:
 
-$ rsync --delete -av --no-perms --rsh="ssh" . bugman@download.gna.org:/upload/minfx/
-
+$ rsync --delete -avP --copy-links --progress --partial --no-perms -e ssh --numeric-ids . edauvergne@frs.sourceforge.net:/home/frs/project/minfx/
 
 
 * Create the API documentation for the current version with the command:
 
 $ ./doc/api.sh
 
-Replace the old API documentation in the http://home.gna.org/minfx SVN repository (http://svn.gna.org/viewcvs/minfx/website) and commit the new files.
+Replace the old API documentation in the git repository (https://sourceforge.net/p/minfx/website/ci/master/tree/), commit the new files, and push the changes.
 
 
 
-* Add the version number to the bug tracker field 'Release' at https://gna.org/bugs/admin/field_values.php?group=minfx.
-
-
-
-* Post the release message to the minfx-announce mailing list and as a news item on the minfx Gna! website.
+* Post the release message to the minfx-announce mailing list.
 
 On the minfx-announce mailing list, write a detailed and full description of the release.  Also add a paragraph with links for downloading the release.  At the end, add a section titled 'The full list of changes is:' and copy and paste the part of the CHANGES file for this release.  Include links to the trackers in the full list of changes.
-
-For the news item, firstly cut and paste the mailing list message.  Create three sections using the Savane markup (recipe #236).  Call these == Description ==, == Download ==, and == Full list of changes ==.  For the last section, use the subtitles === Features === ,  === Changes === , and  === Bugfixes ===.  The items in this section start with '* ' to create an unnumbered list.  Strip all leading whitespace from the full list of changes and remove all the links to the trackers (as these will be automatically created).
-
 
 
 * Update the version number in the FSF directory (http://directory.fsf.org/wiki/Minfx).
