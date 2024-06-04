@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "minfx"
+version = "master"
+authors = [
+    {name = "Edward d'Auvergne", email = "edward@nmr-relax.com"},
+]
+description = "The minfx optimisation library"
+requires-python = ">=2.5"
+keywords = ["optimization", "optimisation", "minimization", "minimisation"]
+license = {text = "GPLv3+"}
+classifiers = [
+    "Programming Language :: Python :: 2",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "numpy",
+]
+urls = [
+    "https://sourceforge.net/projects/minfx/",
+]
+
+[tool.setuptools]
+packages = ["minfx", "minfx.line_search", "minfx.hessian_mods"]
+
