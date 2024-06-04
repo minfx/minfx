@@ -34,7 +34,13 @@ This will create a new branch explicitly from the master branch.  A number of ch
 Version number
 ==============
 
-Change the version number in both 'minfx.toml' and 'minfx.__init__.__version__', and commit and push the changes.
+Change the version number in the following files:
+
+    - minfx.toml
+    - setup.py
+    - minfx/__init__.py
+
+Commit and push the changes.
 
 
 CHANGES file
@@ -108,4 +114,4 @@ Update the version number in the FSF directory (http://directory.fsf.org/wiki/Mi
 Announcement
 ============
 
-Post the release message to the minfx-announce mailing list.  Write a detailed and full description of the release.  Also add a paragraph with links for downloading the release.  At the end, add a section titled 'The full list of changes is:' and copy and paste the part of the CHANGES file for this release.  Include links to the trackers in the full list of changes.
+Post the release message to the minfx-users mailing list.  Write a detailed and full description of the release.  Also add a paragraph with links for downloading the release.  At the end, add a section titled 'The full list of changes is:' and copy and paste the part of the CHANGES file for this release.  Include links to the trackers in the full list of changes.
